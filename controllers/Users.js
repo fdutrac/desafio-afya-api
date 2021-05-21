@@ -26,7 +26,7 @@ async function updateUser(id, data) {
         const userRepository = getConnection().getRepository("User");        
         const userData = await userRepository.findOne(id);
         userRepository.merge(userData, data);
-        const results = await userRepository.save(data)
+        const results = await userRepository.save(userData);
         return results;
     } catch (err) {
         return err;
