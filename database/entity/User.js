@@ -14,10 +14,11 @@ module.exports = new EntitySchema({
       length: 255,
       nullable: false,
     },
-    username: {
+    login: {
       type: String,
       length: 20,
       nullable: false,
+      unique: true,
     },
     password: {
       type: String,
