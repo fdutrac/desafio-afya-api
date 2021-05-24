@@ -3,6 +3,7 @@
 const getConnection = require('typeorm').getConnection
 
 async function getUsers() {
+    console.log(getConnection().getRepository("User"))
     try {
         const userRepository = getConnection().getRepository("User");        
         const allUsers = await userRepository.find();
@@ -42,4 +43,15 @@ async function insertUser(data) {
         return err;
     }
 }
-module.exports = { getUsers, getUser, insertUser, updateUser }
+
+async function deleteUser(id) {
+    try {
+        const userRepository = getConnection().getRepository("User");
+        // const user = userRepository.findOne(id);
+        const results = userRepository.delete(id);
+        return results;           
+    } catch (err) {
+        return err;
+    }
+}
+module.exports = { getUsers, getUser, insertUser, updateUser, deleteUser }
