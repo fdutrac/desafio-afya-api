@@ -5,7 +5,9 @@ const logger = require('morgan');
 const createConnection = require('typeorm').createConnection;
 
 const indexRouter = require('./routes/index');
+const clientsRouter = require('./routes/clients');
 const usersRouter = require('./routes/users');
+const loginRouter = require('./routes/login');
 
 var app = express();
 
@@ -21,6 +23,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/clients', clientsRouter);
+app.use('/login', loginRouter);
 
 createConnection().then(()=>{
     console.log("Conected successfully");

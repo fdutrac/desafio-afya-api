@@ -11,7 +11,7 @@ module.exports = {
   database: "clinica-medica",
   entities: [
     require("./database/entity/User"),
-  //   require("./database/entity/Patient"),
+    require("./database/entity/Client"),
   //   require("./database/entity/Physician"),
   ],
   migrations: ["./database/migration/*.js"],
