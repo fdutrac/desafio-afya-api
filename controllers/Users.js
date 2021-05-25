@@ -42,4 +42,26 @@ async function insertUser(data) {
         return err;
     }
 }
-module.exports = { getUsers, getUser, insertUser, updateUser }
+
+async function deleteUser(id) {
+    try {
+        const userRepository = getConnection().getRepository("User");
+        // const user = userRepository.findOne(id);
+        const results = userRepository.delete(id);
+        return results;           
+    } catch (err) {
+        return err;
+    }
+}
+
+async function validateUser(login, password) {
+    try {
+        const userRepository = getConnection().getRepository("User");        
+        const userData = await userRepository.findOne({login: login, password: password});
+        return userData;
+    } catch (err) {
+        throw "Login e senha inválidos"
+    }
+}
+
+module.exports = { getUsers, getUser, insertUser, updateUser, deleteUser, validateUser }
