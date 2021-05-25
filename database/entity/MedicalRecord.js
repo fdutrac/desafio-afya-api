@@ -1,14 +1,14 @@
 let EntitySchema = require("typeorm").EntitySchema;
 
 module.exports = new EntitySchema({
-    name: "Prontuário",
+    name: "Medical_Record",
     columns: {
         id: {
             type: Number,
             primary: true,
             generated: true,
         },
-        dataAbertura:{
+        openingDate:{
             type: Date,
             nullable: false
         }
