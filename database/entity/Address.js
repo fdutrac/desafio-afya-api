@@ -2,39 +2,37 @@ let EntitySchema = require("typeorm").EntitySchema;
 // let baseModel = require("./BaseModel");
 
 module.exports = new EntitySchema({
-  name: "Client",
+  name: "Address",
   columns: {
     id: {
       type: Number,
       primary: true,
       generated: true,
     },
-    name: {
+    cep: {
       type: String,
       length: 255,
       nullable: false,
     },
-    cpf: {
+    street: {
       type: String,
-      length: 14,
+      length: 255,
       nullable: false,
-      unique: true,
     },
-    phone: {
+    neighborood: {
       type: String,
-      length: 14,
+      length: 100,
+      nullable: false,
+    },
+    locality: {
+      type: String,
+      length: 255,
       nullable: true,
     },
-    cellphone: {
+    state: {
       type: String,
-      length: 14,
-      nullable: true,
-    },
-    mail: {
-      type: String,
-      lenght: 30,
+      lenght: 100,
       unique: true,
-
     },
     // ...baseModel,
   },
