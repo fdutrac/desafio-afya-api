@@ -2,7 +2,7 @@ let EntitySchema = require("typeorm").EntitySchema;
 // let baseModel = require("./BaseModel");
 
 module.exports = new EntitySchema({
-  name: "User",
+  name: "Client",
   columns: {
     id: {
       type: Number,
@@ -14,15 +14,27 @@ module.exports = new EntitySchema({
       length: 255,
       nullable: false,
     },
-    login: {
+    cpf: {
       type: String,
-      length: 20,
+      length: 14,
       nullable: false,
       unique: true,
     },
-    password: {
+    phone: {
       type: String,
-      nullable: false,
+      length: 14,
+      nullable: true,
+    },
+    cellphone: {
+      type: String,
+      length: 14,
+      nullable: true,
+    },
+    mail: {
+      type: String,
+      lenght: 30,
+      unique: true,
+
     },
     // ...baseModel,
   },

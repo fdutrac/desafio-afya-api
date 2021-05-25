@@ -2,27 +2,36 @@ let EntitySchema = require("typeorm").EntitySchema;
 // let baseModel = require("./BaseModel");
 
 module.exports = new EntitySchema({
-  name: "User",
+  name: "Client",
   columns: {
     id: {
       type: Number,
       primary: true,
       generated: true,
     },
+    register: {
+      type: String,
+      unique: true,
+    },
     name: {
       type: String,
       length: 255,
       nullable: false,
     },
-    login: {
+    phone: {
       type: String,
-      length: 20,
-      nullable: false,
-      unique: true,
+      length: 14,
+      nullable: true,
     },
-    password: {
+    cellphone: {
       type: String,
-      nullable: false,
+      length: 14,
+      nullable: true,
+    },
+    mail: {
+      type: String,
+      lenght: 30,
+      unique: true,
     },
     // ...baseModel,
   },
