@@ -16,7 +16,7 @@ router.get('/', async function(req, res, next) {
 
 router.get('/:id', async function(req, res, next) {
   try {
-    // const user = await userController.getUser(req.params.id);
+    const user = await userController.getUser(req.params.id);
     res.json(user);
   }  catch(err){
     res.send(err);

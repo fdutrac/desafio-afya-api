@@ -10,8 +10,7 @@ router.post('/', async function(req, res, next) {
   let user = await userController.validateUser(login, password);
   if(user) {
     user.password = undefined;
-    console.log ('jwt');
-      user.token = JwtToken.fabricaToken(user)
+    user.token = JwtToken.fabricaToken(user)
     res.json(user);
     return;
   }
