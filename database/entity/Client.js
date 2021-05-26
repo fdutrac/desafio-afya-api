@@ -36,13 +36,17 @@ module.exports = new EntitySchema({
       unique: true,
 
     },
-    // ...baseModel,
   },
   relations: {
-    address:
-    {
+    address: {
       type: "one-to-one",
       target: "Address",
+      joinColumn: true,
+      cascade: true
+    },
+    medical_record: {
+      type: "one-to-one",
+      target: "Medical_Record",
       joinColumn: true,
       cascade: true
     }
