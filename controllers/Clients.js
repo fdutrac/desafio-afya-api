@@ -1,7 +1,7 @@
 const getConnection = require('typeorm').getConnection
 
 /* GET clients listing. */
-async function getClients() {
+async function getAll() {
     console.log(getConnection().getRepository("Client"))
     try {
         const clientRepository = getConnection().getRepository("Client");        
@@ -12,7 +12,7 @@ async function getClients() {
     }
 }
 
-async function getClient(id) {
+async function get(id) {
     try {
         const clientRepository = getConnection().getRepository("Client");        
         const clientData = await clientRepository.findOne(id);
@@ -21,7 +21,7 @@ async function getClient(id) {
         return err;
     }
 }
-async function updateClient(id, data) {
+async function update(id, data) {
     try {
         const clientRepository = getConnection().getRepository("Client");        
         const clientData = await clientRepository.findOne(id);
@@ -33,7 +33,7 @@ async function updateClient(id, data) {
     }
 }
 
-async function insertClient(data) {
+async function insert(data) {
     try {
         const clientRepository = getConnection().getRepository("Client");               
         const results = await clientRepository.save(data);
@@ -43,7 +43,7 @@ async function insertClient(data) {
     }
 }
 
-async function deleteClient(id) {
+async function remove(id) {
     try {
         const clientRepository = getConnection().getRepository("Client");
         // const client = clientRepository.findOne(id);
@@ -53,4 +53,4 @@ async function deleteClient(id) {
         return err;
     }
 }
-module.exports = { getClients, getClient, insertClient, updateClient, deleteClient }
+module.exports = { getAll, get, insert, update, remove }

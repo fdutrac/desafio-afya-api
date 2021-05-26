@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const userController = require('../controllers/Clients');
+const Controllers = require('../controllers/index');
 
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
     try {
-      const user = await userController.getClients();
+      const user = await Controllers.Clients.getAll();
       res.json(user);
     }  catch(err){
       res.send(err);
@@ -16,7 +16,7 @@ router.get('/', async function(req, res, next) {
 
 router.get('/:id', async function(req, res, next) {
   try {
-    const user = await userController.getClient(req.params.id);
+    const user = await Controllers.Clients.get(req.params.id);
     res.json(user);
   }  catch(err){
     res.send(err);
@@ -25,7 +25,7 @@ router.get('/:id', async function(req, res, next) {
 
 router.put('/:id', async function(req, res, next) {
   try {
-    const user = await userController.updateClient(req.params.id, req.body);
+    const user = await Controllers.Clients.update(req.params.id, req.body);
     res.json(user);
   } catch(err) {
     res.send(err);
@@ -34,7 +34,7 @@ router.put('/:id', async function(req, res, next) {
 
 router.post('/', async function(req, res, next) {
   try {
-    const user = await userController.insertClient(req.body);
+    const user = await Controllers.Clients.insert(req.body);
     res.json(user);
   }  catch(err){
     res.send(err);
@@ -43,7 +43,7 @@ router.post('/', async function(req, res, next) {
 
 router.delete('/:id', async function(req, res, next) {
   try {
-    const results = await userController.deleteClient(req.params.id)
+    const results = await Controllers.Clients.remove(req.params.id)
     connection.close();
     res.json(results);
 
