@@ -36,13 +36,19 @@ module.exports = new EntitySchema({
       unique: true,
 
     },
+    bloodtype: {
+      type: 'enum',
+      enum: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'],
+      nullable: true
+    }
   },
   relations: {
     address: {
       type: "one-to-one",
       target: "Address",
       joinColumn: true,
-      cascade: true
+      cascade: true,
+      nullable: false
     },
     medical_record: {
       type: "one-to-one",
