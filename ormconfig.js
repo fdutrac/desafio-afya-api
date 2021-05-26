@@ -12,6 +12,8 @@ module.exports = {
   entities: [
     require("./database/entity/User"),
     require("./database/entity/Client"),
+    require("./database/entity/Address"),
+    require("./database/entity/Specialist"),
   //   require("./database/entity/Physician"),
   ],
   migrations: ["./database/migration/*.js"],
