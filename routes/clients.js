@@ -4,11 +4,11 @@ const router = express.Router();
 const Controllers = require('../controllers/index');
 
 
-/* GET users listing. */
+/* GET clients listing. */
 router.get('/', async function(req, res, next) {
     try {
-      const user = await Controllers.Clients.getAll();
-      res.json(user);
+      const clients = await Controllers.Clients.getAll();
+      res.json(clients);
     }  catch(err){
       res.send(err);
     }
@@ -16,8 +16,8 @@ router.get('/', async function(req, res, next) {
 
 router.get('/:id', async function(req, res, next) {
   try {
-    const user = await Controllers.Clients.get(req.params.id);
-    res.json(user);
+    const client = await Controllers.Clients.getOne(req.params.id);
+    res.json(client);
   }  catch(err){
     res.send(err);
   }
@@ -25,8 +25,8 @@ router.get('/:id', async function(req, res, next) {
 
 router.put('/:id', async function(req, res, next) {
   try {
-    const user = await Controllers.Clients.update(req.params.id, req.body);
-    res.json(user);
+    const client = await Controllers.Clients.update(req.params.id, req.body);
+    res.json(client);
   } catch(err) {
     res.send(err);
   }
@@ -34,9 +34,17 @@ router.put('/:id', async function(req, res, next) {
 
 router.post('/', async function(req, res, next) {
   try {
-    const user = await Controllers.Clients.insert(req.body);
-    res.json(user);
-  }  catch(err){
+    // const client = req.body;
+    // const address = client.address;
+    // if (!address) {
+    //   res.json({err: "O campo de endereço é obrigatório!"})
+    // } else {
+
+      // }
+    const client = await Controllers.Clients.insert(req.body);
+    res.json(client);
+
+  } catch(err){
     res.send(err);
   }
 });

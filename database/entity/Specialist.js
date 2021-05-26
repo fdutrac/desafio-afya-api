@@ -39,12 +39,13 @@ module.exports = new EntitySchema({
       type: "one-to-one",
       target: "Address",
       joinColumn: true,
-      cascade: true
+      cascade: true,
+      nullable: false
     },
     profession: {
       type: "many-to-one",
       target: "Profession",
-      cascade: true
+      cascade: false
     }
   }
 });

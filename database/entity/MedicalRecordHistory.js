@@ -17,8 +17,21 @@ module.exports = new EntitySchema ({
             nullable: false
         },
         description:{
+            type: String,
             length: 255,
             nullable: false
         }
+    },
+    relations: {
+        medical_record: {
+            type: "many-to-one",
+            target: "Medical_Record"
+        },
+        specialist: {
+            type: "one-to-one",
+            target: "Specialist",
+            joinColumn: true,
+        }
     }
+
 })
