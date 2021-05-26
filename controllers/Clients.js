@@ -12,7 +12,7 @@ async function getAll() {
     }
 }
 
-async function get(id) {
+async function getOne(id) {
     try {
         const clientRepository = getConnection().getRepository("Client");        
         const clientData = await clientRepository.findOne(id);
@@ -53,4 +53,4 @@ async function remove(id) {
         return err;
     }
 }
-module.exports = { getAll, get, insert, update, remove }
+module.exports = { getAll, getOne, insert, update, remove }

@@ -2,7 +2,7 @@
 /* GET users listing. */
 const getConnection = require('typeorm').getConnection
 
-async function getUsers() {
+async function getAll() {
     try {
         const userRepository = getConnection().getRepository("User");        
         const allUsers = await userRepository.find();
@@ -12,7 +12,7 @@ async function getUsers() {
     }
 }
 
-async function getUser(id) {
+async function getOne(id) {
     try {
         const userRepository = getConnection().getRepository("User");        
         const userData = await userRepository.findOne(id);
@@ -21,7 +21,7 @@ async function getUser(id) {
         return err;
     }
 }
-async function updateUser(id, data) {
+async function update(id, data) {
     try {
         const userRepository = getConnection().getRepository("User");        
         const userData = await userRepository.findOne(id);
@@ -43,7 +43,7 @@ async function insertUser(data) {
     }
 }
 
-async function deleteUser(id) {
+async function remove(id) {
     try {
         const userRepository = getConnection().getRepository("User");
         // const user = userRepository.findOne(id);
@@ -54,7 +54,7 @@ async function deleteUser(id) {
     }
 }
 
-async function validateUser(login, password) {
+async function validate(login, password) {
     try {
         const userRepository = getConnection().getRepository("User");        
         const userData = await userRepository.findOne({login: login, password: password});
@@ -64,4 +64,4 @@ async function validateUser(login, password) {
     }
 }
 
-module.exports = { getUsers, getUser, insertUser, updateUser, deleteUser, validateUser }
+module.exports = { getAll, getOne, insertUser, update, remove, validate }

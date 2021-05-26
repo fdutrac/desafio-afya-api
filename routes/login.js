@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const JwtToken = require('../helpers/jwtToken');
-const userController = require('../controllers/Users');
+const Controllers = require('../controllers/index');
 
 /* Validate and generate token */
 
 router.post('/', async function(req, res, next) {
   const {login, password} = req.body;
-  let user = await userController.validateUser(login, password);
+  let user = await Controllers.Users.validate(login, password);
   if(user) {
     user.password = undefined;
     user.token = JwtToken.fabricaToken(user)

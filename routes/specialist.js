@@ -4,11 +4,11 @@ const router = express.Router();
 const Controllers = require('../controllers/index');
 
 
-/* GET users listing. */
+/* GET specialists listing. */
 router.get('/', async function(req, res, next) {
     try {
-      const user = await Controllers.Users.getAll();
-      res.json(user);
+      const specialists = await Controllers.Specialists.getAll();
+      res.json(specialists);
     }  catch(err){
       res.send(err);
     }
@@ -16,8 +16,8 @@ router.get('/', async function(req, res, next) {
 
 router.get('/:id', async function(req, res, next) {
   try {
-    const user = await Controllers.Users.getOne(req.params.id);
-    res.json(user);
+    const specialist = await Controllers.Specialists.getOne(req.params.id);
+    res.json(specialist);
   }  catch(err){
     res.send(err);
   }
@@ -25,8 +25,8 @@ router.get('/:id', async function(req, res, next) {
 
 router.put('/:id', async function(req, res, next) {
   try {
-    const user = await Controllers.Users.update(req.params.id, req.body);
-    res.json(user);
+    const specialist = await Controllers.Specialists.update(req.params.id, req.body);
+    res.json(specialist);
   } catch(err) {
     res.send(err);
   }
@@ -34,8 +34,8 @@ router.put('/:id', async function(req, res, next) {
 
 router.post('/', async function(req, res, next) {
   try {
-    const user = await Controllers.Users.insert(req.body);
-    res.json(user);
+    const specialist = await Controllers.Specialists.insert(req.body);
+    res.json(specialist);
   }  catch(err){
     res.send(err);
   }
@@ -43,7 +43,7 @@ router.post('/', async function(req, res, next) {
 
 router.delete('/:id', async function(req, res, next) {
   try {
-    const results = await Controllers.Users.remove(req.params.id)
+    const results = await Controllers.Specialists.remove(req.params.id)
     connection.close();
     res.json(results);
 
