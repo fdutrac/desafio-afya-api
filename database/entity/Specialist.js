@@ -2,7 +2,7 @@ let EntitySchema = require("typeorm").EntitySchema;
 // let baseModel = require("./BaseModel");
 
 module.exports = new EntitySchema({
-  name: "Client",
+  name: "Specialist",
   columns: {
     id: {
       type: Number,
@@ -26,13 +26,20 @@ module.exports = new EntitySchema({
     cellphone: {
       type: String,
       length: 14,
-      nullable: true,
+      nullable: false,
     },
     mail: {
       type: String,
-      lenght: 30,
+      lenght: 50,
       unique: true,
     },
-    // ...baseModel,
   },
+  relations: {
+    address: {
+      type: "one-to-one",
+      target: "Address",
+      joinColumn: true,
+      cascade: true
+    }
+  }
 });
