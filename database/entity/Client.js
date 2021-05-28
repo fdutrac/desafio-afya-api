@@ -32,7 +32,7 @@ module.exports = new EntitySchema({
     },
     mail: {
       type: String,
-      lenght: 30,
+      length: 30,
       unique: true,
 
     },

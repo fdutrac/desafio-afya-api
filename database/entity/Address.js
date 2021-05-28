@@ -31,7 +31,7 @@ module.exports = new EntitySchema({
     },
     state: {
       type: String,
-      lenght: 100,
+      length: 100,
       nullable: false,
     },
     // ...baseModel,

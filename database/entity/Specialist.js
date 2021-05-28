@@ -11,6 +11,7 @@ module.exports = new EntitySchema({
     },
     register: {
       type: String,
+      length: 100,
       unique: true,
     },
     name: {
@@ -30,7 +31,7 @@ module.exports = new EntitySchema({
     },
     mail: {
       type: String,
-      lenght: 50,
+      length: 50,
       unique: true,
     },
   },
