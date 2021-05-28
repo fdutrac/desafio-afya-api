@@ -34,13 +34,6 @@ router.put('/:id', async function(req, res, next) {
 
 router.post('/', async function(req, res, next) {
   try {
-    // const client = req.body;
-    // const address = client.address;
-    // if (!address) {
-    //   res.json({err: "O campo de endereço é obrigatório!"})
-    // } else {
-
-      // }
     const client = await Controllers.Clients.insert(req.body);
     res.json(client);
 

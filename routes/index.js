@@ -6,9 +6,8 @@ const login = require('./subRoutes/login');
 const home = require('./subRoutes/home');
 const specialists = require('./subRoutes/specialist');
 
-/* GET home page. */
-
 const routes = {
   clients, users, login, specialists, home
 }
+
 module.exports = routes;
