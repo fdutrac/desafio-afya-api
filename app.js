@@ -5,11 +5,8 @@ const logger = require('morgan');
 const createConnection = require('typeorm').createConnection;
 
 const indexRouter = require('./routes/index');
-const clientsRouter = require('./routes/clients');
-const usersRouter = require('./routes/users');
-const loginRouter = require('./routes/login');
 
-var app = express();
+const app = express();
 
 // const swaggerUi = require('swagger-ui-express');
 // const swaggerDocument = require('./swagger.json');
@@ -21,10 +18,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/clients', clientsRouter);
-app.use('/login', loginRouter);
+app.use('/', indexRouter.home);
+app.use('/users', indexRouter.users);
+app.use('/clients', indexRouter.clients);
+app.use('/login', indexRouter.login);
+app.use('/specialists', indexRouter.specialists);
 
 createConnection().then(()=>{
     console.log("Conected successfully");

@@ -17,6 +17,7 @@ module.exports = {
     require("./database/entity/Profession"),
     require("./database/entity/MedicalRecord"),
     require("./database/entity/MedicalRecordHistory"),
+    require("./database/entity/Attendance")
   ],
   migrations: ["./database/migration/*.js"],
   cli: {

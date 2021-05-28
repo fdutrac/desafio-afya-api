@@ -1,4 +1,4 @@
-var createConnection = require('typeorm').createConnection;
+const createConnection = require('typeorm').createConnection;
 
 createConnection().then(()=>{
     console.log("Conected successfully");

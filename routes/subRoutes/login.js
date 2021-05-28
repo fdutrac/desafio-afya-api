@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const JwtToken = require('../helpers/jwtToken');
-const Controllers = require('../controllers/index');
+const JwtToken = require('../../helpers/jwtToken');
+const Controllers = require('../../controllers/index');
 
 /* Validate and generate token */
 

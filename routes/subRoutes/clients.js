@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Controllers = require('../controllers/index');
+const Controllers = require('../../controllers/index');
 
 
 /* GET clients listing. */
