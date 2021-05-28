@@ -44,9 +44,7 @@ router.post('/', async function(req, res, next) {
 router.delete('/:id', async function(req, res, next) {
   try {
     const results = await Controllers.Users.remove(req.params.id)
-    connection.close();
     res.json(results);
-
   } catch(err) {
     res.send(err)
   }

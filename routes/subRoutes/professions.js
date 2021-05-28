@@ -4,11 +4,11 @@ const router = express.Router();
 const Controllers = require('../../controllers/index');
 
 
-/* GET clients listing. */
+/* GET Professions listing. */
 router.get('/', async function(req, res, next) {
     try {
-      const clients = await Controllers.Clients.getAll();
-      res.json(clients);
+      const pofessions = await Controllers.Professions.getAll();
+      res.json(professions);
     }  catch(err){
       res.send(err);
     }
@@ -16,8 +16,8 @@ router.get('/', async function(req, res, next) {
 
 router.get('/:id', async function(req, res, next) {
   try {
-    const client = await Controllers.Clients.getOne(req.params.id);
-    res.json(client);
+    const profession = await Controllers.Professions.getOne(req.params.id);
+    res.json(profession);
   }  catch(err){
     res.send(err);
   }
@@ -25,8 +25,8 @@ router.get('/:id', async function(req, res, next) {
 
 router.put('/:id', async function(req, res, next) {
   try {
-    const client = await Controllers.Clients.update(req.params.id, req.body);
-    res.json(client);
+    const profession = await Controllers.Professions.update(req.params.id, req.body);
+    res.json(profession);
   } catch(err) {
     res.send(err);
   }
@@ -34,17 +34,16 @@ router.put('/:id', async function(req, res, next) {
 
 router.post('/', async function(req, res, next) {
   try {
-    const client = await Controllers.Clients.insert(req.body);
-    res.json(client);
-
-  } catch(err){
+    const profession = await Controllers.Professions.insert(req.body);
+    res.json(profession);
+  }  catch(err){
     res.send(err);
   }
 });
 
 router.delete('/:id', async function(req, res, next) {
   try {
-    const results = await Controllers.Clients.remove(req.params.id)
+    const results = await Controllers.Professions.remove(req.params.id)
     res.json(results);
 
   } catch(err) {
