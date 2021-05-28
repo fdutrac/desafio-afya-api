@@ -7,7 +7,7 @@ const Controllers = require('../../controllers/index');
 /* GET Professions listing. */
 router.get('/', async function(req, res, next) {
     try {
-      const pofessions = await Controllers.Professions.getAll();
+      const professions = await Controllers.Professions.getAll();
       res.json(professions);
     }  catch(err){
       res.send(err);

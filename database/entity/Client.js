@@ -34,6 +34,7 @@ module.exports = new EntitySchema({
       type: String,
       length: 30,
       unique: true,
+      nullable: false,
 
     },
     bloodtype: {

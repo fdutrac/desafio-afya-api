@@ -8,7 +8,7 @@ module.exports = new EntitySchema({
             primary: true,
             generated: true,
         },
-        name:{
+        name: {
             type: String,
             nullable: false
         }
@@ -17,6 +17,7 @@ module.exports = new EntitySchema({
         specialists: {
             target: "Specialist",
             type: "one-to-many",
+            nullable: true
         }
     }
 });
