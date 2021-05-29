@@ -3,13 +3,13 @@ const getConnection = require('typeorm').getConnection
 /* GET Specialists listing. */
 async function getAll() {
     const SpecialistRepository = getConnection().getRepository("Specialist");
-    const allSpecialists = await SpecialistRepository.find();
+    const allSpecialists = await SpecialistRepository.find({relations: ["profession"]});
     return allSpecialists;
 }
 
 async function getOne(id) {
     const SpecialistRepository = getConnection().getRepository("Specialist");
-    const SpecialistData = await SpecialistRepository.findOne(id);
+    const SpecialistData = await SpecialistRepository.findOne(id, {relations: ["profession"]});
     return SpecialistData;
 }
 async function update(id, data) {
