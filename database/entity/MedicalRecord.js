@@ -19,5 +19,10 @@ module.exports = new EntitySchema({
             target: "Client",
             cascade: false,
         },
+        medical_record_histories: {
+            type: "one-to-many",
+            target: "Medical_Record_History",
+            cascade: true,
+        }
     }
 })
