@@ -8,6 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "^4.3.1",
     "express": "~4.16.1",

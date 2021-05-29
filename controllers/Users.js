@@ -24,7 +24,14 @@ async function update(id, data) {
 }
 
 async function insert(data) {
-    const userRepository = getConnection().getRepository("User");               
+    const userRepository = getConnection().getRepository("User");
+    
+    bcrypt.hash(data.password, 10, (errBcrypt, hash) => {
+        if(errBcrypt) {throw errBcrypt }
+        data.password = hash;
+    })
+
+    
     const results = await userRepository.save(data);
     return results;
 }
