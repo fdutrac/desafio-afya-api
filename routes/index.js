@@ -7,9 +7,10 @@ const home = require('./subRoutes/home');
 const specialists = require('./subRoutes/specialist');
 const professions = require('./subRoutes/professions');
 const medical_record = require('./subRoutes/medicalRecord');
+const attendances = require('./subRoutes/attendances');
 
 const routes = {
-  clients, users, login, specialists, home, professions, medical_record
+  clients, users, login, specialists, home, professions, medical_record, attendances
 }
 
 module.exports = routes;

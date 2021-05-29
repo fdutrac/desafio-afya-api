@@ -6,15 +6,18 @@ async function getAll() {
     const allAttendances = await AttendancesRepository.find({relations: ["client", "specialist"]});
     return allAttendances;
 }
-async function getSome(query) {
+
+async function getAll(conditions) {
+    const findArguments = {relations: ["client", "specialist"]}
+
+    //Verifica se existe algum filtro para seleção
+    if (conditions) { findArguments.where = conditions }
+
     const AttendancesRepository = getConnection().getRepository("Attendance");
-    // if(query === "client" || query === "specialist") {
-    //     const selectedAttendances = await AttendancesRepository.find({where: {query: query}, relations: [query]});
-    //     return selectedAttendances;
-    // }    
-    const selectedAttendances = await AttendancesRepository.find({relations: ["client", "specialist"], where: {query: query}});
-    return selectedAttendances;
+    const allAttendances = await AttendancesRepository.find(findArguments);
+    return allAttendances;
 }
+
 
 async function getOne(id) {
     const AttendancesRepository = getConnection().getRepository("Attendance");

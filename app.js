@@ -25,6 +25,7 @@ app.use('/login', indexRouter.login);
 app.use('/specialists', indexRouter.specialists);
 app.use('/professions', indexRouter.professions);
 app.use('/prontuarios', indexRouter.medical_record);
+app.use('/atendimentos', indexRouter.attendances);
 
 createConnection().then(()=>{
     console.log("Conected successfully");
