@@ -46,7 +46,8 @@ module.exports = new EntitySchema({
     profession: {
       type: "many-to-one",
       target: "Profession",
-      cascade: false
+      cascade: false,
+      nullable: false
     }
   }
 });

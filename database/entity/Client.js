@@ -51,11 +51,5 @@ module.exports = new EntitySchema({
       cascade: true,
       nullable: false
     },
-    medical_record: {
-      type: "one-to-one",
-      target: "Medical_Record",
-      joinColumn: true,
-      cascade: true
-    }
   }
 });

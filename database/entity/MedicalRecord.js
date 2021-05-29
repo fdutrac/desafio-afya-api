@@ -12,5 +12,12 @@ module.exports = new EntitySchema({
             type: Date,
             nullable: false
         }
+    },
+    relations: {
+        client: {
+            type: "one-to-one",
+            target: "Client",
+            cascade: false,
+        },
     }
 })
