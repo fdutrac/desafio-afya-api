@@ -7,11 +7,11 @@ async function getAll() {
     return allAttendances;
 }
 
-async function getAll(conditions) {
+async function getAll(filter) {
     const findArguments = {relations: ["client", "specialist"]}
 
     //Verifica se existe algum filtro para seleção
-    if (conditions) { findArguments.where = conditions }
+    if (filter) { findArguments.where = filter }
 
     const AttendancesRepository = getConnection().getRepository("Attendance");
     const allAttendances = await AttendancesRepository.find(findArguments);

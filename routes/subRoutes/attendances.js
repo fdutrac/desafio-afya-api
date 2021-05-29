@@ -7,7 +7,7 @@ const Controllers = require('../../controllers/index');
 // CRUD e Selects 
 router.get('/', async function(req, res) {
     try {
-      const attendances = await Controllers.Attendance.getAll(req.body.filter);
+      const attendances = await Controllers.Attendance.getAll(req.body);
       res.json(attendances);
     }  catch(err){
       res.send(err);

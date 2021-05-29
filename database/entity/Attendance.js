@@ -9,15 +9,15 @@ module.exports = new EntitySchema ({
             generated: true
         },
         date_scheduling:{
-            type: Date,
+            type: 'date',
             nullable: false
         },
         date_attendance:{
-            type: Date,
+            type: 'date',
             nullable: false
         },
         date_hour:{
-            type: Date,
+            type: 'time',
             nullable: false
         },
         value:{
@@ -38,7 +38,7 @@ module.exports = new EntitySchema ({
             // joinColumn: true,
             cascade: false
         },
-        patient: {
+        client: {
             type: "many-to-one",
             target: "Client",
             // joinColumn: true,
