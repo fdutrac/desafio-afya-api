@@ -5,7 +5,7 @@ const Controllers = require('../../controllers/index');
 
 
 /* GET clients listing. */
-router.get('/', async function(req, res, next) {
+router.get('/', async function(req, res) {
     try {
       const clients = await Controllers.Clients.getAll();
       res.json(clients);
@@ -14,7 +14,7 @@ router.get('/', async function(req, res, next) {
     }
 });
 
-router.get('/:id', async function(req, res, next) {
+router.get('/:id', async function(req, res) {
   try {
     const client = await Controllers.Clients.getOne(req.params.id);
     res.json(client);
@@ -23,7 +23,7 @@ router.get('/:id', async function(req, res, next) {
   }
 });
 
-router.put('/:id', async function(req, res, next) {
+router.put('/:id', async function(req, res) {
   try {
     const client = await Controllers.Clients.update(req.params.id, req.body);
     res.json(client);
@@ -32,7 +32,7 @@ router.put('/:id', async function(req, res, next) {
   }
 })
 
-router.post('/', async function(req, res, next) {
+router.post('/', async function(req, res) {
   try {
     const client = await Controllers.Clients.insert(req.body);
     res.json(client);
@@ -42,7 +42,7 @@ router.post('/', async function(req, res, next) {
   }
 });
 
-router.delete('/:id', async function(req, res, next) {
+router.delete('/:id', async function(req, res) {
   try {
     const results = await Controllers.Clients.remove(req.params.id)
     res.json(results);

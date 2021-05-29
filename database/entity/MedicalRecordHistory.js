@@ -9,11 +9,11 @@ module.exports = new EntitySchema ({
             generated: true
         },
         date:{
-            type: Date,
+            type: 'date',
             nullable: false
         },
         hour:{
-            type: Date,
+            type: 'time',
             nullable: false
         },
         description:{
@@ -23,9 +23,10 @@ module.exports = new EntitySchema ({
         }
     },
     relations: {
-        medical_record: {
+        medical_records: {
             type: "many-to-one",
-            target: "Medical_Record"
+            target: "Medical_Record",
+            cascade: true
         },
         specialist: {
             type: "one-to-one",
