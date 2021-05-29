@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require ('bcrypt');
 
 const Controllers = require('../../controllers/index');
-const { Connection } = require('pg');
 
 
 /* GET users listing. */
