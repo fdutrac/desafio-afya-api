@@ -1,19 +1,20 @@
 const express = require('express');
+
 const router = express.Router();
 
 const Controllers = require('../controllers/index');
 
 // HOME PAGE
-router.get('/', function(req, res, next) {
+router.get('/', (req, res) => {
   res.render('index', { title: 'Express' });
 });
 
 // LOGIN
 // Valida e efetua login
-router.post('/login', Controllers.Login.login);
+router.post('/login', Controllers.Login.auth);
 
 // CLIENTES
-// Lista todos clientes 
+// Lista todos clientes
 router.get('/clientes', Controllers.Clients.getAll);
 
 // Lista clientes através de consulta por Id
@@ -30,7 +31,7 @@ router.delete('/clientes/:id', Controllers.Clients.remove);
 
 // ATENDIMENTOS
 
-// Lista todos atendimentos ou através de filtros 
+// Lista todos atendimentos ou através de filtros
 router.get('/atendimentos', Controllers.Attendance.getAll);
 
 // Lista atendimento através de consulta por Id
@@ -59,7 +60,6 @@ router.delete('/prontuarios/:id', Controllers.MedicalRecord.remove);
 
 // PROFISSÕES
 
-
 /* GET Professions listing. */
 router.get('/profissoes', Controllers.Professions.getAll);
 
@@ -77,7 +77,7 @@ router.get('/especialistas', Controllers.Specialists.getAll);
 
 router.get('/especialistas/:id', Controllers.Specialists.getOne);
 
-router.put('/especialistas/:id', Controllers.Specialists.update)
+router.put('/especialistas/:id', Controllers.Specialists.update);
 
 router.post('/especialistas', Controllers.Specialists.insert);
 
@@ -89,7 +89,7 @@ router.get('/usuarios', Controllers.Users.getAll);
 
 router.get('/usuarios/:id', Controllers.Users.getOne);
 
-router.put('/usuarios/:id', Controllers.Users.update)
+router.put('/usuarios/:id', Controllers.Users.update);
 
 router.post('/usuarios', Controllers.Users.insert);
 

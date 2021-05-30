@@ -7,7 +7,7 @@ const Attendance = require('./Attendance');
 const Login = require('./Login');
 
 const Controllers = {
-    Users, Clients, Specialists, Professions, MedicalRecord, Attendance, Login
-}
+  Users, Clients, Specialists, Professions, MedicalRecord, Attendance, Login,
+};
 
 module.exports = Controllers;

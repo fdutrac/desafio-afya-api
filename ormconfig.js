@@ -1,26 +1,35 @@
+const UserEntity = require('./database/entity/User');
+const ClientEntity = require('./database/entity/Client');
+const AddressEntity = require('./database/entity/Address');
+const SpecialistEntity = require('./database/entity/Specialist');
+const ProfessionEntity = require('./database/entity/Profession');
+const MedicalRecordEntity = require('./database/entity/MedicalRecord');
+const MedicalRecordHistoryEntity = require('./database/entity/MedicalRecordHistory');
+const AttendanceEntity = require('./database/entity/Attendance');
+
 module.exports = {
-  type: "postgres",
+  type: 'postgres',
   // name: "clinica-medica",
   synchronize: true,
-  host: "localhost",
+  host: 'localhost',
   port: 5432,
-  username: "postgres",
-  password: "1234",
-  logging: true,
-  logger: "simple-console",
-  database: "clinica-medica",
+  username: 'postgres',
+  password: '1234',
+  logging: false,
+  logger: 'simple-console',
+  database: 'clinica-medica',
   entities: [
-    require("./database/entity/User"),
-    require("./database/entity/Client"),
-    require("./database/entity/Address"),
-    require("./database/entity/Specialist"),
-    require("./database/entity/Profession"),
-    require("./database/entity/MedicalRecord"),
-    require("./database/entity/MedicalRecordHistory"),
-    require("./database/entity/Attendance")
+    UserEntity,
+    ClientEntity,
+    AddressEntity,
+    SpecialistEntity,
+    ProfessionEntity,
+    MedicalRecordEntity,
+    MedicalRecordHistoryEntity,
+    AttendanceEntity,
   ],
-  migrations: ["./database/migration/*.js"],
+  migrations: ['./database/migration/*.js'],
   cli: {
-    migrationsDir: "./database/migration",
+    migrationsDir: './database/migration',
   },
 };
