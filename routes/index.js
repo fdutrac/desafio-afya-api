@@ -4,9 +4,9 @@ const router = express.Router();
 const Controllers = require('../controllers/index');
 
 // HOME PAGE
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
 
 // LOGIN
 // Valida e efetua login
