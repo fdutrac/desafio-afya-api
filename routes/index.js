@@ -1,16 +1,98 @@
-var express = require('express');
-var router = express.Router();
-const clients = require('./subRoutes/clients');
-const users = require('./subRoutes/users');
-const login = require('./subRoutes/login');
-const home = require('./subRoutes/home');
-const specialists = require('./subRoutes/specialist');
-const professions = require('./subRoutes/professions');
-const medical_record = require('./subRoutes/medicalRecord');
-const attendances = require('./subRoutes/attendances');
+const express = require('express');
+const router = express.Router();
 
-const routes = {
-  clients, users, login, specialists, home, professions, medical_record, attendances
-}
+const Controllers = require('../controllers/index');
 
-module.exports = routes;
+// HOME PAGE
+// router.get('/', function(req, res, next) {
+//   res.render('index', { title: 'Express' });
+// });
+
+// LOGIN
+// Valida e efetua login
+router.post('/login', Controllers.Login.login);
+
+// CLIENTES
+// Lista todos clientes 
+router.get('/clientes', Controllers.Clients.getAll);
+
+// Lista clientes através de consulta por Id
+router.get('/clientes/:id', Controllers.Clients.getOne);
+
+// Atualiza cliente
+router.put('/clientes/:id', Controllers.Clients.update);
+
+// Cria novo cliente
+router.post('/clientes/', Controllers.Clients.insert);
+
+// Deleta um cliente
+router.delete('/clientes/:id', Controllers.Clients.remove);
+
+// ATENDIMENTOS
+
+// Lista todos atendimentos ou através de filtros 
+router.get('/atendimentos', Controllers.Attendance.getAll);
+
+// Lista atendimento através de consulta por Id
+router.get('/atendimentos/:id', Controllers.Attendance.getOne);
+
+// Atualiza atendimento
+router.put('/atendimentos/:id', Controllers.Attendance.update);
+
+// Cria novo atendimento
+router.post('/atendimentos', Controllers.Attendance.insert);
+
+// Deleta atendimento
+router.delete('/atendimentos/:id', Controllers.Attendance.remove);
+
+// PRONTUÁRIOS
+
+router.get('/prontuarios', Controllers.MedicalRecord.getAll);
+
+router.get('/prontuarios/:id', Controllers.MedicalRecord.getOne);
+
+router.put('/prontuarios/:id', Controllers.MedicalRecord.update);
+
+router.post('/prontuarios', Controllers.MedicalRecord.insert);
+
+router.delete('/prontuarios/:id', Controllers.MedicalRecord.remove);
+
+// PROFISSÕES
+
+
+/* GET Professions listing. */
+router.get('/profissoes', Controllers.Professions.getAll);
+
+router.get('/profissoes/:id', Controllers.Professions.getOne);
+
+router.put('/profissoes/:id', Controllers.Professions.update);
+
+router.post('/profissoes', Controllers.Professions.insert);
+
+router.delete('/profissoes/:id', Controllers.Professions.remove);
+
+// ESPECIALISTAS
+
+router.get('/especialistas', Controllers.Specialists.getAll);
+
+router.get('/especialistas/:id', Controllers.Specialists.getOne);
+
+router.put('/especialistas/:id', Controllers.Specialists.update)
+
+router.post('/especialistas', Controllers.Specialists.insert);
+
+router.delete('/especialistas/:id', Controllers.Specialists.remove);
+
+// USUARIOS
+
+router.get('/usuarios', Controllers.Users.getAll);
+
+router.get('/usuarios/:id', Controllers.Users.getOne);
+
+router.put('/usuarios/:id', Controllers.Users.update)
+
+router.post('/usuarios', Controllers.Users.insert);
+
+router.delete('/usuarios/:id', Controllers.Users.remove);
+
+module.exports = router;

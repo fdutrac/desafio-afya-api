@@ -18,14 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter.home);
-app.use('/users', indexRouter.users);
-app.use('/clients', indexRouter.clients);
-app.use('/login', indexRouter.login);
-app.use('/specialists', indexRouter.specialists);
-app.use('/professions', indexRouter.professions);
-app.use('/prontuarios', indexRouter.medical_record);
-app.use('/atendimentos', indexRouter.attendances);
+app.use('/', indexRouter);
 
 createConnection().then(()=>{
     console.log("Conected successfully");
