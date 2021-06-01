@@ -1,8 +1,8 @@
-let EntitySchema = require("typeorm").EntitySchema;
+const { EntitySchema } = require('typeorm');
 // let baseModel = require("./BaseModel");
 
 module.exports = new EntitySchema({
-  name: "Address",
+  name: 'Address',
   columns: {
     id: {
       type: Number,

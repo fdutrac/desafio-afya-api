@@ -1,8 +1,8 @@
-let EntitySchema = require("typeorm").EntitySchema;
+const { EntitySchema } = require('typeorm');
 // let baseModel = require("./BaseModel");
 
 module.exports = new EntitySchema({
-  name: "Specialist",
+  name: 'Specialist',
   columns: {
     id: {
       type: Number,
@@ -37,17 +37,17 @@ module.exports = new EntitySchema({
   },
   relations: {
     address: {
-      type: "one-to-one",
-      target: "Address",
+      type: 'one-to-one',
+      target: 'Address',
       joinColumn: true,
       cascade: true,
-      nullable: false
+      nullable: false,
     },
     profession: {
-      type: "many-to-one",
-      target: "Profession",
+      type: 'many-to-one',
+      target: 'Profession',
       cascade: false,
-      nullable: false
-    }
-  }
+      nullable: false,
+    },
+  },
 });

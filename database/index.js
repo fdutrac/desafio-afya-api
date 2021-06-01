@@ -1,9 +1,9 @@
-const createConnection = require('typeorm').createConnection;
+const { createConnection } = require('typeorm');
 
-createConnection().then(()=>{
-    console.log("Conected successfully");
-}).catch((err)=>{
-    console.log(err)
-});  
-
-// module.exports = createConnection;
+module.exports = function startDatabase() {
+  createConnection().then(() => {
+    console.log('Conected successfully');
+  }).catch((err) => {
+    console.log(err);
+  });
+};

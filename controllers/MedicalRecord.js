@@ -1,34 +1,57 @@
-const getConnection = require('typeorm').getConnection
+const { getConnection } = require('typeorm');
 
 /* GET Medical_Record listing. */
-async function getAll() {
-    const MedicalRecordsRepository = getConnection().getRepository("Medical_Record");
-    const allMedicalRecords = await MedicalRecordsRepository.find({relations: ["client"]});
-    return allMedicalRecords;
+async function getAll(req, res) {
+  try {
+    const MedicalRecordsRepository = getConnection().getRepository('Medical_Record');
+    const allMedicalRecords = await MedicalRecordsRepository.find({ relations: ['client'] });
+    res.json(allMedicalRecords);
+  } catch (err) {
+    res.json(err);
+  }
 }
 
-async function getOne(id) {
-    const MedicalRecordsRepository = getConnection().getRepository("Medical_Record");
-    const Medical_RecordData = await MedicalRecordsRepository.findOne(id, {relations: ["client"]});
-    return Medical_RecordData;
+async function getOne(req, res) {
+  try {
+    const MedicalRecordsRepository = getConnection().getRepository('Medical_Record');
+    const medicalRecordData = await MedicalRecordsRepository.findOne(req.params.id, { relations: ['client'] });
+    res.json(medicalRecordData);
+  } catch (err) {
+    res.json(err);
+  }
 }
-async function update(id, data) {
-    const MedicalRecordsRepository = getConnection().getRepository("Medical_Record");
-    const Medical_RecordData = await MedicalRecordsRepository.findOne(id);
-    MedicalRecordsRepository.merge(Medical_RecordData, data);
-    const results = await MedicalRecordsRepository.save(Medical_RecordData);
-    return results;
+async function update(req, res) {
+  try {
+    const MedicalRecordsRepository = getConnection().getRepository('Medical_Record');
+    const medicalRecordData = await MedicalRecordsRepository.findOne(req.params.id);
+    MedicalRecordsRepository.merge(medicalRecordData, req.body);
+    const results = await MedicalRecordsRepository.save(medicalRecordData);
+    res.json(results);
+  } catch (err) {
+    res.json(err);
+  }
 }
 
-async function insert(data) {
-    const MedicalRecordsRepository = getConnection().getRepository("Medical_Record");
-    const results = await MedicalRecordsRepository.save(data);
-    return results;
+async function insert(req, res) {
+  try {
+    const MedicalRecordsRepository = getConnection().getRepository('Medical_Record');
+    const results = await MedicalRecordsRepository.save(req.body);
+    res.json(results);
+  } catch (err) {
+    res.json(err);
+  }
 }
 
-async function remove(id) {
-    const MedicalRecordsRepository = getConnection().getRepository("Medical_Record");
-    const results = MedicalRecordsRepository.delete(id);
-    return results;
+async function remove(req, res) {
+  try {
+    const MedicalRecordsRepository = getConnection().getRepository('Medical_Record');
+    const results = MedicalRecordsRepository.delete(req.params.id);
+    res.json(results);
+  } catch (err) {
+    res.json(err);
+  }
 }
-module.exports = { getAll, getOne, insert, update, remove }
+
+module.exports = {
+  getAll, getOne, insert, update, remove,
+};

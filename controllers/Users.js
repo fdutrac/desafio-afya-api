@@ -1,45 +1,64 @@
+const { getConnection } = require('typeorm');
 
-/* GET users listing. */
-const getConnection = require('typeorm').getConnection
+const bcrypt = require('bcrypt');
 
-async function getAll() {
-
-        const userRepository = getConnection().getRepository("User");        
-        const allUsers = await userRepository.find();
-        return allUsers;
-
+async function getAll(req, res) {
+  try {
+    const userRepository = getConnection().getRepository('User');
+    const allUsers = await userRepository.find();
+    res.json(allUsers);
+  } catch (err) {
+    res.json(err);
+  }
 }
 
-async function getOne(id) {
-    const userRepository = getConnection().getRepository("User");        
-    const userData = await userRepository.findOne(id);
-    return userData;
+async function getOne(req, res) {
+  try {
+    const userRepository = getConnection().getRepository('User');
+    const userData = await userRepository.findOne(req.params.id);
+    res.json(userData);
+  } catch (err) {
+    res.json(err);
+  }
 }
-async function update(id, data) {
-    const userRepository = getConnection().getRepository("User");        
-    const userData = await userRepository.findOne(id);
-    userRepository.merge(userData, data);
+async function update(req, res) {
+  try {
+    const userRepository = getConnection().getRepository('User');
+    const userData = await userRepository.findOne(req.params.id);
+    userRepository.merge(userData, req.body);
     const results = await userRepository.save(userData);
-    return results;
+    res.json(results);
+  } catch (err) {
+    res.json(err);
+  }
 }
 
-async function insert(data) {
-    const userRepository = getConnection().getRepository("User");               
+async function insert(req, res) {
+  try {
+    const userRepository = getConnection().getRepository('User');
+    const data = req.body;
+    // Criptografa a senha
+    const cryptoPass = bcrypt.hashSync(data.password, 10);
+
+    data.password = cryptoPass;
     const results = await userRepository.save(data);
-    return results;
+    delete results.password;
+    res.json(results);
+  } catch (err) {
+    res.json(err);
+  }
 }
 
-async function remove(id) {
-    const userRepository = getConnection().getRepository("User");
-    // const user = userRepository.findOne(id);
-    const results = userRepository.delete(id);
-    return results;           
+async function remove(req, res) {
+  try {
+    const userRepository = getConnection().getRepository('User');
+    const results = userRepository.delete(req.params.id);
+    res.json(results);
+  } catch (err) {
+    res.json(err);
+  }
 }
 
-async function validate(login, password) {
-    const userRepository = getConnection().getRepository("User");        
-    const userData = await userRepository.findOne({login: login, password: password});
-    return userData;
-}
-
-module.exports = { getAll, getOne, insert, update, remove, validate }
+module.exports = {
+  getAll, getOne, insert, update, remove,
+};
