@@ -15,13 +15,13 @@
 2 - Testes para usuários
 
 2a - Autenticação
-- possibilitar autenticação
-- não autenticar com usuário não existente
-- não autenticar com senha errada
+- possibilitar autenticação (X)
+- não autenticar com usuário não existente (X)
+- não autenticar com senha errada (X)
 
 2b - Criação
-- possibilitar criação de novo usuário
-- não criar usuário com o mesmo email de outro usuário
+- possibilitar criação de novo usuário (X)
+- não criar usuário com o mesmo login de outro usuário (X)
 
 2c - Reset
 - possibilitar o reset de senha
@@ -44,9 +44,6 @@
 - não trocar a senha sem a senha antiga
 - não trocar a senha se a senha antiga estiver errada
 
-- (dúvida) possibilitar a criação de um avatar para o usuário
-- (dúvida) não // de usuário não existente
-- deletar avatar antigo quando atualizar para o novo
 
 
 

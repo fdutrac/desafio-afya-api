@@ -1,5 +1,5 @@
-import { v4 as uuid_v4 } from 'uuid';
-import { isEqual, getMonth, getYear, getDate } from 'date-fns';
+const {v4: uuidv4} = require('uuid');
+const { isEqual, getMonth, getYear, getDate } = require('date-fns');
 
 // import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 
@@ -58,7 +58,7 @@ class AppointmentsRepository {
   }) {
     const appointment = new Appointment();
 
-    Object.assign(appointment, { id: uuid_v4(), date, provider_id, user_id });
+    Object.assign(appointment, { id: uuidv4(), date, provider_id, user_id });
 
     this.appointments.push(appointment);
 
