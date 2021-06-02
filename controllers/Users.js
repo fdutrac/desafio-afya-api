@@ -1,6 +1,7 @@
 const { getConnection } = require('typeorm');
 
 const bcrypt = require('bcrypt');
+const create = require('../services/user/create');
 
 async function getAll(req, res) {
   try {
@@ -33,21 +34,34 @@ async function update(req, res) {
   }
 }
 
+// async function insert(req, res) {
+//   try {
+//     const userRepository = getConnection().getRepository('User');
+//     const data = req.body;
+//     // Criptografa a senha
+//     const cryptoPass = bcrypt.hashSync(data.password, 10);
+
+//     data.password = cryptoPass;
+//     const results = await userRepository.save(data);
+//     delete results.password;
+//     res.json(results);      
+//   } catch (err) {
+//     res.json(err);
+//   console.log(err)
+//   }
+// }
+
 async function insert(req, res) {
   try {
     const userRepository = getConnection().getRepository('User');
-    const data = req.body;
-    // Criptografa a senha
-    const cryptoPass = bcrypt.hashSync(data.password, 10);
-
-    data.password = cryptoPass;
-    const results = await userRepository.save(data);
-    delete results.password;
-    res.json(results);
-  } catch (err) {
-    res.json(err);
+    const user = req.body;
+    const result = create(userRepository, user);    
+    return res.json(result);      
+  } catch (err) {    
+    return res.status(400).json(err);  
   }
 }
+
 
 async function remove(req, res) {
   try {

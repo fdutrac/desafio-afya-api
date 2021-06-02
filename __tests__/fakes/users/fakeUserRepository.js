@@ -27,7 +27,7 @@ class FakeUserRepository {
     return users;
   }
 
-  async create({name, login, password}) {
+  async create(name, login, password) {
     const checkUserExists = this.users.find(login => user.login === login)
     
     if (checkUserExists) {
@@ -36,7 +36,7 @@ class FakeUserRepository {
 
     const user = new EntitySchema;
 
-    Object.assign(user, { id: uuidv4() }, {name, login, password});
+    Object.assign(user, { id: uuidv4() }, name, login, password);
 
     this.users.push(user);
 
