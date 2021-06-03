@@ -8,7 +8,7 @@ async function getAll(req, res) {
     const allUsers = await userRepository.find();
     res.json(allUsers);
   } catch (err) {
-    res.json(err);
+    res.status(400).json(err);
   }
 }
 

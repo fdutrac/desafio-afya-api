@@ -2,7 +2,7 @@ const { getConnection } = require('typeorm');
 
 async function getAll(req, res) {
   try {
-    const findArguments = { relations: ['client', 'specialist'] };
+    const findArguments = { relations: ['patient', 'specialist'] };
 
     // Verifica se existe algum filtro para seleção
     if (req.body) { findArguments.where = req.body; }
@@ -18,7 +18,7 @@ async function getAll(req, res) {
 async function getOne(req, res) {
   try {
     const AttendancesRepository = getConnection().getRepository('Attendance');
-    const AttendanceData = await AttendancesRepository.findOne(req.params.id, { relations: ['client', 'specialist'] });
+    const AttendanceData = await AttendancesRepository.findOne(req.params.id, { relations: ['patient', 'specialist'] });
     res.json(AttendanceData);
   } catch (err) {
     res.json(err);
@@ -28,7 +28,7 @@ async function getOne(req, res) {
 async function update(req, res) {
   try {
     const AttendancesRepository = getConnection().getRepository('Attendance');
-    const AttendanceData = await AttendancesRepository.findOne(req.params.id, { relations: ['client', 'specialist'] });
+    const AttendanceData = await AttendancesRepository.findOne(req.params.id, { relations: ['patient', 'specialist'] });
     AttendancesRepository.merge(AttendanceData, req.body);
     const results = await AttendancesRepository.save(AttendanceData);
     res.json(results);

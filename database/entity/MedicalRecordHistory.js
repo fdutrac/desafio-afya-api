@@ -1,7 +1,7 @@
 const { EntitySchema } = require('typeorm');
 
 module.exports = new EntitySchema({
-  name: 'Medical_Record_History',
+  name: 'MedicalRecordHistory',
   columns: {
     id: {
       type: Number,
@@ -23,9 +23,9 @@ module.exports = new EntitySchema({
     },
   },
   relations: {
-    medical_records: {
+    medicalRecords: {
       type: 'many-to-one',
-      target: 'Medical_Record',
+      target: 'MedicalRecord',
       cascade: true,
     },
     specialist: {

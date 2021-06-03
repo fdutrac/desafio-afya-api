@@ -35,15 +35,12 @@ module.exports = new EntitySchema({
     specialist: {
       type: 'many-to-one',
       target: 'Specialist',
-      // joinColumn: true,
       cascade: false,
     },
-    client: {
+    patient: {
       type: 'many-to-one',
       target: 'Client',
-      // joinColumn: true,
       cascade: false,
     },
   },
-
 });

@@ -1,110 +1,124 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
-    "version": "1.0.0",
-    "title": "API Afya Labs",
-    "termsOfService": "http://swagger.io/terms/",
+    "description": "Aplicação API Rest para gerenciamento de dados da Clínica Pomarola",
+    "title": "API PomaLabs",
     "contact": {
-      "email": "apiteam@swagger.io"
-    },
-    "license": {
-      "name": "Apache 2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+      "email": "fdutra.c@gmail.com"
     }
   },
   "host": "petstore.swagger.io",
   "basePath": "/v2",
-  "tags": [
-    {
-      "name": "pet",
-      "description": "Everything about your Pets",
-      "externalDocs": {
-        "description": "Find out more",
-        "url": "http://swagger.io"
-      }
-    },
-    {
-      "name": "store",
-      "description": "Access to Petstore orders"
-    },
-    {
-      "name": "user",
-      "description": "Operations about user",
-      "externalDocs": {
-        "description": "Find out more about our store",
-        "url": "http://swagger.io"
-      }
-    }
-  ],
   "schemes": [
     "http"
   ],
   "paths": {
-    "/pet": {
+    "/usuario": {
       "post": {
         "tags": [
-          "pet"
+          "usuario"
         ],
-        "summary": "Add a new pet to the store",
-        "description": "",
-        "operationId": "addPet",
+        "summary": "Adiciona um novo usuário",
+        "description": "Cadastre um novo usuário para lhe liberar permissões de cadastros, consultas e alterações",
+        "operationId": "addUser",
         "consumes": [
-          "application/json",
-          "application/xml"
+          "application/json"
         ],
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
           {
             "in": "body",
-            "name": "body",
-            "description": "Pet object that needs to be added to the store",
-            "required": true,
+            "name": "user",
+            "description": "Dados do usuário a ser cadastrado",
             "schema": {
-              "$ref": "#/definitions/Pet"
+              "type": "object",
+              "required": ["name", "login", "password"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "login": {
+                  "type": "string",
+                  "minimum": "6",
+                  "maxiumum": "20"
+                },
+                "password": {
+                  "type": "string",
+                  "minimum": "6"
+                }
+              }
             }
           }
         ],
         "responses": {
-          "405": {
-            "description": "Invalid input"
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "Erro na requisição"
           }
-        },
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ]
+        }
       },
-      "put": {
+      "get": {
         "tags": [
-          "pet"
+          "usuario"
         ],
-        "summary": "Update an existing pet",
+        "summary": "Lista todos os usuários cadastrados",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "Erro na requisição"
+          }
+        }
+      }
+    },
+    "/usuario/{id}": {
+      "put": {
+        "name": "user",
+        "tags": [
+          "usuario"
+        ],
+        "summary": "Atualiza os dados do usuário",
         "description": "",
-        "operationId": "updatePet",
         "consumes": [
-          "application/json",
-          "application/xml"
+          "application/json"
         ],
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
           {
+            "in": "path",
+            "description": "Id do usuário a ser alterado",
+            "required": true
+          },
+          {
             "in": "body",
-            "name": "body",
-            "description": "Pet object that needs to be added to the store",
-            "required": true,
+            "name": "user",
+            "description": "Dados do usuário a ser alterado",
             "schema": {
-              "$ref": "#/definitions/Pet"
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "login": {
+                  "type": "string",
+                  "minimum": "6",
+                  "maxiumum": "20"
+                },
+                "password": {
+                  "type": "string",
+                  "minimum": "6"
+                }
+              }
             }
           }
         ],
@@ -118,339 +132,77 @@
           "405": {
             "description": "Validation exception"
           }
-        },
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ]
-      }
-    },
-    "/pet/findByStatus": {
-      "get": {
-        "tags": [
-          "pet"
-        ],
-        "summary": "Finds Pets by status",
-        "description": "Multiple status values can be provided with comma separated strings",
-        "operationId": "findPetsByStatus",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "status",
-            "in": "query",
-            "description": "Status values that need to be considered for filter",
-            "required": true,
-            "type": "array",
-            "items": {
-              "type": "string",
-              "enum": [
-                "available",
-                "pending",
-                "sold"
-              ],
-              "default": "available"
-            },
-            "collectionFormat": "multi"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Pet"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        },
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ]
-      }
-    },
-    "/pet/findByTags": {
-      "get": {
-        "tags": [
-          "pet"
-        ],
-        "summary": "Finds Pets by tags",
-        "description": "Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing.",
-        "operationId": "findPetsByTags",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "tags",
-            "in": "query",
-            "description": "Tags to filter by",
-            "required": true,
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "multi"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Pet"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid tag value"
-          }
-        },
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ],
-        "deprecated": true
-      }
-    },
-    "/pet/{petId}": {
-      "get": {
-        "tags": [
-          "pet"
-        ],
-        "summary": "Find pet by ID",
-        "description": "Returns a single pet",
-        "operationId": "getPetById",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "petId",
-            "in": "path",
-            "description": "ID of pet to return",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/Pet"
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Pet not found"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
+        }
       },
-      "post": {
+      "get": {
+        "name": "usuário",
         "tags": [
-          "pet"
+          "usuario"
         ],
-        "summary": "Updates a pet in the store with form data",
+        "summary": "Retorna os dados de um usuário cadastrado",
         "description": "",
-        "operationId": "updatePetWithForm",
         "consumes": [
-          "application/x-www-form-urlencoded"
+          "application/json"
         ],
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
           {
-            "name": "petId",
             "in": "path",
-            "description": "ID of pet that needs to be updated",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "name",
-            "in": "formData",
-            "description": "Updated name of the pet",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "status",
-            "in": "formData",
-            "description": "Updated status of the pet",
-            "required": false,
-            "type": "string"
+            "description": "Id do usuário a ser exibido",
+            "required": true
           }
         ],
         "responses": {
+          "400": {
+            "description": "ID inválido"
+          },
           "405": {
-            "description": "Invalid input"
+            "description": "Validation exception"
           }
-        },
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ]
+        }
       },
       "delete": {
+        "name": "user",
         "tags": [
-          "pet"
+          "usuario"
         ],
-        "summary": "Deletes a pet",
+        "summary": "Delete do sistema um usuário",
         "description": "",
-        "operationId": "deletePet",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "api_key",
-            "in": "header",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "petId",
             "in": "path",
-            "description": "Pet id to delete",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Pet not found"
-          }
-        },
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ]
-      }
-    },
-    "/pet/{petId}/uploadImage": {
-      "post": {
-        "tags": [
-          "pet"
-        ],
-        "summary": "uploads an image",
-        "description": "",
-        "operationId": "uploadFile",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "petId",
-            "in": "path",
-            "description": "ID of pet to update",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "additionalMetadata",
-            "in": "formData",
-            "description": "Additional data to pass to server",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "file",
-            "in": "formData",
-            "description": "file to upload",
-            "required": false,
-            "type": "file"
+            "description": "Id do usuário a ser deletado",
+            "required": true
           }
         ],
         "responses": {
           "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ApiResponse"
-            }
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          },
+          "405": {
+            "description": "Validation exception"
           }
-        },
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ]
+        }
       }
     },
-    "/store/inventory": {
+    "/clientes": {
       "get": {
         "tags": [
-          "store"
+          "clientes"
         ],
-        "summary": "Returns pet inventories by status",
-        "description": "Returns a map of status codes to quantities",
-        "operationId": "getInventory",
+        "summary": "Lista todos os clientes cadastrados",
         "produces": [
           "application/json"
         ],
         "parameters": [],
         "responses": {
           "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
+            "description": "successful operation"
           }
         },
         "security": [
@@ -460,26 +212,48 @@
         ]
       }
     },
-    "/store/order": {
+    "/clientes/": {
       "post": {
         "tags": [
-          "store"
+          "clientes"
         ],
-        "summary": "Place an order for a pet",
+        "summary": "Cadastra um novo cliente",
         "description": "",
-        "operationId": "placeOrder",
-        "produces": [
-          "application/xml",
+        "consumes": [
           "application/json"
         ],
         "parameters": [
           {
             "in": "body",
-            "name": "body",
-            "description": "order placed for purchasing the pet",
-            "required": true,
+            "name": "user",
+            "description": "Dados do usuário a ser cadastrado",
             "schema": {
-              "$ref": "#/definitions/Order"
+              "type": "object",
+              "required": ["name", "cpf", "phone", "mail"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "cpf": {
+                  "type": "string",
+                  "maxiumum": "14"
+                },
+                "phone": {
+                  "type": "string",
+                  "maxiumum": "14"
+                },
+                "cellphone": {
+                  "type": "string",
+                  "maxiumum": "14"
+                },
+                "mail": {
+                  "type": "string"
+                },
+                "bloodtype": {
+                  "type": "string",
+                  "enum": ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+                }
+              }
             }
           }
         ],
@@ -844,7 +618,7 @@
   "securityDefinitions": {
     "petstore_auth": {
       "type": "oauth2",
-      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "authorizationUrl": "http:/userstore.swagger.io/oauth/dialog",
       "flow": "implicit",
       "scopes": {
         "write:pets": "modify pets in your account",

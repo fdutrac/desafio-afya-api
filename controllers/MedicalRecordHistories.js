@@ -3,11 +3,11 @@ const { getConnection } = require('typeorm');
 /* GET Medical_Record listing. */
 async function getAll(req, res) {
   try {
-    const MedicalRecordsRepository = getConnection().getRepository('MedicalRecord');
+    const MedicalRecordsRepository = getConnection().getRepository('MedicalRecordHistory');
     const allMedicalRecords = await MedicalRecordsRepository.find({ relations: ['client'] });
-    res.json(allMedicalRecords);
+    return res.json(allMedicalRecords);
   } catch (err) {
-    res.json(err);
+    return res.json(err);
   }
 }
 
