@@ -73,9 +73,9 @@ router.delete('/profissoes/:id', Controllers.Professions.remove);
 
 // ESPECIALISTAS
 
-router.get('/especialistas', Controllers.Specialists.getAll);
+router.get('/especialistas', Controllers.Specialists.get);
 
-router.get('/especialistas/:id', Controllers.Specialists.getOne);
+router.get('/especialistas/:id', Controllers.Specialists.getById);
 
 router.put('/especialistas/:id', Controllers.Specialists.update);
 
