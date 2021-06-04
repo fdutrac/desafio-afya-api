@@ -15,7 +15,7 @@ module.exports = {
   port: 5432,
   username: 'postgres',
   password: '1234',
-  logging: true,
+  logging: false,
   logger: 'simple-console',
   database: 'clinica-medica',
   entities: [

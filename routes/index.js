@@ -85,9 +85,7 @@ router.delete('/especialistas/:id', Controllers.Specialists.remove);
 
 // USUARIOS
 
-router.get('/usuarios', Controllers.Users.getAll);
-
-router.get('/usuarios/:id', Controllers.Users.getOne);
+router.get('/usuarios', Controllers.Users.get);
 
 router.put('/usuarios/:id', Controllers.Users.update);
 
