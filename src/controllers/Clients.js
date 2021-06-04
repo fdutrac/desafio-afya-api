@@ -1,4 +1,4 @@
-const clientRepository = require('../services/Users');
+const clientRepository = require('../services/Clients');
 
 async function get(req, res) {
   try {

@@ -4,8 +4,8 @@ module.exports = {
   async create(client) {
     const connection = await createConnection();
     try {
-      const userRepository = getRepository('Client');
-      const result = await userRepository.save(client);
+      const clientRepository = getRepository('Client');
+      const result = await clientRepository.save(client);
       return result;
     } finally {
       connection.close();
