@@ -1,58 +1,48 @@
-const { getConnection } = require('typeorm');
+const specialistRepository = require('../services/Specialists');
 
-/* GET Specialists listing. */
-async function getAll(req, res) {
+async function get(req, res) {
   try {
-    const SpecialistRepository = getConnection().getRepository('Specialist');
-    const allSpecialists = await SpecialistRepository.find({ relations: ['profession'] });
-    res.json(allSpecialists);
+    const results = await specialistRepository.list(req.body);
+    return (results.length >= 1 ? res.json(results) : res.status(204).json(results));
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
-
-async function getOne(req, res) {
+async function getById(req, res) {
   try {
-    const SpecialistRepository = getConnection().getRepository('Specialist');
-    const SpecialistData = await SpecialistRepository.findOne(req.params.id, { relations: ['profession'] });
-    res.json(SpecialistData);
+    const result = await specialistRepository.getOne(req.params.id);
+    return res.json(result);
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
 async function update(req, res) {
   try {
-    const SpecialistRepository = getConnection().getRepository('Specialist');
-    const SpecialistData = await SpecialistRepository.findOne(req.params.id);
-    SpecialistRepository.merge(SpecialistData, req.body);
-    const results = await SpecialistRepository.save(SpecialistData);
-    res.json(results);
+    const result = await specialistRepository.update(req.params.id, req.body);
+    return res.json(result);
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
 
 async function insert(req, res) {
   try {
-    const SpecialistRepository = getConnection().getRepository('Specialist');
-    const results = await SpecialistRepository.save(req.body);
-    res.json(results);
+    const specialist = req.body;
+    const result = await specialistRepository.create(specialist);
+    return res.json(result);
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
 
 async function remove(req, res) {
   try {
-    const SpecialistRepository = getConnection().getRepository('Specialist');
-    // const Specialist = SpecialistRepository.findOne(id);
-    const results = SpecialistRepository.delete(req.params.id);
-    res.json(results);
+    const results = await specialistRepository.delete(req.params.id);
+    return (results.affected ? res.status(200).json(results) : res.status(404).json(results));
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
-
 module.exports = {
-  getAll, getOne, insert, update, remove,
+  get, getById, insert, update, remove,
 };
