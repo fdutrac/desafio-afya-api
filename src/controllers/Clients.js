@@ -1,54 +1,48 @@
-const { getConnection } = require('typeorm');
+const clientRepository = require('../services/Users');
 
-async function getAll(req, res) {
+async function get(req, res) {
   try {
-    const clientRepository = getConnection().getRepository('Client');
-    const allClients = await clientRepository.find({ relations: ['address'] });
-    res.json(allClients);
+    const results = await clientRepository.list(req.body);
+    return (results.length >= 1 ? res.json(results) : res.status(204).json(results));
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
-async function getOne(req, res) {
+async function getById(req, res) {
   try {
-    const clientRepository = getConnection().getRepository('Client');
-    const clientData = await clientRepository.findOne(req.params.id);
-    res.json(clientData);
+    const result = await clientRepository.getOne(req.params.id);
+    return res.json(result);
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
 async function update(req, res) {
   try {
-    const clientRepository = getConnection().getRepository('Client');
-    const clientData = await clientRepository.findOne(req.params.id);
-    clientRepository.merge(clientData, req.body);
-    const results = await clientRepository.save(clientData);
-    res.json(results);
+    const result = await clientRepository.update(req.params.id, req.body);
+    return res.json(result);
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
 
 async function insert(req, res) {
   try {
-    const clientRepository = getConnection().getRepository('Client');
-    const results = await clientRepository.save(req.body);
-    res.json(results);
+    const client = req.body;
+    const result = await clientRepository.create(client);
+    return res.json(result);
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
 
 async function remove(req, res) {
   try {
-    const clientRepository = getConnection().getRepository('Client');
-    const results = clientRepository.delete(req.params.id);
-    res.json(results);
+    const results = await clientRepository.delete(req.params.id);
+    return (results.affected ? res.status(200).json(results) : res.status(404).json(results));
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
 module.exports = {
-  getAll, getOne, insert, update, remove,
+  get, getById, insert, update, remove,
 };
