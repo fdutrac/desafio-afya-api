@@ -15,10 +15,10 @@ router.post('/login', Controllers.Login.auth);
 
 // CLIENTES
 // Lista todos clientes
-router.get('/clientes', Controllers.Clients.getAll);
+router.get('/clientes', Controllers.Clients.get);
 
 // Lista clientes através de consulta por Id
-router.get('/clientes/:id', Controllers.Clients.getOne);
+router.get('/clientes/:id', Controllers.Clients.getById);
 
 // Atualiza cliente
 router.put('/clientes/:id', Controllers.Clients.update);
