@@ -1,4 +1,5 @@
 const { EntitySchema } = require('typeorm');
+const baseModel = require('./BaseModel');
 
 module.exports = new EntitySchema({
   name: 'Attendance',
@@ -30,6 +31,7 @@ module.exports = new EntitySchema({
       enum: ['AGENDADO', 'REALIZADO', 'CANCELADO'],
       nullable: false,
     },
+    ...baseModel,
   },
   relations: {
     specialist: {

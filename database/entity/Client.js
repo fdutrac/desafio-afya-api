@@ -1,5 +1,5 @@
 const { EntitySchema } = require('typeorm');
-// let baseModel = require("./BaseModel");
+const baseModel = require('./BaseModel');
 
 module.exports = new EntitySchema({
   name: 'Client',
@@ -23,7 +23,7 @@ module.exports = new EntitySchema({
     phone: {
       type: String,
       length: 14,
-      nullable: true,
+      nullable: false,
     },
     cellphone: {
       type: String,
@@ -32,7 +32,7 @@ module.exports = new EntitySchema({
     },
     mail: {
       type: String,
-      length: 30,
+      length: 255,
       unique: true,
       nullable: false,
 
@@ -42,6 +42,7 @@ module.exports = new EntitySchema({
       enum: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'],
       nullable: true,
     },
+    ...baseModel,
   },
   relations: {
     address: {
