@@ -3,24 +3,30 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
   async create(data) {
-    const user = data;
     const connection = await createConnection();
-    const userRepository = getRepository('User');
-    // Criptografa a senha
-    const cryptoPass = bcrypt.hashSync(user.password, 10);
-    user.password = cryptoPass;
-    const result = await userRepository.save(user);
-    connection.close();
-    delete result.password;
-    return result;
+    try {
+      const user = data;
+      const userRepository = getRepository('User');
+      // Criptografa a senha
+      const cryptoPass = bcrypt.hashSync(user.password, 10);
+      user.password = cryptoPass;
+      const result = await userRepository.save(user);
+      delete result.password;
+      return result;
+    } finally {
+      connection.close();
+    }
   },
 
   async list(param) {
     const connection = await createConnection();
-    const userRepository = getRepository('User');
-    const results = await userRepository.find(param);
-    connection.close();
-    return results;
+    try {
+      const userRepository = getRepository('User');
+      const results = await userRepository.find(param);
+      return results;
+    } finally {
+      connection.close();
+    }
   },
 
   async update(id, data) {
@@ -38,10 +44,12 @@ module.exports = {
 
   async delete(id) {
     const connection = await createConnection();
-    const userRepository = getRepository('User');
-    const result = await userRepository.delete(id);
-    console.log(result);
-    connection.close();
-    return result;
+    try {
+      const userRepository = getRepository('User');
+      const result = await userRepository.delete(id);
+      return result;
+    } finally {
+      connection.close();
+    }
   },
 };
