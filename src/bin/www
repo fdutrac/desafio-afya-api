@@ -6,7 +6,7 @@
 
 const debug = require('debug')('projeto-gama-api:server');
 const http = require('http');
-const app = require('../app');
+const app = require('../../app');
 
 /**
  * Get port from environment and store in Express.

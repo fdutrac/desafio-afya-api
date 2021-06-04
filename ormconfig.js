@@ -1,11 +1,11 @@
-const UserEntity = require('./database/entity/User');
-const ClientEntity = require('./database/entity/Client');
-const AddressEntity = require('./database/entity/Address');
-const SpecialistEntity = require('./database/entity/Specialist');
-const ProfessionEntity = require('./database/entity/Profession');
-const MedicalRecordEntity = require('./database/entity/MedicalRecord');
-const MedicalRecordHistoryEntity = require('./database/entity/MedicalRecordHistory');
-const AttendanceEntity = require('./database/entity/Attendance');
+const UserEntity = require('./src/database/entity/User');
+const ClientEntity = require('./src/database/entity/Client');
+const AddressEntity = require('./src/database/entity/Address');
+const SpecialistEntity = require('./src/database/entity/Specialist');
+const ProfessionEntity = require('./src/database/entity/Profession');
+const MedicalRecordEntity = require('./src/database/entity/MedicalRecord');
+const MedicalRecordHistoryEntity = require('./src/database/entity/MedicalRecordHistory');
+const AttendanceEntity = require('./src/database/entity/Attendance');
 
 module.exports = {
   type: 'postgres',
@@ -28,8 +28,8 @@ module.exports = {
     MedicalRecordHistoryEntity,
     AttendanceEntity,
   ],
-  migrations: ['./database/migration/*.js'],
+  migrations: ['./src/database/migration/*.js'],
   cli: {
-    migrationsDir: './database/migration',
+    migrationsDir: './src/database/migration',
   },
 };

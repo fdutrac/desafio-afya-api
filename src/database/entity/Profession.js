@@ -1,4 +1,5 @@
 const { EntitySchema } = require('typeorm');
+const baseModel = require('./BaseModel');
 
 module.exports = new EntitySchema({
   name: 'Profession',
@@ -12,6 +13,7 @@ module.exports = new EntitySchema({
       type: String,
       nullable: false,
     },
+    ...baseModel,
   },
   relations: {
     specialists: {
