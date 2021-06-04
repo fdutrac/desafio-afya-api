@@ -16,8 +16,8 @@ module.exports = {
     const connection = await createConnection();
     try {
       const professionRepository = getRepository('Profession');
-      const results = await professionRepository.findOne(id);
-      return results;
+      const result = await professionRepository.findOne(id);
+      return result;
     } finally {
       connection.close();
     }
@@ -27,8 +27,8 @@ module.exports = {
     const connection = await createConnection();
     try {
       const professionRepository = getRepository('Profession');
-      const results = await professionRepository.find();
-      return results;
+      const result = await professionRepository.find();
+      return result;
     } finally {
       connection.close();
     }

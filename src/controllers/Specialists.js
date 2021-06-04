@@ -2,8 +2,8 @@ const specialistRepository = require('../services/Specialists');
 
 async function get(req, res) {
   try {
-    const results = await specialistRepository.list(req.body);
-    return (results.length >= 1 ? res.json(results) : res.status(204).json(results));
+    const result = await specialistRepository.list(req.body);
+    return (result.length >= 1 ? res.json(result) : res.status(204).json(result));
   } catch (err) {
     return res.status(400).json(err);
   }
@@ -37,8 +37,8 @@ async function insert(req, res) {
 
 async function remove(req, res) {
   try {
-    const results = await specialistRepository.delete(req.params.id);
-    return (results.affected ? res.status(200).json(results) : res.status(404).json(results));
+    const result = await specialistRepository.delete(req.params.id);
+    return (result.affected ? res.status(200).json(result) : res.status(404).json(result));
   } catch (err) {
     return res.status(400).json(err);
   }

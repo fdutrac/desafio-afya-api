@@ -16,8 +16,8 @@ module.exports = {
     const connection = await createConnection();
     try {
       const specialistRepository = getRepository('Specialist');
-      const results = await specialistRepository.findOne(id, { relations: ['address', 'profession'] });
-      return results;
+      const result = await specialistRepository.findOne(id, { relations: ['address', 'profession'] });
+      return result;
     } finally {
       connection.close();
     }
@@ -30,8 +30,8 @@ module.exports = {
       // Verifica se existe algum parâmetro para seleção
       if (param) { findArguments.where = param; }
       const specialistRepository = getRepository('Specialist');
-      const results = await specialistRepository.find(param);
-      return results;
+      const result = await specialistRepository.find(param);
+      return result;
     } finally {
       connection.close();
     }

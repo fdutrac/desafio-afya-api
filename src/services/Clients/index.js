@@ -16,8 +16,8 @@ module.exports = {
     const connection = await createConnection();
     try {
       const clientRepository = getRepository('Client');
-      const results = await clientRepository.findOne(id, { relations: ['address'] });
-      return results;
+      const result = await clientRepository.findOne(id, { relations: ['address'] });
+      return result;
     } finally {
       connection.close();
     }
@@ -31,8 +31,8 @@ module.exports = {
       // Verifica se existe algum filtro para seleção
       if (param) { findArguments.where = param; }
       const clientRepository = getRepository('Client');
-      const results = await clientRepository.find(findArguments);
-      return results;
+      const result = await clientRepository.find(findArguments);
+      return result;
     } finally {
       connection.close();
     }

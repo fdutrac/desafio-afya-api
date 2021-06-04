@@ -32,31 +32,28 @@ router.delete('/clientes/:id', Controllers.Clients.remove);
 // ATENDIMENTOS
 
 // Lista todos atendimentos ou através de filtros
-router.get('/atendimentos', Controllers.Attendance.getAll);
-
-// Lista atendimento através de consulta por Id
-router.get('/atendimentos/:id', Controllers.Attendance.getOne);
+router.get('/atendimentos', Controllers.Attendances.get);
 
 // Atualiza atendimento
-router.put('/atendimentos/:id', Controllers.Attendance.update);
+router.put('/atendimentos/:id', Controllers.Attendances.update);
 
 // Cria novo atendimento
-router.post('/atendimentos', Controllers.Attendance.insert);
+router.post('/atendimentos', Controllers.Attendances.insert);
 
 // Deleta atendimento
-router.delete('/atendimentos/:id', Controllers.Attendance.remove);
+router.delete('/atendimentos/:id', Controllers.Attendances.remove);
 
 // PRONTUÁRIOS
 
-router.get('/prontuarios', Controllers.MedicalRecord.getAll);
+router.get('/prontuarios', Controllers.MedicalRecords.get);
 
-router.get('/prontuarios/:id', Controllers.MedicalRecord.getOne);
+router.get('/prontuarios/:id', Controllers.MedicalRecords.getOne);
 
-router.put('/prontuarios/:id', Controllers.MedicalRecord.update);
+router.put('/prontuarios/:id', Controllers.MedicalRecords.update);
 
-router.post('/prontuarios', Controllers.MedicalRecord.insert);
+router.post('/prontuarios', Controllers.MedicalRecords.insert);
 
-router.delete('/prontuarios/:id', Controllers.MedicalRecord.remove);
+router.delete('/prontuarios/:id', Controllers.MedicalRecords.remove);
 
 // PROFISSÕES
 

@@ -22,8 +22,8 @@ module.exports = {
     const connection = await createConnection();
     try {
       const userRepository = getRepository('User');
-      const results = await userRepository.find();
-      return results;
+      const result = await userRepository.find();
+      return result;
     } finally {
       connection.close();
     }
@@ -33,8 +33,8 @@ module.exports = {
     const connection = await createConnection();
     try {
       const userRepository = getRepository('User');
-      const results = await userRepository.findOne(param);
-      return results;
+      const result = await userRepository.findOne(param);
+      return result;
     } finally {
       connection.close();
     }
