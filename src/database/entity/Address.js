@@ -1,5 +1,4 @@
 const { EntitySchema } = require('typeorm');
-// let baseModel = require("./BaseModel");
 
 module.exports = new EntitySchema({
   name: 'Address',
@@ -19,7 +18,7 @@ module.exports = new EntitySchema({
       length: 255,
       nullable: false,
     },
-    neighborood: {
+    neighborhood: {
       type: String,
       length: 100,
       nullable: false,
@@ -34,6 +33,5 @@ module.exports = new EntitySchema({
       length: 100,
       nullable: false,
     },
-    // ...baseModel,
   },
 });

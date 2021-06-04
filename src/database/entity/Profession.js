@@ -12,6 +12,7 @@ module.exports = new EntitySchema({
     name: {
       type: String,
       nullable: false,
+      unique: true,
     },
     ...baseModel,
   },
