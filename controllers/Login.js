@@ -10,7 +10,7 @@ async function auth(req, res) {
 
   if (user && bcrypt.compare(password, user.password)) {
     delete user.password;
-    user.token = JwtToken.fabricaToken(user);
+    user.token = JwtToken.makeToken(user);
     res.json(user);
   } else {
     res.send({
