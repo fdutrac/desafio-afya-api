@@ -10,6 +10,16 @@ async function get(req, res) {
   }
 }
 
+async function getOne(req, res) {
+  try {
+    const param = req.body;
+    const results = await userRepository.getOne(param);
+    return (results.length >= 1 ? res.json(results) : res.status(204).json(results));
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+}
+
 async function update(req, res) {
   try {
     const results = await userRepository.update(req.params.id, req.body);
@@ -39,5 +49,5 @@ async function remove(req, res) {
 }
 
 module.exports = {
-  get, insert, update, remove,
+  get, getOne, insert, update, remove,
 };

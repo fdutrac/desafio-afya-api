@@ -1,21 +1,22 @@
-const { getConnection } = require('typeorm');
 const bcrypt = require('bcrypt');
+const userRepository = require('../services/Login');
 const JwtToken = require('../helpers/jwtToken');
 
 async function auth(req, res) {
   const { login, password } = req.body;
-  const userRepository = getConnection().getRepository('User');
+  try {
+    const user = await userRepository.getOne({ login });
 
-  const user = await userRepository.findOne({ login });
-
-  if (user && bcrypt.compare(password, user.password)) {
-    delete user.password;
-    user.token = JwtToken.makeToken(user);
-    res.json(user);
-  } else {
-    res.send({
-      mensagem: 'Login ou senha inválidos',
+    if (user && bcrypt.compare(password, user.password)) {
+      delete user.password;
+      user.token = JwtToken.makeToken(user);
+      return res.json(user);
+    }
+    return res.status(404).send({
+      message: 'Login ou senha inválidos',
     });
+  } catch (err) {
+    return res.status(400).json(err);
   }
 }
 

@@ -16,7 +16,7 @@ module.exports = {
     const connection = await createConnection();
     try {
       const specialistRepository = getRepository('Specialist');
-      const results = await specialistRepository.findOne(id, { relations: ['address'] });
+      const results = await specialistRepository.findOne(id, { relations: ['address', 'profession'] });
       return results;
     } finally {
       connection.close();
@@ -26,8 +26,11 @@ module.exports = {
   async list(param) {
     const connection = await createConnection();
     try {
+      const findArguments = { relations: ['address', 'profession'] };
+      // Verifica se existe algum parâmetro para seleção
+      if (param) { findArguments.where = param; }
       const specialistRepository = getRepository('Specialist');
-      const results = await specialistRepository.find(param, { relations: ['address'] });
+      const results = await specialistRepository.find(param);
       return results;
     } finally {
       connection.close();
@@ -38,7 +41,7 @@ module.exports = {
     const connection = await createConnection();
     try {
       const specialistRepository = getRepository('Specialist');
-      const specialist = await specialistRepository.findOne(id, { relations: ['address'] });
+      const specialist = await specialistRepository.findOne(id, { relations: ['address', 'profession'] });
       specialistRepository.merge(specialist, data);
       const result = await specialistRepository.save(specialist);
       return result;

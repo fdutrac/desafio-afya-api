@@ -25,9 +25,13 @@ module.exports = {
 
   async list(param) {
     const connection = await createConnection();
+
     try {
+      const findArguments = { relations: ['address'] };
+      // Verifica se existe algum filtro para seleção
+      if (param) { findArguments.where = param; }
       const clientRepository = getRepository('Client');
-      const results = await clientRepository.find(param, { relations: ['address'] });
+      const results = await clientRepository.find(findArguments);
       return results;
     } finally {
       connection.close();

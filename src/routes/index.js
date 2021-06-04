@@ -61,9 +61,7 @@ router.delete('/prontuarios/:id', Controllers.MedicalRecord.remove);
 // PROFISSÕES
 
 /* GET Professions listing. */
-router.get('/profissoes', Controllers.Professions.getAll);
-
-router.get('/profissoes/:id', Controllers.Professions.getOne);
+router.get('/profissoes', Controllers.Professions.get);
 
 router.put('/profissoes/:id', Controllers.Professions.update);
 

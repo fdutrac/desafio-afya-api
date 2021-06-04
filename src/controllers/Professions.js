@@ -1,58 +1,42 @@
-const { getConnection } = require('typeorm');
+const professionsRepository = require('../services/Professions');
 
 /* GET Profession listing. */
-async function getAll(req, res) {
+async function get(req, res) {
   try {
-    const ProfessionsRepository = getConnection().getRepository('Profession');
-    const allProfessions = await ProfessionsRepository.find();
-    res.json(allProfessions);
+    const result = await professionsRepository.list(req.body);
+    return res.json(result);
   } catch (err) {
-    res.json(err);
-  }
-}
-
-async function getOne(req, res) {
-  try {
-    const ProfessionsRepository = getConnection().getRepository('Profession');
-    const ProfessionData = await ProfessionsRepository.findOne(req.params.id);
-    res.json(ProfessionData);
-  } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
 
 async function update(req, res) {
   try {
-    const ProfessionsRepository = getConnection().getRepository('Profession');
-    const ProfessionData = await ProfessionsRepository.findOne(req.params.id);
-    ProfessionsRepository.merge(ProfessionData, req.body);
-    const results = await ProfessionsRepository.save(ProfessionData);
-    res.json(results);
+    const result = await professionsRepository.update(req.params.id, req.body);
+    return res.json(result);
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
 
 async function insert(req, res) {
   try {
-    const ProfessionsRepository = getConnection().getRepository('Profession');
-    const results = await ProfessionsRepository.save(req.body);
-    res.json(results);
+    const results = await professionsRepository.create(req.body);
+    return res.json(results);
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
 
 async function remove(req, res) {
   try {
-    const ProfessionsRepository = getConnection().getRepository('Profession');
-    const results = ProfessionsRepository.delete(req.params.id);
-    res.json(results);
+    const results = await professionsRepository.delete(req.params.id);
+    return (results.affected ? res.status(200).json(results) : res.status(404).json(results));
   } catch (err) {
-    res.json(err);
+    return res.json(err);
   }
 }
 
 module.exports = {
-  getAll, getOne, insert, update, remove,
+  get, insert, update, remove,
 };

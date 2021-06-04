@@ -18,11 +18,22 @@ module.exports = {
     }
   },
 
-  async list(param) {
+  async list() {
     const connection = await createConnection();
     try {
       const userRepository = getRepository('User');
-      const results = await userRepository.find(param);
+      const results = await userRepository.find();
+      return results;
+    } finally {
+      connection.close();
+    }
+  },
+
+  async getOne(param) {
+    const connection = await createConnection();
+    try {
+      const userRepository = getRepository('User');
+      const results = await userRepository.findOne(param);
       return results;
     } finally {
       connection.close();
