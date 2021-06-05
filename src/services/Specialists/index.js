@@ -25,12 +25,12 @@ module.exports = {
 
   async list(param) {
     const connection = await createConnection();
+    const findArguments = { relations: ['address', 'profession'] };
     try {
-      const findArguments = { relations: ['address', 'profession'] };
       // Verifica se existe algum parâmetro para seleção
       if (param) { findArguments.where = param; }
       const specialistRepository = getRepository('Specialist');
-      const result = await specialistRepository.find(param);
+      const result = await specialistRepository.find(findArguments);
       return result;
     } finally {
       connection.close();
