@@ -204,7 +204,7 @@
           "cliente"
         ],
         "summary": "Adiciona um novo cliente",
-        "description": "Cadastre um novo cliente para que possa ser possível marcar consultas e exames para o mesmo",
+        "description": "Cadastre um novo cliente para que possa ser possível marcar consultas e exames relacionado ao mesmo",
         "operationId": "addClient",
         "produces": [
           "application/json"
@@ -213,7 +213,7 @@
           {
             "in": "body",
             "name": "user",
-            "description": "Dados do usuário a ser cadastrado",
+            "description": "Dados do cliente a ser cadastrado",
             "schema": {
               "type": "object",
               "required": ["name", "cpf", "phone", "mail"],
@@ -384,6 +384,208 @@
           {
             "in": "path",
             "description": "Id do cliente a ser deletado",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/especialista": {
+      "post": {
+        "tags": [
+          "especialista"
+        ],
+        "summary": "Adiciona um novo especialista",
+        "description": "Cadastre um novo especialista para que possa ser possível marcar consultas e exames relacionados ao mesmo",
+        "operationId": "addSpecialist",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "especialista",
+            "description": "Dados do especialista a ser cadastrado",
+            "schema": {
+              "type": "object",
+              "required": ["name", "cpf", "phone", "cellphone", "mail"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "cpf": {
+                  "type": "string",
+                  "maxiumum": "14"
+                },
+                "phone": {
+                  "type": "string",
+                  "maxiumum": "14"
+                },
+                "cellphone": {
+                  "type": "string",
+                  "maxiumum": "14"
+                },
+                "mail": {
+                  "type": "string"
+                },
+                "bloodtype": {
+                  "type": "string",
+                  "enum": ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cadastro realizado com sucesso!"
+          },          
+          "400": {
+            "description": "Erro ao efetuar o cadastro"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/especialista/": {
+      "get": {
+        "tags": [
+          "especialista"
+        ],
+        "summary": "Lista de especialistas",
+        "description": "Lista todos os especialistas que foram cadastrados no sistema anteriormente",
+        "operationId": "listSpecialist",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "400": {
+            "description": "Invalid Order"
+          }
+        }
+      }
+    },
+    "/especialista/{id}": {
+      "put": {
+        "name": "especialista",
+        "tags": [
+          "especialista"
+        ],
+        "summary": "Atualiza os dados do especialista",
+        "description": "Atualiza os dados de um especialista específico selecionado pelo ID",
+        "operationId": "updateSpecialist",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do especialista a ser alterado",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "user",
+            "description": "Dados do especialista a ser alterado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "login": {
+                  "type": "string",
+                  "minimum": "6",
+                  "maxiumum": "20"
+                },
+                "password": {
+                  "type": "string",
+                  "minimum": "6"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "ID Invalido!"
+          },
+          "404": {
+            "description": "Especialista não encontrado"
+          },
+          "405": {
+            "description": "Erro no servidor"
+          }
+        }
+      },
+      "get": {
+        "name": "especialista",
+        "tags": [
+          "especialista"
+        ],
+        "summary": "Retorna os dados de um especialista cadastrado",
+        "description": "Retorna os dados de um especialista específico selecionado pelo ID",
+        "operationId": "showSpecialist",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do especialista a ser exibido",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "ID inválido"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      },
+      "delete": {
+        "name": "especialista",
+        "tags": [
+          "especialista"
+        ],
+        "summary": "Deleta do sistema um especialista",
+        "description": "Deleta um cliente do sistema que foi selecionado pelo ID",
+        "operationId": "deleteSpecialist",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do especialista a ser deletado",
             "required": true
           }
         ],
