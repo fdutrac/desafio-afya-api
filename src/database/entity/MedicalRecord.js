@@ -9,7 +9,9 @@ module.exports = new EntitySchema({
       generated: true,
     },
     openingDate: {
-      type: Date,
+      name: 'created_at',
+      type: 'time with time zone',
+      createDate: true,
       nullable: false,
     },
   },
@@ -17,8 +19,9 @@ module.exports = new EntitySchema({
     client: {
       type: 'one-to-one',
       target: 'Client',
-      joinColumn: 'true',
-      cascade: false,
+      joinColumn: true,
+      onDelete: 'CASCADE',
+      nullable: false,
     },
     medicalRecordHistories: {
       type: 'one-to-many',

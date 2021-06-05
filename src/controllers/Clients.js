@@ -1,4 +1,5 @@
 const clientRepository = require('../services/Clients');
+const medicalRecordsRepository = require('../services/MedicalRecords');
 
 async function get(req, res) {
   try {
@@ -28,7 +29,9 @@ async function update(req, res) {
 async function insert(req, res) {
   try {
     const client = req.body;
-    const result = await clientRepository.create(client);
+    const clientResult = await clientRepository.create(client);
+    const medRecordResult = await medicalRecordsRepository.create({ client: clientResult.id });
+    const result = { clientResult, medRecordResult };
     return res.json(result);
   } catch (err) {
     return res.status(400).json(err);

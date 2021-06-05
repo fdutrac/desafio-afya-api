@@ -3,7 +3,7 @@ const attendancesRepository = require('../services/Attendances');
 async function get(req, res) {
   try {
     const result = await attendancesRepository.list(req.body);
-    return (result.length >= 1 ? res.json(result) : res.json('Nenhum atendimento encontrado!'));
+    return res.json(result);
   } catch (err) {
     return res.status(400).json(err);
   }
@@ -11,7 +11,7 @@ async function get(req, res) {
 
 async function update(req, res) {
   try {
-    const result = await attendancesRepository.update(req.body);
+    const result = await attendancesRepository.update(req.params.id, req.body);
     return res.json(result);
   } catch (err) {
     return res.status(400).json(err);
@@ -20,7 +20,7 @@ async function update(req, res) {
 
 async function insert(req, res) {
   try {
-    const result = await attendancesRepository.save(req.body);
+    const result = await attendancesRepository.create(req.body);
     return res.json(result);
   } catch (err) {
     return res.status(400).json(err);
@@ -29,7 +29,7 @@ async function insert(req, res) {
 
 async function remove(req, res) {
   try {
-    const result = attendancesRepository.delete(req.params.id);
+    const result = await attendancesRepository.delete(req.params.id);
     return (result.affected ? res.status(200).json(result) : res.status(404).json(result));
   } catch (err) {
     return res.status(400).json(err);
