@@ -66,6 +66,11 @@
           "usuario"
         ],
         "summary": "Lista todos os usuários cadastrados",
+        "operationId": "listUser",
+        "description": "Faz uma lista que contém todos os usuários que já foram cadastrados no sistema",
+        "consumes":[
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ],
@@ -86,7 +91,8 @@
           "usuario"
         ],
         "summary": "Atualiza os dados do usuário",
-        "description": "",
+        "description": "Atualiza os dados de um usuário específico selecionado pelo ID",
+        "operationId": "updateUser",
         "consumes": [
           "application/json"
         ],
@@ -124,13 +130,13 @@
         ],
         "responses": {
           "400": {
-            "description": "Invalid ID supplied"
+            "description": "ID Invalido!"
           },
           "404": {
-            "description": "Pet not found"
+            "description": "Usuário não encontrado"
           },
           "405": {
-            "description": "Validation exception"
+            "description": "Erro no servidor"
           }
         }
       },
@@ -140,7 +146,8 @@
           "usuario"
         ],
         "summary": "Retorna os dados de um usuário cadastrado",
-        "description": "",
+        "description": "Retorna os dados de um cliente específico selecionado pelo ID",
+        "operationId": "showUser",
         "consumes": [
           "application/json"
         ],
@@ -169,7 +176,8 @@
           "usuario"
         ],
         "summary": "Delete do sistema um usuário",
-        "description": "",
+        "description": "Deleta um usuário do sistema que foi selecionado pelo ID",
+        "operationId": "deleteUser",
         "parameters": [
           {
             "in": "path",
@@ -190,36 +198,15 @@
         }
       }
     },
-    "/clientes": {
-      "get": {
-        "tags": [
-          "clientes"
-        ],
-        "summary": "Lista todos os clientes cadastrados",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "successful operation"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    "/clientes/": {
+    "/cliente": {
       "post": {
         "tags": [
-          "clientes"
+          "cliente"
         ],
-        "summary": "Cadastra um novo cliente",
-        "description": "",
-        "consumes": [
+        "summary": "Adiciona um novo cliente",
+        "description": "Cadastre um novo cliente para que possa ser possível marcar consultas e exames para o mesmo",
+        "operationId": "addClient",
+        "produces": [
           "application/json"
         ],
         "parameters": [
@@ -259,6 +246,35 @@
         ],
         "responses": {
           "200": {
+            "description": "Cadastro realizado com sucesso!"
+          },          
+          "400": {
+            "description": "Erro ao efetuar o cadastro"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/cliente/": {
+      "get": {
+        "tags": [
+          "cliente"
+        ],
+        "summary": "Lista de clientes",
+        "description": "Lista todos os clientes que foram cadastrados no sistema anteriormente",
+        "operationId": "listClient",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/Order"
@@ -266,6 +282,120 @@
           },
           "400": {
             "description": "Invalid Order"
+          }
+        }
+      }
+    },
+    "/cliente/{id}": {
+      "put": {
+        "name": "cliente",
+        "tags": [
+          "cliente"
+        ],
+        "summary": "Atualiza os dados do cliente",
+        "description": "Atualiza os dados de um cliente específico selecionado pelo ID",
+        "operationId": "updateClient",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do cliente a ser alterado",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "user",
+            "description": "Dados do cliente a ser alterado",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "login": {
+                  "type": "string",
+                  "minimum": "6",
+                  "maxiumum": "20"
+                },
+                "password": {
+                  "type": "string",
+                  "minimum": "6"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "ID Invalido!"
+          },
+          "404": {
+            "description": "Cliente não encontrado"
+          },
+          "405": {
+            "description": "Erro no servidor"
+          }
+        }
+      },
+      "get": {
+        "name": "cliente",
+        "tags": [
+          "cliente"
+        ],
+        "summary": "Retorna os dados de um cliente cadastrado",
+        "description": "Retorna os dados de um cliente específico selecionado pelo ID",
+        "operationId": "showClient",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do cliente a ser exibido",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "ID inválido"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      },
+      "delete": {
+        "name": "cliente",
+        "tags": [
+          "cliente"
+        ],
+        "summary": "Deleta do sistema um cliente",
+        "description": "Deleta um cliente do sistema que foi selecionado pelo ID",
+        "operationId": "deleteClient",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do cliente a ser deletado",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          },
+          "405": {
+            "description": "Validation exception"
           }
         }
       }

@@ -31,7 +31,8 @@
       "es6": true,
       "browser": true
     },
-    "rules": {"linebreak-style": 0}
+    "rules": {
+      "linebreak-style": 0
+    }
   }
 }
-
