@@ -4,7 +4,7 @@ const medicalRecordsRepository = require('../services/MedicalRecords');
 async function get(req, res) {
   try {
     const result = await medicalRecordsRepository.list();
-    return (result.length >= 1 ? res.json(result) : res.status(204).json(result));
+    return res.json(result);
   } catch (err) {
     return res.status(400).json(err);
   }

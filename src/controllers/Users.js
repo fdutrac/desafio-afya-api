@@ -4,7 +4,7 @@ async function get(req, res) {
   try {
     const param = req.body;
     const result = await userRepository.list(param);
-    return (result.length >= 1 ? res.json(result) : res.status(204).json(result));
+    return res.json(result);
   } catch (err) {
     return res.status(400).json(err);
   }
@@ -14,7 +14,7 @@ async function getOne(req, res) {
   try {
     const param = req.body;
     const result = await userRepository.getOne(param);
-    return (result.length >= 1 ? res.json(result) : res.status(204).json(result));
+    return (result.length >= 1 ? res.json(result) : res.json('Usuário não encontrado'));
   } catch (err) {
     return res.status(400).json(err);
   }

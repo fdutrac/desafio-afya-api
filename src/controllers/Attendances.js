@@ -3,7 +3,7 @@ const attendancesRepository = require('../services/Attendances');
 async function get(req, res) {
   try {
     const result = await attendancesRepository.list(req.body);
-    return (result.length >= 1 ? res.json(result) : res.status(204).json(result));
+    return (result.length >= 1 ? res.json(result) : res.json('Nenhum atendimento encontrado!'));
   } catch (err) {
     return res.status(400).json(err);
   }

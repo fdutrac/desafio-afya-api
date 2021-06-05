@@ -1,57 +1,51 @@
-const { getConnection } = require('typeorm');
+const medRecordsRepository = require('../services/MedicalRecordHistories');
 
 /* GET Medical_Record listing. */
-async function getAll(req, res) {
+async function get(req, res) {
   try {
-    const MedicalRecordsRepository = getConnection().getRepository('MedicalRecordHistory');
-    const allMedicalRecords = await MedicalRecordsRepository.find({ relations: ['client'] });
-    return res.json(allMedicalRecords);
+    const result = await medRecordsRepository.list();
+    return res.json(result);
   } catch (err) {
-    return res.json(err);
+    return res.status(400).json(err);
   }
 }
 
 async function getOne(req, res) {
   try {
-    const MedicalRecordsRepository = getConnection().getRepository('MedicalRecord');
-    const medicalRecordData = await MedicalRecordsRepository.findOne(req.params.id, { relations: ['client'] });
-    res.json(medicalRecordData);
+    const result = await medRecordsRepository.getOne(req.body);
+    return (result.length === 1 ? res.json(result) : res.json('Nenhum histórico encontrado!'));
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
+
 async function update(req, res) {
   try {
-    const MedicalRecordsRepository = getConnection().getRepository('MedicalRecord');
-    const medicalRecordData = await MedicalRecordsRepository.findOne(req.params.id);
-    MedicalRecordsRepository.merge(medicalRecordData, req.body);
-    const results = await MedicalRecordsRepository.save(medicalRecordData);
-    res.json(results);
+    const result = await medRecordsRepository.update(req.body);
+    return res.json(result);
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
 
 async function insert(req, res) {
   try {
-    const MedicalRecordsRepository = getConnection().getRepository('MedicalRecord');
-    const results = await MedicalRecordsRepository.save(req.body);
-    res.json(results);
+    const result = await medRecordsRepository.create(req.body);
+    return res.json(result);
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
 
 async function remove(req, res) {
   try {
-    const MedicalRecordsRepository = getConnection().getRepository('MedicalRecord');
-    const results = MedicalRecordsRepository.delete(req.params.id);
-    res.json(results);
+    const result = medRecordsRepository.delete(req.params.id);
+    return (result.affected ? res.status(200).json(result) : res.status(404).json(result));
   } catch (err) {
-    res.json(err);
+    return res.status(400).json(err);
   }
 }
 
 module.exports = {
-  getAll, getOne, insert, update, remove,
+  get, getOne, insert, update, remove,
 };

@@ -12,7 +12,7 @@ async function auth(req, res) {
       user.token = JwtToken.makeToken(user);
       return res.json(user);
     }
-    return res.status(404).send({
+    return res.send({
       message: 'Login ou senha inválidos',
     });
   } catch (err) {
