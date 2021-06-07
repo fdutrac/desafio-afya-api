@@ -30,7 +30,7 @@ module.exports = new EntitySchema({
     status: {
       type: 'enum',
       enum: ['AGENDADO', 'REALIZADO', 'CANCELADO'],
-      // default: 'AGENDADO',
+      default: 'AGENDADO',
       nullable: false,
     },
     ...baseModel,
