@@ -3,7 +3,7 @@ const professionsRepository = require('../services/Professions');
 /* GET Profession listing. */
 async function get(req, res) {
   try {
-    const result = await professionsRepository.list(req.body);
+    const result = await professionsRepository.list(req.query);
     return res.json(result);
   } catch (err) {
     return res.status(400).json(err);

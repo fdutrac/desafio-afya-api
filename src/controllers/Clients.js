@@ -3,7 +3,7 @@ const medicalRecordsRepository = require('../services/MedicalRecords');
 
 async function get(req, res) {
   try {
-    const result = await clientRepository.list(req.body);
+    const result = await clientRepository.list(req.query);
     return res.json(result);
   } catch (err) {
     return res.status(400).json(err);
@@ -12,7 +12,7 @@ async function get(req, res) {
 async function getById(req, res) {
   try {
     const result = await clientRepository.getOne(req.params.id);
-    return (result.length === 1 ? res.json(result) : res.json('Nenhum cliente encontrado!'));
+    return res.json(result);
   } catch (err) {
     return res.status(400).json(err);
   }

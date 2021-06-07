@@ -12,7 +12,7 @@ async function get(req, res) {
 
 async function getOne(req, res) {
   try {
-    const result = await medicalRecordsRepository.getByName(req.body);
+    const result = await medicalRecordsRepository.getByName(req.query);
     return res.json(result);
   } catch (err) {
     return res.status(400).json(err);

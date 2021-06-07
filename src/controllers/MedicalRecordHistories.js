@@ -12,8 +12,8 @@ async function get(req, res) {
 
 async function getOne(req, res) {
   try {
-    const result = await medRecordsRepository.getOne(req.body);
-    return (result.length === 1 ? res.json(result) : res.json('Nenhum histórico encontrado!'));
+    const result = await medRecordsRepository.getOne(req.query);
+    return res.json(result);
   } catch (err) {
     return res.status(400).json(err);
   }
