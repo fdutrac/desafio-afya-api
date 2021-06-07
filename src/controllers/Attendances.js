@@ -1,9 +1,12 @@
+const _ = require('lodash');
 const attendancesRepository = require('../services/Attendances');
 
 async function get(req, res) {
   try {
-    // valida se existe os parametros de consulta;
-    if (!req.query.date_scheduling && !req.query.date_attendance && !req.query.patient && !req.query.specialist) { return res.json('Campos inválidos!'); }
+    // Verifica se existem parametros de consulta e os valida;
+    if (!_.isEmpty(req.query)) {
+      if (!req.query.date_scheduling && !req.query.date_attendance && !req.query.patient && !req.query.specialist) { return res.json('Campos inválidos!'); }
+    }
     const result = await attendancesRepository.list(req.query);
     return res.json(result);
   } catch (err) {
@@ -31,6 +34,9 @@ async function insert(req, res) {
 
 async function remove(req, res) {
   try {
+    const exist = await attendancesRepository.getById(req.params.id);
+    console.log('===============', exist);
+    if (!exist) { return 'Registro não existe no banco de dados!'; }
     const result = await attendancesRepository.delete(req.params.id);
     return (result.affected ? res.status(200).json(result) : res.status(204).json(result));
   } catch (err) {

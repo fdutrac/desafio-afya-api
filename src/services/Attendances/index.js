@@ -27,6 +27,17 @@ module.exports = {
     }
   },
 
+  async getById(id) {
+    const connection = await createConnection();
+    try {
+      const attendancesRepository = getRepository('Attendance');
+      const result = await attendancesRepository.find(id, { relations: ['patient', 'specialist'] });
+      return result;
+    } finally {
+      connection.close();
+    }
+  },
+
   async update(id, data) {
     const connection = await createConnection();
     try {
