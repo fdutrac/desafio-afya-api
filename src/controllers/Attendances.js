@@ -2,6 +2,8 @@ const attendancesRepository = require('../services/Attendances');
 
 async function get(req, res) {
   try {
+    // valida se existe os parametros de consulta;
+    if (!req.query.date_scheduling && !req.query.date_attendance && !req.query.patient && !req.query.specialist) { return res.json('Campos inválidos!'); }
     const result = await attendancesRepository.list(req.query);
     return res.json(result);
   } catch (err) {
