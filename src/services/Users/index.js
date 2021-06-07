@@ -18,11 +18,11 @@ module.exports = {
     }
   },
 
-  async list() {
+  async list(param) {
     const connection = await createConnection();
     try {
       const userRepository = getRepository('User');
-      const result = await userRepository.find();
+      const result = await userRepository.find(param);
       return result;
     } finally {
       connection.close();
@@ -44,9 +44,8 @@ module.exports = {
     const connection = await createConnection();
     try {
       const userRepository = getRepository('User');
-      const user = await userRepository.findOne(id);
-      userRepository.merge(user, data);
-      const result = await userRepository.save(user);
+      await userRepository.update(id, data);
+      const result = await userRepository.findOne(id);
       return result;
     } finally {
       connection.close();

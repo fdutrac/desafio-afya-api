@@ -40,9 +40,8 @@ module.exports = {
     const connection = await createConnection();
     try {
       const medRecordHistories = getRepository('MedicalRecordHistory');
-      const attendance = await medRecordHistories.findOne(id, { relations: ['specialist', 'medicalRecord'] });
-      medRecordHistories.merge(attendance, data);
-      const result = await medRecordHistories.save(attendance);
+      await medRecordHistories.update(id, data);
+      const result = await medRecordHistories.findOne(id, { relations: ['specialist', 'medicalRecord'] });
       return result;
     } finally {
       connection.close();

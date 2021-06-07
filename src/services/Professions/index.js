@@ -38,9 +38,8 @@ module.exports = {
     const connection = await createConnection();
     try {
       const professionRepository = getRepository('Profession');
-      const profession = await professionRepository.findOne(id);
-      professionRepository.merge(profession, data);
-      const result = await professionRepository.save(profession);
+      await professionRepository.update(id, data);
+      const result = await professionRepository.findOne(id);
       return result;
     } finally {
       connection.close();

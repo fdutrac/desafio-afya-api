@@ -41,9 +41,8 @@ module.exports = {
     const connection = await createConnection();
     try {
       const specialistRepository = getRepository('Specialist');
-      const specialist = await specialistRepository.findOne(id, { relations: ['address', 'profession'] });
-      specialistRepository.merge(specialist, data);
-      const result = await specialistRepository.save(specialist);
+      await specialistRepository.update(id, data);
+      const result = await specialistRepository.findOne(id, { relations: ['address', 'profession'] });
       return result;
     } finally {
       connection.close();
