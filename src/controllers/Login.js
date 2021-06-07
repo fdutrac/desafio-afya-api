@@ -6,11 +6,10 @@ async function auth(req, res) {
   const { login, password } = req.body;
   try {
     const user = await userRepository.getOne({ login });
-
-    if (user && bcrypt.compare(password, user.password)) {
+    if (user && bcrypt.compareSync(password, user.password)) {
       delete user.password;
       user.token = JwtToken.makeToken(user);
-      return res.json(user);
+      return res.status(201).json(user);
     }
     return res.send({
       message: 'Login ou senha inválidos',
