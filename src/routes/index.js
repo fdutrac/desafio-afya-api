@@ -2,6 +2,10 @@ const express = require('express');
 
 const router = express.Router();
 
+const { checkSchema } = require('express-validator');
+
+const userSchema = require('../middleware/validation/schemas/UserSchema');
+
 const Controllers = require('../controllers/index');
 
 // HOME PAGE
@@ -11,7 +15,7 @@ router.get('/', (req, res) => {
 
 // LOGIN
 // Valida e efetua login
-router.post('/login', Controllers.Login.auth);
+router.post('/login', checkSchema(userSchema.isValid), Controllers.Login.auth);
 
 // CLIENTES
 // Lista todos clientes
@@ -94,10 +98,10 @@ router.delete('/especialistas/:id', Controllers.Specialists.remove);
 
 router.get('/usuarios', Controllers.Users.get);
 
-router.put('/usuarios/:id', Controllers.Users.update);
+router.put('/usuarios/:id', checkSchema(userSchema.isValid), Controllers.Users.update);
 
-router.post('/usuarios', Controllers.Users.insert);
+router.post('/usuarios', checkSchema(userSchema.isValid), Controllers.Users.insert);
 
-router.delete('/usuarios/:id', Controllers.Users.remove);
+router.delete('/usuarios/:id', checkSchema(userSchema.exists), Controllers.Users.remove);
 
 module.exports = router;
