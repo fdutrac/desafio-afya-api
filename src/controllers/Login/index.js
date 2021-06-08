@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
-const userRepository = require('../services/Login');
-const JwtToken = require('../helpers/jwtToken');
+const userRepository = require('../../services/Login');
+const JwtToken = require('../../helpers/jwtToken');
 
 async function auth(req, res) {
   const { login, password } = req.body;

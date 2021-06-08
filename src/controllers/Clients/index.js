@@ -1,5 +1,5 @@
-const clientRepository = require('../services/Clients');
-const medicalRecordsRepository = require('../services/MedicalRecords');
+const clientRepository = require('../../services/Clients');
+const medicalRecordsRepository = require('../../services/MedicalRecords');
 
 async function get(req, res) {
   try {

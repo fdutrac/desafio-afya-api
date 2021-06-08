@@ -1,4 +1,4 @@
-const specialistRepository = require('../services/Specialists');
+const specialistRepository = require('../../services/Specialists');
 
 async function get(req, res) {
   try {

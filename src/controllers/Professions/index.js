@@ -1,4 +1,4 @@
-const professionsRepository = require('../services/Professions');
+const professionsRepository = require('../../services/Professions');
 
 /* GET Profession listing. */
 async function get(req, res) {
