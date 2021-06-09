@@ -31,7 +31,7 @@ module.exports = {
         options: async (value, { req }) => {
           const exist = await userRepository.getOne(req.params.id);
           if (!exist) {
-            return Promise.reject(Error('Usuário não existe!'));
+            return Promise.reject(Error(this.errorMessage));
           }
           return true;
         },

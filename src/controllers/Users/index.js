@@ -1,5 +1,5 @@
 const { validationResult } = require('express-validator');
-const userRepository = require('../services/Users');
+const userRepository = require('../../services/Users');
 
 async function get(req, res) {
   try {
