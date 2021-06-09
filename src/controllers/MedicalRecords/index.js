@@ -30,7 +30,7 @@ async function update(req, res) {
 async function insert(req, res) {
   try {
     const result = await medicalRecordsRepository.create(req.body);
-    return res.json(result);
+    return res.status(201).json(result);
   } catch (err) {
     return res.status(400).json(err);
   }

@@ -2,7 +2,7 @@
 const request = require('supertest');
 const app = require('../../../app');
 
-const testUser = {};
+const testUser = { };
 
 const fakeInvalidUser = {
   name: 'ze',
@@ -38,9 +38,9 @@ it('should return status 400', async () => {
 
 // Testa cadastrar usuario válido
 
-it('should return status 200', async () => {
+it('should return status 201', async () => {
   const res = await request(app).post('/usuarios').send(fakeValidUser);
-  expect(res.status).toBe(200);
+  expect(res.status).toBe(201);
   this.testUser = res.body;
 });
 

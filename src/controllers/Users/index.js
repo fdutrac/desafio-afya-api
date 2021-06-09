@@ -21,10 +21,12 @@ async function getOne(req, res) {
 
 async function update(req, res) {
   try {
+    // Verifica se existem erros de validação
     const validationErrors = validationResult(req);
     if (!validationErrors.isEmpty()) {
       return res.status(400).json(validationErrors.array());
     }
+
     const result = await userRepository.update(req.params.id, req.body);
     return res.json(result);
   } catch (err) {
@@ -34,13 +36,15 @@ async function update(req, res) {
 
 async function insert(req, res) {
   try {
+    // Verifica se existem erros de validação
     const validationErrors = validationResult(req);
     if (!validationErrors.isEmpty()) {
       return res.status(400).json(validationErrors.array());
     }
+
     const user = req.body;
     const result = await userRepository.create(user);
-    return res.json(result);
+    return res.status(201).json(result);
   } catch (err) {
     return res.status(400).json(err);
   }
@@ -48,7 +52,9 @@ async function insert(req, res) {
 
 async function remove(req, res) {
   try {
+    // Verifica se existem erros de validação
     const validationErrors = validationResult(req);
+
     if (!validationErrors.isEmpty()) {
       return res.status(404).json(validationErrors.array());
     }

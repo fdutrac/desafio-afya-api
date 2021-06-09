@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const specialistRepository = require('../../services/Specialists');
 
 async function get(req, res) {
@@ -17,6 +18,12 @@ async function getById(req, res) {
   }
 }
 async function update(req, res) {
+  // Verifica se existem erros de validação
+  const validationErrors = validationResult(req);
+  if (!validationErrors.isEmpty()) {
+    return res.status(400).json(validationErrors.array());
+  }
+
   try {
     const result = await specialistRepository.update(req.params.id, req.body);
     return res.json(result);
@@ -27,9 +34,15 @@ async function update(req, res) {
 
 async function insert(req, res) {
   try {
+    // Verifica se existem erros de validação
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+      return res.status(400).json(validationErrors.array());
+    }
+
     const specialist = req.body;
     const result = await specialistRepository.create(specialist);
-    return res.json(result);
+    return res.status(201).json(result);
   } catch (err) {
     return res.status(400).json(err);
   }
@@ -37,8 +50,14 @@ async function insert(req, res) {
 
 async function remove(req, res) {
   try {
+    // Verifica se existem erros de validação
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+      return res.status(404).json(validationErrors.array());
+    }
+
     const result = await specialistRepository.delete(req.params.id);
-    return (result.affected ? res.status(200).json(result) : res.status(404).json(result));
+    return res.status(200).json(result);
   } catch (err) {
     return res.status(400).json(err);
   }
