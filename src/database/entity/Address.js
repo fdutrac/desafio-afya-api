@@ -11,6 +11,7 @@ module.exports = new EntitySchema({
     cep: {
       type: String,
       length: 255,
+      // 8
       nullable: false,
     },
     street: {
@@ -21,7 +22,7 @@ module.exports = new EntitySchema({
     // number: {
     //   type: String,
     //   length: 50,
-    //   nullable: false,
+    //   nullable: true,
     // },
     complement: {
       type: String,
@@ -36,7 +37,7 @@ module.exports = new EntitySchema({
     locality: {
       type: String,
       length: 255,
-      nullable: true,
+      nullable: false,
     },
     state: {
       type: String,
