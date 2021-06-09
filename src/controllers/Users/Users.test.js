@@ -61,7 +61,7 @@ it('should return status 200', async () => {
 // Testa deletar usuário inexistente
 
 it('should return status 404', async () => {
-  const res = await request(app).delete(`/usuarios/${(this.testUser + 1)}`);
+  const res = await request(app).delete(`/usuarios/${(this.testUser.id + 1)}`);
   expect(res.status).toBe(404);
 });
 
