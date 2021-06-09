@@ -6,6 +6,8 @@ const router = express.Router();
 
 const userSchema = require('../middleware/validation/schemas/UserSchema');
 const clientSchema = require('../middleware/validation/schemas/ClientSchema');
+const specialistSchema = require('../middleware/validation/schemas/SpecialistSchema');
+
 const swaggerDocument = require('../../swagger.json');
 const Controllers = require('../controllers/index');
 
@@ -87,11 +89,11 @@ router.get('/especialistas', Controllers.Specialists.get);
 
 router.get('/especialistas/:id', Controllers.Specialists.getById);
 
-router.put('/especialistas/:id', Controllers.Specialists.update);
+router.put('/especialistas/:id', checkSchema(specialistSchema.isValid), Controllers.Specialists.update);
 
-router.post('/especialistas', Controllers.Specialists.insert);
+router.post('/especialistas', checkSchema(specialistSchema.isValid), Controllers.Specialists.insert);
 
-router.delete('/especialistas/:id', Controllers.Specialists.remove);
+router.delete('/especialistas/:id', checkSchema(specialistSchema.exists), Controllers.Specialists.remove);
 
 // USUARIOS
 

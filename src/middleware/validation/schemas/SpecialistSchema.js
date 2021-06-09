@@ -1,4 +1,4 @@
-const clientRepository = require('../../../services/Clients');
+const specialistsRepository = require('../../../services/Specialists');
 
 module.exports = {
   isValid: {
@@ -8,10 +8,10 @@ module.exports = {
         options: { min: 3, max: 255 },
       },
     },
-    cpf: {
+    register: {
       isLength: {
-        errorMessage: 'CPF deve ter entre 11 e 14 caracteres (com pontos).',
-        options: { min: 11, max: 14 },
+        errorMessage: 'Registro deve ter entre 6 e 14 dígitos.',
+        options: { min: 6, max: 14 },
       },
     },
     phone: {
@@ -34,20 +34,13 @@ module.exports = {
       },
       errorMessage: 'E-mail é obrigatório!',
     },
-    bloodtype: {
-      notEmpty: false,
-      isIn: {
-        options: [['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-']],
-        errorMessage: 'Tipo sanguíneo inválido.',
-      },
-    },
     'address.cep': {
       notEmpty: true,
       isLength: {
         options: { min: 8, max: 8 },
         errorMessage: 'CEP inválido!',
       },
-      errorMessage: 'Informe um CEP válido.',
+      errorMessage: 'CEP é um campo obrigatório.',
     },
     'address.street': {
       notEmpty: true,
@@ -65,13 +58,17 @@ module.exports = {
       notEmpty: true,
       errorMessage: 'Estado é um campo obrigatório.',
     },
+    profession: {
+      notEmpty: true,
+      errorMessage: 'Id da Profissão é um campo obrigatório.',
+    },
   },
   exists: {
     doExist: {
       custom: {
-        errorMessage: 'Não existe nenhum Cliente com esse id no sistema :(',
+        errorMessage: 'Não existe nenhum Especialista com esse id no sistema :(',
         options: async (value, { req }) => {
-          const exist = await clientRepository.getOne(req.params.id);
+          const exist = await specialistsRepository.getOne(req.params.id);
           if (!exist) {
             return Promise.reject(Error(this.errorMessage));
           }

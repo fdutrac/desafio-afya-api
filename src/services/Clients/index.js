@@ -42,8 +42,9 @@ module.exports = {
     const connection = await createConnection();
     try {
       const clientRepository = getRepository('Client');
-      await clientRepository.update(id, data);
-      const result = await clientRepository.findOne(id, { relations: ['address'] });
+      const clientToUpdate = await clientRepository.findOne(id, { relations: ['address'] });
+      clientRepository.merge(clientToUpdate, data);
+      const result = await clientRepository.save(clientToUpdate);
       return result;
     } finally {
       connection.close();
