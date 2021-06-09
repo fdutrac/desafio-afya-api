@@ -1,5 +1,5 @@
 // const _ = require('lodash');
-const attendancesRepository = require('../services/Attendances');
+const attendancesRepository = require('../../services/Attendances');
 
 async function get(req, res) {
   try {
