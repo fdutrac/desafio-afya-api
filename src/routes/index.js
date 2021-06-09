@@ -1,17 +1,16 @@
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const { checkSchema } = require('express-validator');
 
 const router = express.Router();
 
-const { checkSchema } = require('express-validator');
-
 const userSchema = require('../middleware/validation/schemas/UserSchema');
-
+const clientSchema = require('../middleware/validation/schemas/ClientSchema');
+const swaggerDocument = require('../../swagger.json');
 const Controllers = require('../controllers/index');
 
-// HOME PAGE
-router.get('/', (req, res) => {
-  res.render('index', { title: 'Express' });
-});
+// DOCUMENTAÇÃO
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // LOGIN
 // Valida e efetua login
@@ -25,13 +24,13 @@ router.get('/clientes', Controllers.Clients.get);
 router.get('/clientes/:id', Controllers.Clients.getById);
 
 // Atualiza cliente
-router.put('/clientes/:id', Controllers.Clients.update);
+router.put('/clientes/:id', checkSchema(clientSchema.isValid), Controllers.Clients.update);
 
 // Cria novo cliente
-router.post('/clientes/', Controllers.Clients.insert);
+router.post('/clientes/', checkSchema(clientSchema.isValid), Controllers.Clients.insert);
 
 // Deleta um cliente
-router.delete('/clientes/:id', Controllers.Clients.remove);
+router.delete('/clientes/:id', checkSchema(clientSchema.exists), Controllers.Clients.remove);
 
 // ATENDIMENTOS
 
