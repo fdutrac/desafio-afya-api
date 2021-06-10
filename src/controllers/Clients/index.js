@@ -1,7 +1,6 @@
 const { validationResult } = require('express-validator');
 
 const clientRepository = require('../../services/Clients');
-const medicalRecordsRepository = require('../../services/MedicalRecords');
 
 async function get(req, res) {
   try {
@@ -45,10 +44,7 @@ async function insert(req, res) {
     }
 
     const client = req.body;
-    const clientResult = await clientRepository.create(client);
-    // Cria um novo Prontuário para o cliente cadastrado
-    const medRecordResult = await medicalRecordsRepository.create({ client: clientResult.id });
-    const result = { clientResult, medRecordResult };
+    const result = await clientRepository.create(client);
     return res.status(201).json(result);
   } catch (err) {
     return res.status(400).json(err);
