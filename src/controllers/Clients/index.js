@@ -10,7 +10,7 @@ async function get(req, res) {
     return res.status(400).json(err);
   }
 }
-async function getById(req, res) {
+async function getOne(req, res) {
   try {
     const result = await clientRepository.getOne(req.params.id);
     return res.json(result);
@@ -66,5 +66,5 @@ async function remove(req, res) {
   }
 }
 module.exports = {
-  get, getById, insert, update, remove,
+  get, getOne, insert, update, remove,
 };

@@ -23,11 +23,11 @@ module.exports = {
     }
   },
 
-  async list() {
+  async list(param) {
     const connection = await createConnection();
     try {
       const professionRepository = getRepository('Profession');
-      const result = await professionRepository.find();
+      const result = await professionRepository.find(param);
       return result;
     } finally {
       connection.close();

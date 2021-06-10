@@ -10,6 +10,15 @@ async function get(req, res) {
   }
 }
 
+async function getOne(req, res) {
+  try {
+    const result = await professionsRepository.getOne(req.params.id);
+    return res.json(result);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+}
+
 async function update(req, res) {
   try {
     const result = await professionsRepository.update(req.params.id, req.body);
@@ -38,5 +47,5 @@ async function remove(req, res) {
 }
 
 module.exports = {
-  get, insert, update, remove,
+  get, getOne, insert, update, remove,
 };

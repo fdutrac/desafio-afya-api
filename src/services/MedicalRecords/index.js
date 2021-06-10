@@ -24,7 +24,7 @@ module.exports = {
     }
   },
 
-  async getByName(param) {
+  async getOne(param) {
     const connection = await createConnection();
 
     try {

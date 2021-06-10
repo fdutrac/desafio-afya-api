@@ -1,13 +1,31 @@
-// const _ = require('lodash');
+const { validationResult } = require('express-validator');
 const attendancesRepository = require('../../services/Attendances');
 
 async function get(req, res) {
   try {
-    // Verifica se existem parametros de consulta e os valida;
-    // if (!_.isEmpty(req.query)) {
-    //   if (!req.query.date_scheduling && !req.query.date_attendance && !req.query.patient && !req.query.specialist) { return res.json('Campos inválidos!'); }
-    // }
+    // Verifica se existem erros de validação
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+      return res.status(400).json(validationErrors.array());
+    }
+
     const result = await attendancesRepository.list(req.query);
+    return res.json(result);
+  } catch (err) {
+    return res.status(400).json(err);
+  }
+}
+
+async function getOne(req, res) {
+  try {
+    // Verifica se existem erros de validação
+    const validationErrors = validationResult(req);
+
+    if (!validationErrors.isEmpty()) {
+      return res.status(400).json(validationErrors.array());
+    }
+
+    const result = await attendancesRepository.getOne(req.query);
     return res.json(result);
   } catch (err) {
     return res.status(400).json(err);
@@ -16,6 +34,12 @@ async function get(req, res) {
 
 async function update(req, res) {
   try {
+    // Verifica se existem erros de validação
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+      return res.status(400).json(validationErrors.array());
+    }
+
     const result = await attendancesRepository.update(req.params.id, req.body);
     return res.json(result);
   } catch (err) {
@@ -25,6 +49,12 @@ async function update(req, res) {
 
 async function insert(req, res) {
   try {
+    // Verifica se existem erros de validação
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+      return res.status(400).json(validationErrors.array());
+    }
+
     const result = await attendancesRepository.create(req.body);
     return res.status(201).json(result);
   } catch (err) {
@@ -34,6 +64,12 @@ async function insert(req, res) {
 
 async function remove(req, res) {
   try {
+    // Verifica se existem erros de validação
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+      return res.status(404).json(validationErrors.array());
+    }
+
     const exist = await attendancesRepository.getById(req.params.id);
     if (!exist) return res.status(404).json('Registro não existe no banco de dados!');
     const result = await attendancesRepository.delete(req.params.id);
@@ -44,5 +80,5 @@ async function remove(req, res) {
 }
 
 module.exports = {
-  get, insert, update, remove,
+  get, getOne, insert, update, remove,
 };
