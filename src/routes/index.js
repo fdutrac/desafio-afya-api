@@ -4,7 +4,8 @@ const { checkSchema } = require('express-validator');
 
 const router = express.Router();
 
-const userSchema = require('../middleware/validation/schemas/UserSchema');
+const userIsValid = require('../middleware/validation/schemas/User/put-post');
+const userExists = require('../middleware/validation/schemas/User/exists');
 const clientSchema = require('../middleware/validation/schemas/ClientSchema');
 const specialistSchema = require('../middleware/validation/schemas/SpecialistSchema');
 
@@ -16,7 +17,7 @@ router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // LOGIN
 // Valida e efetua login
-router.post('/login', checkSchema(userSchema.isValid), Controllers.Login.auth);
+router.post('/login', checkSchema(userIsValid), Controllers.Login.auth);
 
 // CLIENTES
 // Lista todos clientes
@@ -99,10 +100,10 @@ router.delete('/especialistas/:id', checkSchema(specialistSchema.exists), Contro
 
 router.get('/usuarios', Controllers.Users.get);
 
-router.put('/usuarios/:id', checkSchema(userSchema.isValid), Controllers.Users.update);
+router.put('/usuarios/:id', checkSchema(userIsValid), Controllers.Users.update);
 
-router.post('/usuarios', checkSchema(userSchema.isValid), Controllers.Users.insert);
+router.post('/usuarios', checkSchema(userIsValid), Controllers.Users.insert);
 
-router.delete('/usuarios/:id', checkSchema(userSchema.exists), Controllers.Users.remove);
+router.delete('/usuarios/:id', checkSchema(userExists), Controllers.Users.remove);
 
 module.exports = router;
