@@ -1,4 +1,6 @@
 const attendancesRepository = require('../../../../services/Attendances');
+const clientsRepository = require('../../../../services/Clients');
+const specialistsRepository = require('../../../../services/Specialists');
 
 module.exports = {
   date_attendance: {
@@ -24,21 +26,21 @@ module.exports = {
   dontExist: {
     custom: {
       options: async (value, { req }) => {
-        const existDate = await attendancesRepository.list({
+        const isPatientBusy = await attendancesRepository.list({
           date_attendance: req.body.date_attendance,
-        });
-
-        const existHour = await attendancesRepository.list({
           date_hour: req.body.date_hour,
-        });
-
-        const existPatient = await attendancesRepository.getOne({
           patient: req.body.patient,
         });
 
-        const existSpecialist = await attendancesRepository.getOne({
-          specialist: req.body.specialist,
+        const isSpecialistBusy = await attendancesRepository.list({
+          date_attendance: req.body.date_attendance,
+          date_hour: req.body.date_hour,
+          specialist: req.body.patient,
         });
+
+        const existPatient = await clientsRepository.getOne(req.body.patient);
+
+        const existSpecialist = await specialistsRepository.getOne(req.body.specialist);
 
         if (!existPatient) {
           return Promise.reject(Error('Não existe nenhum Paciente com esse id cadastrado!'));
@@ -46,10 +48,10 @@ module.exports = {
         if (!existSpecialist) {
           return Promise.reject(Error('Não existe nenhum Especialista com esse id cadastrado!'));
         }
-        if (existDate !== [] && existHour !== [] && existPatient !== []) {
+        if (isPatientBusy) {
           return Promise.reject(Error('Já existe um Atendimento desse Paciente neste horário.'));
         }
-        if (existDate && existHour && existSpecialist) {
+        if (isSpecialistBusy) {
           return Promise.reject(Error('Já existe um Atendimento desse Especialista neste horário.'));
         }
         return true;
