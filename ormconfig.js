@@ -17,7 +17,7 @@ module.exports = {
   password: process.env.DB_PASSWORD,
   logging: false,
   logger: 'simple-console',
-  database: 'clinica-medica',
+  database: process.env.DB_NAME,
   entities: [
     UserEntity,
     ClientEntity,
