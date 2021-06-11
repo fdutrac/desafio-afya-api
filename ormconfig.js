@@ -28,8 +28,8 @@ module.exports = {
     MedicalRecordHistoryEntity,
     AttendanceEntity,
   ],
-  migrations: ['./src/database/migration/*.js'],
+  migrations: ['./src/database/migrations/*.js'],
   cli: {
-    migrationsDir: './src/database/migration',
+    migrationsDir: './src/database/migrations',
   },
 };
