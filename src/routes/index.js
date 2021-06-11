@@ -25,7 +25,7 @@ const professionExists = require('../middleware/validation/schemas/Profession/ex
 const medRecordHistoryIsValid = require('../middleware/validation/schemas/MedicalRecordHistory/put-post');
 const medRecordHistoryExists = require('../middleware/validation/schemas/MedicalRecordHistory/exists');
 
-// const swaggerDocument = require('../../swagger.json');
+const swaggerDocument = require('../../swagger.json');
 const Controllers = require('../controllers/index');
 
 // DOCUMENTAÇÃO
