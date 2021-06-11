@@ -48,10 +48,10 @@ module.exports = {
         if (!existSpecialist) {
           return Promise.reject(Error('Não existe nenhum Especialista com esse id cadastrado!'));
         }
-        if (isPatientBusy !== 0) {
+        if (isPatientBusy.length !== 0) {
           return Promise.reject(Error('Já existe um Atendimento desse Paciente neste horário.'));
         }
-        if (isSpecialistBusy !== 0) {
+        if (isSpecialistBusy.length !== 0) {
           return Promise.reject(Error('Já existe um Atendimento desse Especialista neste horário.'));
         }
         return true;
