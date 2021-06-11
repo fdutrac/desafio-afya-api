@@ -11,10 +11,13 @@ module.exports = {
   type: 'postgres',
   // name: "clinica-medica",
   synchronize: false,
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
+  url: 'postgres://netagqufxmjzey:8f643bf14fed9573f89a9cefb06be9e0895f1fcfe287fd55f890d4a5398aadc6@ec2-34-193-101-0.compute-1.amazonaws.com:5432/d5ctm79td0uh8o',
+  ssl: true,
+  extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
   logging: false,
   logger: 'simple-console',
   database: process.env.DB_NAME,
