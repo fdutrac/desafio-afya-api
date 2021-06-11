@@ -19,11 +19,11 @@ module.exports = new EntitySchema({
       length: 255,
       nullable: false,
     },
-    // number: {
-    //   type: String,
-    //   length: 50,
-    //   nullable: true,
-    // },
+    number: {
+      type: String,
+      length: 50,
+      nullable: true,
+    },
     complement: {
       type: String,
       length: 255,

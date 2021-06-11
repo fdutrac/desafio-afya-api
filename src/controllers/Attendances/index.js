@@ -25,7 +25,7 @@ async function getOne(req, res) {
       return res.status(400).json(validationErrors.array());
     }
 
-    const result = await attendancesRepository.getOne(req.query);
+    const result = await attendancesRepository.getOne(req.params.id);
     return res.json(result);
   } catch (err) {
     return res.status(400).json(err);

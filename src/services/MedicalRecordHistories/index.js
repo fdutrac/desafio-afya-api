@@ -1,11 +1,11 @@
 const { createConnection, getRepository } = require('typeorm');
 
 module.exports = {
-  async create(attendance) {
+  async create(data) {
     const connection = await createConnection();
     try {
-      const medRecordHistories = getRepository('MedicalRecordHistoryHistory');
-      const result = await medRecordHistories.save(attendance);
+      const medRecordHistories = getRepository('MedicalRecordHistory');
+      const result = await medRecordHistories.save(data);
       return result;
     } finally {
       connection.close();

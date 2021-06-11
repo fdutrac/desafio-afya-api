@@ -26,7 +26,6 @@ module.exports = new EntitySchema({
     medicalRecordHistories: {
       type: 'one-to-many',
       target: 'MedicalRecordHistory',
-      cascade: true,
     },
   },
 });

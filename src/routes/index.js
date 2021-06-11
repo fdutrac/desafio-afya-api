@@ -46,7 +46,7 @@ router.delete('/clientes/:id', checkSchema(clientExists), Controllers.Clients.re
 router.get('/atendimentos', checkSchema(attendanceValidRequest), Controllers.Attendances.get);
 
 // Lista um atendimentos por Id
-router.get('/atendimentos', checkSchema(attendanceValidRequest), Controllers.Attendances.getOne);
+router.get('/atendimentos/:id', Controllers.Attendances.getOne);
 
 // Atualiza atendimento
 router.put('/atendimentos/:id', checkSchema(attendanceIsValid), Controllers.Attendances.update);
@@ -71,15 +71,15 @@ router.delete('/prontuarios/:id', Controllers.MedicalRecords.remove);
 
 // HISTÓRICOS DE PRONTUÁRIO
 
-router.get('/prontuarios', Controllers.MedicalRecordHistories.get);
+router.get('/historicos_prontuario', Controllers.MedicalRecordHistories.get);
 
-router.get('/prontuarios/:id', Controllers.MedicalRecordHistories.getOne);
+router.get('/historicos_prontuario/:id', Controllers.MedicalRecordHistories.getOne);
 
-router.put('/prontuarios/:id', Controllers.MedicalRecordHistories.update);
+router.put('/historicos_prontuario/:id', Controllers.MedicalRecordHistories.update);
 
-router.post('/prontuarios', Controllers.MedicalRecordHistories.insert);
+router.post('/historicos_prontuario', Controllers.MedicalRecordHistories.insert);
 
-router.delete('/prontuarios/:id', Controllers.MedicalRecordHistories.remove);
+router.delete('/historicos_prontuario/:id', Controllers.MedicalRecordHistories.remove);
 
 // PROFISSÕES
 

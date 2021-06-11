@@ -22,7 +22,7 @@ module.exports = new EntitySchema({
     phone: {
       type: String,
       length: 14,
-      nullable: true, // mudar para false
+      nullable: false,
     },
     cellphone: {
       type: String,
@@ -31,8 +31,7 @@ module.exports = new EntitySchema({
     },
     mail: {
       type: String,
-      length: 50,
-      // 255
+      length: 255,
       unique: true,
       nullable: false,
     },

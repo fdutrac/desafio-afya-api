@@ -29,7 +29,11 @@ module.exports = {
 
     try {
       const medicalRecordsRepository = getRepository('MedicalRecord');
-      const result = await medicalRecordsRepository.findOne(param, { relations: ['client', 'medicalRecordHistories'] });
+      const result = await medicalRecordsRepository.findOne(param, { relations: ['client'] });
+      const medRecordHistoriesRepository = getRepository('MedicalRecordHistory');
+      result.histories = await medRecordHistoriesRepository.find({
+        where: { medicalRecord: result.id },
+      });
       return result;
     } finally {
       connection.close();
