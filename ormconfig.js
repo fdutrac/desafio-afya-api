@@ -10,7 +10,7 @@ const AttendanceEntity = require('./src/database/entity/Attendance');
 module.exports = {
   type: 'postgres',
   // name: "clinica-medica",
-  synchronize: true,
+  synchronize: false,
   host: 'localhost',
   port: 5432,
   username: 'postgres',
