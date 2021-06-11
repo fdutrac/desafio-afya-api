@@ -1,5 +1,5 @@
 const { createConnection, getRepository } = require('typeorm');
-const bcrypt = require('bcrypt');
+const bcrypt = require('../../helpers/bcrypt');
 
 module.exports = {
   async create(data) {
@@ -8,7 +8,7 @@ module.exports = {
       const user = data;
       const userRepository = getRepository('User');
       // Criptografa a senha
-      const cryptoPass = bcrypt.hashSync(user.password, 10);
+      const cryptoPass = bcrypt.encrypt(user.password, 10);
       user.password = cryptoPass;
       const result = await userRepository.save(user);
       delete result.password;
@@ -42,10 +42,15 @@ module.exports = {
 
   async update(id, data) {
     const connection = await createConnection();
+    const user = data;
     try {
       const userRepository = getRepository('User');
-      await userRepository.update(id, data);
+      // Criptografa a senha
+      const cryptoPass = bcrypt.hashSync(user.password, 10);
+      user.password = cryptoPass;
+      await userRepository.update(id, user);
       const result = await userRepository.findOne(id);
+      delete result.password;
       return result;
     } finally {
       connection.close();
