@@ -21,8 +21,11 @@ module.exports = {
   async list(param) {
     const connection = await createConnection();
     try {
+      const findArguments = { select: ['id', 'name', 'login'] };
+      // Verifica se existe algum filtro para seleção
+      if (param) { findArguments.where = param; }
       const userRepository = getRepository('User');
-      const result = await userRepository.find(param);
+      const result = await userRepository.find(findArguments);
       return result;
     } finally {
       connection.close();
@@ -33,7 +36,7 @@ module.exports = {
     const connection = await createConnection();
     try {
       const userRepository = getRepository('User');
-      const result = await userRepository.findOne(param);
+      const result = await userRepository.findOne(param, { select: ['id', 'name', 'login'] });
       return result;
     } finally {
       connection.close();

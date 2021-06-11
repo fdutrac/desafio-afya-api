@@ -27,7 +27,7 @@ module.exports = {
     const connection = await createConnection();
     try {
       const professionRepository = getRepository('Profession');
-      const result = await professionRepository.find(param);
+      const result = await professionRepository.find({ where: param });
       return result;
     } finally {
       connection.close();

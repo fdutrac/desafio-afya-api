@@ -19,6 +19,9 @@ const attendanceIsValid = require('../middleware/validation/schemas/Attendance/p
 const attendanceExists = require('../middleware/validation/schemas/Attendance/exists');
 const attendanceValidRequest = require('../middleware/validation/schemas/Attendance/get');
 
+const professionIsValid = require('../middleware/validation/schemas/Profession/put-post');
+const professionExists = require('../middleware/validation/schemas/Profession/exists');
+
 const medRecordHistoryIsValid = require('../middleware/validation/schemas/MedicalRecordHistory/put-post');
 const medRecordHistoryExists = require('../middleware/validation/schemas/MedicalRecordHistory/exists');
 
@@ -95,11 +98,11 @@ router.get('/profissoes', Authentication, Controllers.Professions.get);
 
 router.get('/profissoes/:id', Authentication, Controllers.Professions.getOne);
 
-router.put('/profissoes/:id', Authentication, Controllers.Professions.update);
+router.put('/profissoes/:id', [Authentication, checkSchema(professionIsValid)], Controllers.Professions.update);
 
-router.post('/profissoes', Authentication, Controllers.Professions.insert);
+router.post('/profissoes', [Authentication, checkSchema(professionIsValid)], Controllers.Professions.insert);
 
-router.delete('/profissoes/:id', Authentication, Controllers.Professions.remove);
+router.delete('/profissoes/:id', [Authentication, checkSchema(professionExists)], Controllers.Professions.remove);
 
 // ESPECIALISTAS
 
@@ -115,14 +118,14 @@ router.delete('/especialistas/:id', [Authentication, checkSchema(specialistExist
 
 // USUARIOS
 
-router.get('/usuarios', Controllers.Users.get);
+router.get('/usuarios', Authentication, Controllers.Users.get);
 
-router.get('/usuarios/:id', Controllers.Users.getOne);
+router.get('/usuarios/:id', Authentication, Controllers.Users.getOne);
 
-router.put('/usuarios/:id', checkSchema(userIsValid), Controllers.Users.update);
+router.put('/usuarios/:id', [Authentication, checkSchema(userIsValid)], Controllers.Users.update);
 
 router.post('/usuarios', checkSchema(userIsValid), Controllers.Users.insert);
 
-router.delete('/usuarios/:id', checkSchema(userExists), Controllers.Users.remove);
+router.delete('/usuarios/:id', [Authentication, checkSchema(userExists)], Controllers.Users.remove);
 
 module.exports = router;
