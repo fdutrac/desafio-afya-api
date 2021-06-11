@@ -68,11 +68,12 @@ module.exports = {
     custom: {
       options: async (value, { req }) => {
         const existCPF = await clientRepository.list({ cpf: req.body.cpf });
-        const existEmail = await clientRepository.list({ mail: req.body.email });
-        if (existCPF) {
+        const existEmail = await clientRepository.list({ mail: req.body.mail });
+        console.log(existEmail);
+        if (existCPF.length !== 0) {
           return Promise.reject(Error('Já existe um Cliente com este CPF cadastrado no sistema.'));
         }
-        if (existEmail) {
+        if (existEmail.length !== 0) {
           return Promise.reject(Error('Já existe um Cliente com este e-mail cadastrado no sistema.'));
         }
         return true;

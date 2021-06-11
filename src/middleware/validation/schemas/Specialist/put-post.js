@@ -65,12 +65,12 @@ module.exports = {
     custom: {
       errorMessage: ['Já existe um Especialista com este Registro cadastrado no sistema.', 'Já existe um Especialista com este e-mail cadastrado no sistema.'],
       options: async (value, { req }) => {
-        const existRegister = await specialistsRepository.getOne({ cpf: req.body.register });
-        const existEmail = await specialistsRepository.getOne({ cpf: req.body.email });
-        if (existRegister) {
+        const existRegister = await specialistsRepository.getOne({ register: req.body.register });
+        const existEmail = await specialistsRepository.getOne({ mail: req.body.mail });
+        if (existRegister !== 0) {
           return Promise.reject(Error(this.errorMessage[0]));
         }
-        if (existEmail) {
+        if (existEmail !== 0) {
           return Promise.reject(Error(this.errorMessage[1]));
         }
         return true;
