@@ -7,13 +7,13 @@
       "email": "fdutra.c@gmail.com"
     }
   },
-  "host": "petstore.swagger.io",
+  "host": "pomalabs.swagger.io",
   "basePath": "/v2",
   "schemes": [
     "http"
   ],
   "paths": {
-    "/User": {
+    "/user": {
       "post": {
         "tags": [
           "User"
@@ -107,7 +107,7 @@
         }
       }
     },
-    "/User/{id}": {
+    "/user/{id}": {
       "put": {
         "name": "user",
         "tags": [
@@ -271,7 +271,7 @@
         }
       }
     },
-    "/Client": {
+    "/client": {
       "post": {
         "tags": [
           "Client"
@@ -399,7 +399,7 @@
         }
       }
     },
-    "/Client/{id}": {
+    "/client/{id}": {
       "put": {
         "name": "client",
         "tags": [
@@ -595,7 +595,7 @@
         }
       }
     },
-    "/Specialist": {
+    "/specialist": {
       "post": {
         "tags": [
           "Specialist"
@@ -603,6 +603,9 @@
         "summary": "Adiciona um novo especialista",
         "description": "Cadastre um novo especialista para que possa ser possível marcar consultas e exames relacionados ao mesmo",
         "operationId": "addSpecialist",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ],
@@ -652,15 +655,8 @@
           "400": {
             "description": "ID inválido"
           }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
+        }
     },
-    "/Specialist/": {
       "get": {
         "tags": [
           "Specialist"
@@ -669,6 +665,9 @@
         "description": "Lista todos os especialistas que foram cadastrados no sistema anteriormente",
         "operationId": "listSpecialist",
         "consumes": [
+          "application/json"
+        ],
+        "produces": [
           "application/json"
         ],
         "parameters": [
@@ -717,7 +716,7 @@
         }
       }
     },
-    "/Specialist/{id}": {
+    "/specialist/{id}": {
       "put": {
         "name": "specialist",
         "tags": [
@@ -914,7 +913,7 @@
         }
       }
     },
-    "/Profession": {
+    "/profession": {
       "post": {
         "tags": [
           "Profession"
@@ -922,6 +921,9 @@
         "summary": "Adiciona uma nova profissão",
         "description": "Cadastre uma nova proifssão para que possa ser possível relacionar ao especialista",
         "operationId": "addProfession",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
           "application/json"
         ],
@@ -953,15 +955,8 @@
           "400": {
             "description": "ID inválido"
           }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
+        }
     },
-    "/Profession/": {
       "get": {
         "tags": [
           "Profession"
@@ -970,6 +965,9 @@
         "description": "Lista todas as profissiões cadastradas anteriormente",
         "operationId": "listProfession",
         "consumes": [
+          "application/json"
+        ],
+        "produces": [
           "application/json"
         ],
         "parameters": [
@@ -1001,7 +999,7 @@
         }
       }
     },
-    "/Profession/{id}": {
+    "/profession/{id}": {
       "put": {
         "name": "profession",
         "tags": [
@@ -1097,7 +1095,7 @@
         }
       }
     },
-    "/Attendance": {
+    "/attendance": {
       "post": {
         "tags": [
           "Attendance"
@@ -1215,7 +1213,7 @@
         }
       }
     },
-    "/Attendance/{id}": {
+    "/attendance/{id}": {
       "put": {
         "name": "attendance",
         "tags": [
@@ -1409,7 +1407,7 @@
         }
       }
     },
-    "/Medical Record": {
+    "/medicalRecord": {
       "post": {
         "tags": [
           "Medical Record"
@@ -1499,7 +1497,7 @@
         }
       }
     },
-    "/MedicalRecord/{id}": {
+    "/medicalRecord/{id}": {
       "put": {
         "name": "medicalRecord",
         "tags": [
@@ -1654,7 +1652,7 @@
         }
       }
     },  
-    "/MedicalRecordHistory": {
+    "/medicalRecordHistory": {
       "get": {
         "tags": [
           "Medical Record History"
@@ -1707,7 +1705,7 @@
         }
       }
     },
-    "/MedicalRecordHistory/{id}": {
+    "/medicalRecordHistory/{id}": {
       "put": {
         "name": "medicalRecordHistory",
         "tags": [
