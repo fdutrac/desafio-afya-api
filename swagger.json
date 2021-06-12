@@ -134,7 +134,11 @@
             "description": "Dados do usuário a ser alterado",
             "schema": {
               "type": "object",
+              "required":["id"],
               "properties": {
+                "id":{
+                  "type":"integer"
+                },
                 "name": {
                   "type": "string"
                 },
@@ -152,14 +156,11 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
           "400": {
-            "description": "ID Invalido!"
-          },
-          "404": {
-            "description": "Usuário não encontrado"
-          },
-          "405": {
-            "description": "Erro no servidor"
+            "description": "ID inválido"
           }
         }
       },
@@ -182,14 +183,40 @@
             "in": "path",
             "description": "Id do usuário a ser exibido",
             "required": true
+          },
+          {
+            "in": "body",
+            "name": "user",
+            "description": "Dados do usuário a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id":{
+                  "type":"integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "login": {
+                  "type": "string",
+                  "minimum": "6",
+                  "maximum": "20"
+                },
+                "password": {
+                  "type": "string",
+                  "minimum": "6"
+                }
+              }
+            }
           }
         ],
         "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
           "400": {
             "description": "ID inválido"
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       },
@@ -206,6 +233,32 @@
             "in": "path",
             "description": "Id do usuário a ser deletado",
             "required": true
+          },
+          {
+            "in": "body",
+            "name": "user",
+            "description": "Dados do usuário a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id":{
+                  "type":"integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "login": {
+                  "type": "string",
+                  "minimum": "6",
+                  "maximum": "20"
+                },
+                "password": {
+                  "type": "string",
+                  "minimum": "6"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -214,9 +267,6 @@
           },
           "400": {
             "description": "ID inválido"
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       }
@@ -270,6 +320,9 @@
                 "bloodtype":{
                   "type": "string",
                   "enum":["A+","A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+                },
+                "address":{
+                  "type":"string"
                 }
               }
             }
@@ -328,6 +381,9 @@
                 "bloodtype":{
                   "type": "string",
                   "enum":["A+","A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+                },
+                "address":{
+                  "type":"string"
                 }
               }
             }
@@ -370,6 +426,7 @@
             "description": "Dados do cliente a ser alterado",
             "schema": {
               "type": "object",
+              "required":["id"],
               "properties": {
                 "name": {
                   "type": "string"
@@ -393,20 +450,20 @@
                 "bloodtype": {
                   "type": "string",
                   "enum": ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+                },
+                "address":{
+                  "type":"string"
                 }
               }
             }
           }
         ],
         "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
           "400": {
-            "description": "ID Invalido!"
-          },
-          "404": {
-            "description": "Cliente não encontrado"
-          },
-          "405": {
-            "description": "Erro no servidor"
+            "description": "ID inválido"
           }
         }
       },
@@ -428,14 +485,51 @@
             "in": "path",
             "description": "Id do cliente a ser exibido",
             "required": true
+          },
+          {
+            "in": "body",
+            "name": "client",
+            "description": "Dados do cliente a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "cpf": {
+                  "type": "string",
+                  "maximum": "14",
+                  "minimum": "11"
+                },
+                "phone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "cellphone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "mail": {
+                  "type": "string"
+                },
+                "bloodtype": {
+                  "type": "string",
+                  "enum": ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+                },
+                "address":{
+                  "type":"string"
+                }
+              }
+            }
           }
         ],
         "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
           "400": {
             "description": "ID inválido"
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       },
@@ -452,6 +546,43 @@
             "in": "path",
             "description": "Id do cliente a ser deletado",
             "required": true
+          },
+          {
+            "in": "body",
+            "name": "client",
+            "description": "Dados do cliente a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "cpf": {
+                  "type": "string",
+                  "maximum": "14",
+                  "minimum": "11"
+                },
+                "phone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "cellphone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "mail": {
+                  "type": "string"
+                },
+                "bloodtype": {
+                  "type": "string",
+                  "enum": ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+                },
+                "address":{
+                  "type":"string"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -460,9 +591,6 @@
           },
           "400": {
             "description": "ID inválido"
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       }
@@ -519,10 +647,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Cadastro realizado com sucesso!"
-          },          
+            "description": "Requisição realizada com sucesso"
+          },
           "400": {
-            "description": "Erro ao efetuar o cadastro"
+            "description": "ID inválido"
           }
         },
         "security": [
@@ -569,6 +697,9 @@
                 "mail": {
                   "type": "string"
                 },
+                "address":{
+                  "type":"string"
+                },
                 "profession": {
                   "type": "string"
                 }
@@ -578,13 +709,10 @@
         ],
         "responses": {
           "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/Order"
-            }
+            "description": "Requisição realizada com sucesso"
           },
           "400": {
-            "description": "Requisição Inválida!"
+            "description": "ID inválido"
           }
         }
       }
@@ -616,32 +744,44 @@
             "description": "Dados do especialista a ser alterado",
             "schema": {
               "type": "object",
+              "required": ["id"],
               "properties": {
+                "id": {
+                  "type": "integer"
+                },
                 "name": {
                   "type": "string"
                 },
-                "login": {
-                  "type": "string",
-                  "minimum": "6",
-                  "maximum": "20"
+                "register": {
+                  "type": "string"
                 },
-                "password": {
+                "phone": {
                   "type": "string",
-                  "minimum": "6"
+                  "maximum": "14"
+                },
+                "cellphone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "mail": {
+                  "type": "string"
+                },
+                "address":{
+                  "type":"string"
+                },
+                "profession": {
+                  "type": "string"
                 }
               }
             }
           }
         ],
         "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
           "400": {
-            "description": "ID Invalido!"
-          },
-          "404": {
-            "description": "Especialista não encontrado"
-          },
-          "405": {
-            "description": "Erro no servidor"
+            "description": "ID inválido"
           }
         }
       },
@@ -664,14 +804,51 @@
             "in": "path",
             "description": "Id do especialista a ser exibido",
             "required": true
+          },
+          {
+            "in": "body",
+            "name": "specialist",
+            "description": "Dados do especialista a ser alterado",
+            "schema": {
+              "type": "object",
+              "required": ["id"],
+              "properties": {
+                "id":{
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "register": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "cellphone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "mail": {
+                  "type": "string"
+                },
+                "address":{
+                  "type":"string"
+                },
+                "profession": {
+                  "type": "string"
+                }
+              }
+            }
           }
         ],
         "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
           "400": {
             "description": "ID inválido"
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       },
@@ -688,6 +865,43 @@
             "in": "path",
             "description": "Id do especialista a ser deletado",
             "required": true
+          },
+          {
+            "in": "body",
+            "name": "specialist",
+            "description": "Dados do especialista a ser alterado",
+            "schema": {
+              "type": "object",
+              "required": ["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "register": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "cellphone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "mail": {
+                  "type": "string"
+                },
+                "address":{
+                  "type":"string"
+                },
+                "profession": {
+                  "type": "string"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -696,9 +910,6 @@
           },
           "400": {
             "description": "ID inválido"
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       }
@@ -737,10 +948,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Cadastro realizado com sucesso!"
-          },          
+            "description": "Requisição realizada com sucesso"
+          },
           "400": {
-            "description": "Erro ao efetuar o cadastro"
+            "description": "ID inválido"
           }
         },
         "security": [
@@ -782,13 +993,10 @@
         ],
         "responses": {
           "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/Order"
-            }
+            "description": "Requisição realizada com sucesso"
           },
           "400": {
-            "description": "Invalid Order"
+            "description": "ID inválido"
           }
         }
       }
@@ -820,8 +1028,15 @@
             "description": "Dados da profissão a ser alterada",
             "schema": {
               "type": "object",
+              "required": ["id"],
               "properties": {
+                "id": {
+                  "type": "integer"
+                },
                 "name": {
+                  "type": "string"
+                },
+                "specialist": {
                   "type": "string"
                 }
               }
@@ -829,14 +1044,11 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
           "400": {
-            "description": "ID Invalido!"
-          },
-          "404": {
-            "description": "Profissão não encontrada"
-          },
-          "405": {
-            "description": "Erro no servidor"
+            "description": "ID inválido"
           }
         }
       },
@@ -853,6 +1065,26 @@
             "in": "path",
             "description": "Id da profissão a ser deletada",
             "required": true
+          },
+          {
+            "in": "body",
+            "name": "profession",
+            "description": "Dados da profissão a ser alterada",
+            "schema": {
+              "type": "object",
+              "required": ["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "specialist":{
+                  "type": "string"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -861,9 +1093,6 @@
           },
           "400": {
             "description": "ID inválido"
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       }
@@ -889,7 +1118,8 @@
             "description": "Dados do atendimento a ser cadastrado",
             "schema": {
               "type": "object",
-              "required": ["name", "login", "password"],
+              "required": ["date_scheduling", "date_attendance", 
+                "date_hour", "value", "status", "specialist", "patient"],
               "properties": {
                 "date_scheduling": {
                   "type": "date"
@@ -906,6 +1136,12 @@
                 "status":{
                   "type": "string",
                   "enum":["AGENDADO", "REALIZADO", "CANCELADO"]
+                },
+                "specialist":{
+                  "type": "string"
+                },
+                "patient":{
+                  "type": "string"
                 }
               }
             }
@@ -916,7 +1152,7 @@
             "description": "Requisição realizada com sucesso"
           },
           "400": {
-            "description": "Erro na requisição"
+            "description": "ID inválido"
           }
         }
       },
@@ -935,39 +1171,46 @@
         ],
         "parameters": [
           {
-              "in": "body",
-              "name": "attendance",
-              "description": "Dados do atendimento a ser cadastrado",
-              "schema": {
-                "type": "object",
-                "required": ["name", "login", "password"],
-                "properties": {
-                  "date_scheduling": {
-                    "type": "date"
-                  },
-                  "date_attendance": {
-                    "type": "date"
-                  },
-                  "date_hour": {
-                    "type": "time"
-                  },
-                  "value":{
-                    "type": "string"
-                  },
-                  "status":{
-                    "type": "string",
-                    "enum":["AGENDADO", "REALIZADO", "CANCELADO"]
-                  }
+            "in": "body",
+            "name": "attendance",
+            "description": "Dados do atendimento a ser cadastrado",
+            "schema": {
+              "type": "object",
+              "required": ["date_scheduling", "date_attendance", 
+                "date_hour", "value", "status", "specialist", "patient"],
+              "properties": {
+                "date_scheduling": {
+                  "type": "date"
+                },
+                "date_attendance": {
+                  "type": "date"
+                },
+                "date_hour": {
+                  "type": "time"
+                },
+                "value":{
+                  "type": "string"
+                },
+                "status":{
+                  "type": "string",
+                  "enum":["AGENDADO", "REALIZADO", "CANCELADO"]
+                },
+                "specialist":{
+                  "type": "string"
+                },
+                "patient":{
+                  "type": "string"
                 }
               }
             }
+          }
         ],
         "responses": {
           "200": {
             "description": "Requisição realizada com sucesso"
           },
           "400": {
-            "description": "Erro na requisição"
+            "description": "ID inválido"
           }
         }
       }
@@ -999,7 +1242,11 @@
             "description": "Dados do atendimento a ser alterado",
             "schema": {
               "type": "object",
+              "required":["id"],
               "properties": {
+                "id": {
+                  "type": "integer"
+                },
                 "date_scheduling": {
                   "type": "date"
                 },
@@ -1015,20 +1262,23 @@
                 "status":{
                   "type": "string",
                   "enum":["AGENDADO", "REALIZADO", "CANCELADO"]
+                },
+                "specialist":{
+                  "type": "string"
+                },
+                "patient":{
+                  "type": "string"
                 }
               }
             }
           }
         ],
         "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
           "400": {
-            "description": "ID Invalido!"
-          },
-          "404": {
-            "description": "Atendimento não encontrado"
-          },
-          "405": {
-            "description": "Erro no servidor"
+            "description": "ID inválido"
           }
         }
       },
@@ -1051,6 +1301,42 @@
             "in": "path",
             "description": "Id do atendimento a ser exibido",
             "required": true
+          },
+          {
+            "in": "body",
+            "name": "attendance",
+            "description": "Dados do atendimento a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "date_scheduling": {
+                  "type": "date"
+                },
+                "date_attendance": {
+                  "type": "date"
+                },
+                "date_hour": {
+                  "type": "time"
+                },
+                "value":{
+                  "type": "string"
+                },
+                "status":{
+                  "type": "string",
+                  "enum":["AGENDADO", "REALIZADO", "CANCELADO"]
+                },
+                "specialist":{
+                  "type": "string"
+                },
+                "patient":{
+                  "type": "string"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -1075,6 +1361,42 @@
             "in": "path",
             "description": "Id do atendimento a ser deletado",
             "required": true
+          },
+          {
+            "in": "body",
+            "name": "attendance",
+            "description": "Dados do atendimento a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "date_scheduling": {
+                  "type": "date"
+                },
+                "date_attendance": {
+                  "type": "date"
+                },
+                "date_hour": {
+                  "type": "time"
+                },
+                "value":{
+                  "type": "string"
+                },
+                "status":{
+                  "type": "string",
+                  "enum":["AGENDADO", "REALIZADO", "CANCELADO"]
+                },
+                "specialist":{
+                  "type": "string"
+                },
+                "patient":{
+                  "type": "string"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -1083,9 +1405,6 @@
           },
           "400": {
             "description": "ID inválido"
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       }
@@ -1114,7 +1433,13 @@
               "required": ["openingDate"],
               "properties": {
                 "openingDate": {
-                  "type": "date"
+                  "type": "string"
+                },
+                "client":{
+                  "type": "string"
+                },
+                "medicalRecordHistories": {
+                  "type": "string"
                 }
               }
             }
@@ -1152,7 +1477,13 @@
               "required": ["openingDate"],
               "properties": {
                 "openingDate": {
-                  "type": "date"
+                  "type": "string"
+                },
+                "client":{
+                  "type": "string"
+                },
+                "medicalRecordHistories": {
+                  "type": "string"
                 }
               }
             }
@@ -1163,7 +1494,7 @@
             "description": "Requisição realizada com sucesso"
           },
           "400": {
-            "description": "Erro na requisição"
+            "description": "ID inválido"
           }
         }
       }
@@ -1195,23 +1526,30 @@
             "description": "Dados do prontuário a ser alterado",
             "schema": {
               "type": "object",
+              "required":["id"],
               "properties": {
+                "id": {
+                  "type": "integer"
+                },
                 "openingDate": {
-                  "type": "date"
+                  "type": "string"
+                },
+                "client":{
+                  "type": "string"
+                },
+                "medicalRecordHistories": {
+                  "type": "string"
                 }
               }
             }
           }
         ],
         "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
           "400": {
-            "description": "ID Invalido!"
-          },
-          "404": {
-            "description": "Usuário não encontrado"
-          },
-          "405": {
-            "description": "Erro no servidor"
+            "description": "ID inválido"
           }
         }
       },
@@ -1234,14 +1572,37 @@
             "in": "path",
             "description": "Id do prontuário a ser exibido",
             "required": true
+          },
+          {
+            "in": "body",
+            "name": "medicalRecord",
+            "description": "Dados do prontuário a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id":{
+                  "type": "integer"
+                },
+                "openingDate": {
+                  "type": "string"
+                },
+                "client":{
+                  "type": "string"
+                },
+                "medicalRecordHistories": {
+                  "type": "string"
+                }
+              }
+            }
           }
         ],
         "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
           "400": {
             "description": "ID inválido"
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       },
@@ -1258,6 +1619,29 @@
             "in": "path",
             "description": "Id do prontuário a ser deletado",
             "required": true
+          },
+          {
+            "in": "body",
+            "name": "medicalRecord",
+            "description": "Dados do prontuário a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "openingDate": {
+                  "type": "string"
+                },
+                "client":{
+                  "type": "string"
+                },
+                "medicalRecordHistories": {
+                  "type": "string"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -1266,62 +1650,10 @@
           },
           "400": {
             "description": "ID inválido"
-          },
-          "405": {
-            "description": "Validation exception"
           }
         }
       }
-    },
-
-    "/Address": {
-      "post": {
-        "tags": [
-          "Address"
-        ],
-        "summary": "Adiciona um novo endereço",
-        "description": "Cadastro de endereço para associar com cliente.",
-        "operationId": "addAddress",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "Address",
-            "description": "Dados da profissão a ser cadastrada",
-            "schema": {
-              "type": "object",
-              "required": ["name", "specialist"],
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "unique": "true"
-                },
-                "specialist":{
-                  "type": "string",
-                  "nullable": true
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Cadastro realizado com sucesso!"
-          },          
-          "400": {
-            "description": "Erro ao efetuar o cadastro"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    
+    },  
     "/MedicalRecordHistory": {
       "get": {
         "tags": [
@@ -1346,14 +1678,20 @@
               "required": ["date", "hour", "description"],
               "properties": {
                 "date": {
-                  "type": "date"
+                  "type": "string"
                 },
                 "hour": {
-                  "type": "time"
+                  "type": "string"
                 },
                 "description": {
                   "type": "string",
                   "maximum" : "255"
+                },
+                "medicalRecords":{
+                  "type":"string"
+                },
+                "specialist":{
+                  "type": "string"
                 }
               }
             }
@@ -1364,11 +1702,73 @@
             "description": "Requisição realizada com sucesso"
           },
           "400": {
-            "description": "Erro na requisição"
+            "description": "ID inválido"
           }
         }
       }
+    },
+    "/MedicalRecordHistory/{id}": {
+      "put": {
+        "name": "medicalRecordHistory",
+        "tags": [
+          "Medical Record History"
+        ],
+        "summary": "Atualiza os dados do prontuário",
+        "description": "Atualiza os dados de um prontuário específico selecionado pelo ID",
+        "operationId": "updateMedicalRecordHistory",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do prontuário a ser alterado",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "medicalRecordHistory",
+            "description": "Dados do atendimento a ser alterado",
+            "schema": {
+              "type": "object",
+              "required": ["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "date": {
+                  "type": "string"
+                },
+                "hour": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "maximum" : "255"
+                },
+                "medicalRecords":{
+                  "type":"string"
+                },
+                "specialist":{
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
     }
+  }
   },
   "securityDefinitions": {
     "petstore_auth": {
