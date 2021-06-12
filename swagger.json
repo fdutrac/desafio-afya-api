@@ -13,10 +13,10 @@
     "http"
   ],
   "paths": {
-    "/usuarios": {
+    "/User": {
       "post": {
         "tags": [
-          "usuario"
+          "User"
         ],
         "summary": "Adiciona um novo usuário",
         "description": "Cadastre um novo usuário para lhe liberar permissões de cadastros, consultas e alterações",
@@ -37,12 +37,14 @@
               "required": ["name", "login", "password"],
               "properties": {
                 "name": {
-                  "type": "string"
+                  "type": "string",
+                  "maximum": "255"
                 },
                 "login": {
                   "type": "string",
                   "minimum": "6",
-                  "maximum": "20"
+                  "maximum": "20",
+                  "unique":"true"
                 },
                 "password": {
                   "type": "string",
@@ -63,7 +65,7 @@
       },
       "get": {
         "tags": [
-          "usuario"
+          "User"
         ],
         "summary": "Lista todos os usuários cadastrados",
         "operationId": "listUser",
@@ -78,10 +80,10 @@
           {
             "in": "body",
             "name": "user",
-            "description": "Dados dos usuários a serem exebidos",
+            "description": "Dados dos usuários a serem exibidos",
             "schema": {
               "type": "object",
-              "required": ["name", "login", "password"],
+              "required": ["name", "login"],
               "properties": {
                 "name": {
                   "type": "string"
@@ -90,10 +92,6 @@
                   "type": "string",
                   "minimum": "6",
                   "maximum": "20"
-                },
-                "password": {
-                  "type": "string",
-                  "minimum": "6"
                 }
               }
             }
@@ -109,11 +107,11 @@
         }
       }
     },
-    "/usuarios/{id}": {
+    "/User/{id}": {
       "put": {
         "name": "user",
         "tags": [
-          "usuario"
+          "User"
         ],
         "summary": "Atualiza os dados do usuário",
         "description": "Atualiza os dados de um usuário específico selecionado pelo ID",
@@ -166,9 +164,9 @@
         }
       },
       "get": {
-        "name": "usuário",
+        "name": "user",
         "tags": [
-          "usuario"
+          "User"
         ],
         "summary": "Retorna os dados de um usuário cadastrado",
         "description": "Retorna os dados de um cliente específico selecionado pelo ID",
@@ -198,7 +196,7 @@
       "delete": {
         "name": "user",
         "tags": [
-          "usuario"
+          "User"
         ],
         "summary": "Delete do sistema um usuário",
         "description": "Deleta um usuário do sistema que foi selecionado pelo ID",
@@ -223,10 +221,10 @@
         }
       }
     },
-    "/clientes": {
+    "/Client": {
       "post": {
         "tags": [
-          "cliente"
+          "Client"
         ],
         "summary": "Adiciona um novo cliente",
         "description": "Cadastre um novo cliente para que possa ser possível fazer agendamentos.",
@@ -247,12 +245,14 @@
               "required": ["name", "cpf", "phone", "mail"],
               "properties": {
                 "name": {
-                  "type": "string"
+                  "type": "string",
+                  "maximum": "255"
                 },
                 "cpf": {
                   "type": "string",
                   "minimum": "11",
-                  "maximum": "14"
+                  "maximum": "14",
+                  "unique": "true"
                 },
                 "phone": {
                   "type": "string",
@@ -263,7 +263,9 @@
                   "maximum": "14"
                 },
                 "mail":{
-                  "type": "string"
+                  "type": "string",
+                  "maximum": "255",
+                  "unique": "true"
                 },
                 "bloodtype":{
                   "type": "string",
@@ -284,7 +286,7 @@
       },
       "get": {
         "tags": [
-          "cliente"
+          "Client"
         ],
         "summary": "Lista todos os clientes cadastrados",
         "description": "Faz uma lista que contém todos os clientes que já foram cadastrados no sistema",
@@ -341,11 +343,11 @@
         }
       }
     },
-    "/clientes/{id}": {
+    "/Client/{id}": {
       "put": {
         "name": "client",
         "tags": [
-          "cliente"
+          "Client"
         ],
         "summary": "Atualiza os dados do cliente",
         "description": "Atualiza os dados de um cliente específico selecionado pelo ID",
@@ -411,7 +413,7 @@
       "get": {
         "name": "client",
         "tags": [
-          "cliente"
+          "Client"
         ],
         "summary": "Retorna os dados de um cliente cadastrado",
         "description": "Retorna os dados de um cliente específico selecionado pelo ID",
@@ -440,7 +442,7 @@
       "delete": {
         "name": "client",
         "tags": [
-          "cliente"
+          "Client"
         ],
         "summary": "Deleta do sistema um cliente",
         "description": "Deleta um cliente do sistema que foi selecionado pelo ID",
@@ -465,10 +467,10 @@
         }
       }
     },
-    "/especialistas": {
+    "/Specialist": {
       "post": {
         "tags": [
-          "especialista"
+          "Specialist"
         ],
         "summary": "Adiciona um novo especialista",
         "description": "Cadastre um novo especialista para que possa ser possível marcar consultas e exames relacionados ao mesmo",
@@ -483,13 +485,15 @@
             "description": "Dados do especialista a ser cadastrado",
             "schema": {
               "type": "object",
-              "required": ["name", "cpf", "phone", "cellphone", "mail"],
+              "required": [ "name", "register","cellphone", "mail", "profession", "adress"],
               "properties": {
-                "name": {
-                  "type": "string"
-                },
                 "register": {
-                  "type": "string"
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": "string",
+                  "maximum": "100",
+                  "unique": "true"
                 },
                 "phone": {
                   "type": "string",
@@ -500,10 +504,14 @@
                   "maximum": "14"
                 },
                 "mail": {
-                  "type": "string"
+                  "type": "string",
+                  "unique":"true"
                 },
                 "profession": {
                   "type": "string"
+                },
+                "address": {
+                   "type":"string" 
                 }
               }
             }
@@ -524,10 +532,10 @@
         ]
       }
     },
-    "/especialistas/": {
+    "/Specialist/": {
       "get": {
         "tags": [
-          "especialista"
+          "Specialist"
         ],
         "summary": "Lista de especialistas",
         "description": "Lista todos os especialistas que foram cadastrados no sistema anteriormente",
@@ -576,16 +584,16 @@
             }
           },
           "400": {
-            "description": "Invalid Order"
+            "description": "Requisição Inválida!"
           }
         }
       }
     },
-    "/especialistas/{id}": {
+    "/Specialist/{id}": {
       "put": {
         "name": "specialist",
         "tags": [
-          "especialista"
+          "Specialist"
         ],
         "summary": "Atualiza os dados do especialista",
         "description": "Atualiza os dados de um especialista específico selecionado pelo ID",
@@ -640,7 +648,7 @@
       "get": {
         "name": "specialist",
         "tags": [
-          "especialista"
+          "Specialist"
         ],
         "summary": "Retorna os dados de um especialista cadastrado",
         "description": "Retorna os dados de um especialista específico selecionado pelo ID",
@@ -670,7 +678,7 @@
       "delete": {
         "name": "specialist",
         "tags": [
-          "especialista"
+          "Specialist"
         ],
         "summary": "Deleta do sistema um especialista",
         "description": "Deleta um cliente do sistema que foi selecionado pelo ID",
@@ -695,10 +703,10 @@
         }
       }
     },
-    "/profissoes": {
+    "/Profession": {
       "post": {
         "tags": [
-          "profissao"
+          "Profession"
         ],
         "summary": "Adiciona uma nova profissão",
         "description": "Cadastre uma nova proifssão para que possa ser possível relacionar ao especialista",
@@ -742,10 +750,10 @@
         ]
       }
     },
-    "/profissoes/": {
+    "/Profession/": {
       "get": {
         "tags": [
-          "profissao"
+          "Profession"
         ],
         "summary": "Lista de profissões",
         "description": "Lista todas as profissiões cadastradas anteriormente",
@@ -785,11 +793,11 @@
         }
       }
     },
-    "/profissoes/{id}": {
+    "/Profession/{id}": {
       "put": {
         "name": "profession",
         "tags": [
-          "profissao"
+          "Profession"
         ],
         "summary": "Atualiza os dados da profissão",
         "description": "Atualiza os dados da profissão escolhida pelo ID",
@@ -835,7 +843,7 @@
       "delete": {
         "name": "profession",
         "tags": [
-          "profissao"
+          "Profession"
         ],
         "summary": "Deleta do sistema uma profissão",
         "description": "Deleta uma profissão especifica do sistema",
@@ -860,10 +868,10 @@
         }
       }
     },
-    "/atendimentos": {
+    "/Attendance": {
       "post": {
         "tags": [
-          "atendimento"
+          "Attendance"
         ],
         "summary": "Adiciona um novo atendimento",
         "description": "Cadastre um novo atendimento",
@@ -914,7 +922,7 @@
       },
       "get": {
         "tags": [
-          "atendimento"
+          "Attendance"
         ],
         "summary": "Lista todos os atendimentos cadastrados",
         "operationId": "listAttendance",
@@ -964,11 +972,11 @@
         }
       }
     },
-    "/atendimentos/{id}": {
+    "/Attendance/{id}": {
       "put": {
         "name": "attendance",
         "tags": [
-          "atendimento"
+          "Attendance"
         ],
         "summary": "Atualiza os dados do atendimento",
         "description": "Atualiza os dados de um atendimento específico selecionado pelo ID",
@@ -1027,7 +1035,7 @@
       "get": {
         "name": "attendance",
         "tags": [
-          "atendimento"
+          "Attendance"
         ],
         "summary": "Retorna os dados de um atendimento cadastrado",
         "description": "Retorna os dados de um atendimento específico selecionado pelo ID",
@@ -1057,7 +1065,7 @@
       "delete": {
         "name": "attendance",
         "tags": [
-          "atendimento"
+          "Attendance"
         ],
         "summary": "Delete do sistema um atendimento",
         "description": "Deleta um atendimento do sistema que foi selecionado pelo ID",
@@ -1082,10 +1090,10 @@
         }
       }
     },
-    "/prontuarios": {
+    "/Medical Record": {
       "post": {
         "tags": [
-          "prontuario"
+          "Medical Record"
         ],
         "summary": "Adiciona um novo prontuário",
         "description": "Cadastre um novo prontuário para lhe liberar permissões de cadastros, consultas e alterações",
@@ -1123,7 +1131,7 @@
       },
       "get": {
         "tags": [
-          "prontuário"
+          "Medical Record"
         ],
         "summary": "Lista todos os prontuários cadastrados",
         "operationId": "listMedicalRecord",
@@ -1160,11 +1168,11 @@
         }
       }
     },
-    "/prontuarios/{id}": {
+    "/MedicalRecord/{id}": {
       "put": {
         "name": "medicalRecord",
         "tags": [
-          "prontuário"
+          "Medical Record"
         ],
         "summary": "Atualiza os dados do prontuário",
         "description": "Atualiza os dados de um prontuário específico selecionado pelo ID",
@@ -1210,7 +1218,7 @@
       "get": {
         "name": "medicalRecord",
         "tags": [
-          "prontuário"
+          "Medical Record"
         ],
         "summary": "Retorna os dados de um prontuário cadastrado",
         "description": "Retorna os dados de um prontuário específico selecionado pelo ID",
@@ -1240,7 +1248,7 @@
       "delete": {
         "name": "medicalRecord",
         "tags": [
-          "prontuário"
+          "Medical Record"
         ],
         "summary": "Delete do sistema um prontuário",
         "description": "Deleta um prontuário do sistema que foi selecionado pelo ID",
@@ -1266,10 +1274,10 @@
       }
     },
 
-    "/endereco": {
+    "/Address": {
       "post": {
         "tags": [
-          "endereco"
+          "Address"
         ],
         "summary": "Adiciona um novo endereço",
         "description": "Cadastro de endereço para associar com cliente.",
@@ -1314,10 +1322,10 @@
       }
     },
     
-    "/historico de prontuario": {
+    "/MedicalRecordHistory": {
       "get": {
         "tags": [
-          "historico de prontuario"
+          "Medical Record History"
         ],
         "summary": "Lista o histórico de prontuário já concluídos",
         "operationId": "listMedicalRecordHistory",
@@ -1360,376 +1368,6 @@
           }
         }
       }
-    },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    "/store/order/{orderId}": {
-      "get": {
-        "tags": [
-          "store"
-        ],
-        "summary": "Find purchase order by ID",
-        "description": "For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions",
-        "operationId": "getOrderById",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "orderId",
-            "in": "path",
-            "description": "ID of pet that needs to be fetched",
-            "required": true,
-            "type": "integer",
-            "maximum": 10,
-            "minimum": 1,
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/Order"
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Order not found"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "store"
-        ],
-        "summary": "Delete purchase order by ID",
-        "description": "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors",
-        "operationId": "deleteOrder",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "orderId",
-            "in": "path",
-            "description": "ID of the order that needs to be deleted",
-            "required": true,
-            "type": "integer",
-            "minimum": 1,
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Order not found"
-          }
-        }
-      }
-    },
-    "/user": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Create user",
-        "description": "This can only be done by the logged in user.",
-        "operationId": "createUser",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Created user object",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/user/createWithArray": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Creates list of users with given input array",
-        "description": "",
-        "operationId": "createUsersWithArrayInput",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "List of user object",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/user/createWithList": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Creates list of users with given input array",
-        "description": "",
-        "operationId": "createUsersWithListInput",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "List of user object",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/user/login": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Logs user into the system",
-        "description": "",
-        "operationId": "loginUser",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "query",
-            "description": "The user name for login",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "password",
-            "in": "query",
-            "description": "The password for login in clear text",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "string"
-            },
-            "headers": {
-              "X-Rate-Limit": {
-                "type": "integer",
-                "format": "int32",
-                "description": "calls per hour allowed by the user"
-              },
-              "X-Expires-After": {
-                "type": "string",
-                "format": "date-time",
-                "description": "date in UTC when token expires"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid username/password supplied"
-          }
-        }
-      }
-    },
-    "/user/logout": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Logs out current logged in user session",
-        "description": "",
-        "operationId": "logoutUser",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/user/{username}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get user by user name",
-        "description": "",
-        "operationId": "getUserByName",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "path",
-            "description": "The name that needs to be fetched. Use user1 for testing. ",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          },
-          "400": {
-            "description": "Invalid username supplied"
-          },
-          "404": {
-            "description": "User not found"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Updated user",
-        "description": "This can only be done by the logged in user.",
-        "operationId": "updateUser",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "path",
-            "description": "name that need to be updated",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Updated user object",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Invalid user supplied"
-          },
-          "404": {
-            "description": "User not found"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Delete user",
-        "description": "This can only be done by the logged in user.",
-        "operationId": "deleteUser",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "path",
-            "description": "The name that needs to be deleted",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Invalid username supplied"
-          },
-          "404": {
-            "description": "User not found"
-          }
-        }
-      }
     }
   },
   "securityDefinitions": {
@@ -1749,7 +1387,7 @@
     }
   },
   "definitions": {
-    "Order": {
+    "Usuário": {
       "type": "object",
       "properties": {
         "id": {
@@ -1786,7 +1424,7 @@
         "name": "Order"
       }
     },
-    "Category": {
+    "Cliente": {
       "type": "object",
       "properties": {
         "id": {
@@ -1801,7 +1439,7 @@
         "name": "Category"
       }
     },
-    "User": {
+    "Especialista": {
       "type": "object",
       "properties": {
         "id": {
@@ -1836,7 +1474,7 @@
         "name": "User"
       }
     },
-    "Tag": {
+    "Profissão": {
       "type": "object",
       "properties": {
         "id": {
@@ -1851,7 +1489,7 @@
         "name": "Tag"
       }
     },
-    "Pet": {
+    "Atendimento": {
       "type": "object",
       "required": [
         "name",
@@ -1899,8 +1537,54 @@
           ]
         }
       },
+      
       "xml": {
         "name": "Pet"
+      }
+    },
+    "Prontuário": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "Endereço": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Tag"
+      }
+    },
+    "Histórico de Prontuário": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Tag"
       }
     },
     "ApiResponse": {

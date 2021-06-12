@@ -13,6 +13,7 @@ module.exports = new EntitySchema({
       type: String,
       length: 100,
       unique: true,
+      nullable: false
     },
     name: {
       type: String,
@@ -33,6 +34,7 @@ module.exports = new EntitySchema({
       type: String,
       length: 50,
       unique: true,
+      nullable: false
     },
     ...baseModel,
   },
