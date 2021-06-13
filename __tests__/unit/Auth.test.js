@@ -8,7 +8,8 @@ describe('Verify if JWT is working', () => {
     id: 1,
     login: 'zezinho123',
   };
-  it('Should generate a new jwt token', () => {
+
+  it('should generate a new jwt token', () => {
     const token = JwtToken.makeToken(User);
     expect(jwt.verify(token, environment.jwt.user.secret).id).toBe(User.id);
   });
