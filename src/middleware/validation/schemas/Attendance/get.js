@@ -12,8 +12,7 @@ module.exports = {
             && !req.query.date_attendance
             && !req.query.patient
             && !req.query.specialist
-          );
-          return Promise.reject(Error(this.errorMessage));
+          ) return Promise.reject(Error(this.errorMessage));
         }
         return true;
       },

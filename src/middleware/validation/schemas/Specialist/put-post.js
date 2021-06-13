@@ -1,4 +1,5 @@
 const specialistsRepository = require('../../../../services/Specialists');
+const professionsRepository = require('../../../../services/Professions');
 
 module.exports = {
   name: {
@@ -66,11 +67,15 @@ module.exports = {
       options: async (value, { req }) => {
         const existRegister = await specialistsRepository.getOne({ register: req.body.register });
         const existEmail = await specialistsRepository.getOne({ mail: req.body.mail });
+        const existProfession = await specialistsRepository.getOne(req.body.profession);
         if (existRegister) {
           return Promise.reject(Error('Já existe um Especialista com este Registro cadastrado no sistema.'));
         }
         if (existEmail) {
           return Promise.reject(Error('Já existe um Especialista com este e-mail cadastrado no sistema.'));
+        }
+        if (!existProfession) {
+          return Promise.reject(Error('Não existe uma Profissão com este id cadastrada no sistema.'));
         }
         return true;
       },
