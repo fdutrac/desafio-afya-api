@@ -6,6 +6,8 @@ const router = express.Router();
 
 const Authentication = require('../middleware/auth');
 
+const loginIsValid = require('../middleware/validation/schemas/Login');
+
 const userIsValid = require('../middleware/validation/schemas/User/put-post');
 const userExists = require('../middleware/validation/schemas/User/exists');
 
@@ -33,7 +35,7 @@ router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // LOGIN
 // Valida e efetua login
-router.post('/login', checkSchema(userIsValid), Controllers.Login.auth);
+router.post('/login', checkSchema(loginIsValid), Controllers.Login.auth);
 
 // CLIENTES
 // Lista todos clientes
