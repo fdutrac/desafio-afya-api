@@ -3,14 +3,14 @@ const userRepository = require('../../../../services/Users');
 module.exports = {
   name: {
     isLength: {
-      errorMessage: 'Nome deve ter entre 3 e 255 caracteres.',
-      options: { min: 3, max: 255 },
+      errorMessage: 'Nome deve ter entre 6 e 255 caracteres.',
+      options: { min: 6, max: 255 },
     },
   },
   login: {
     isLength: {
       errorMessage: 'Usuário deve ter entre 5 e 20 caracteres.',
-      options: { min: 3, max: 20 },
+      options: { min: 5, max: 20 },
     },
   },
   password: {
