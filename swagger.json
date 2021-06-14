@@ -1,3 +1,34 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@fdutrac 
+fdutrac
+/
+desafio-afya-api
+1
+20
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+desafio-afya-api/swagger.json
+@gustavolening
+gustavolening completo
+Latest commit 65c76d0 29 minutes ago
+ History
+ 1 contributor
+2299 lines (2299 sloc)  60.4 KB
+  
 {
   "swagger": "2.0",
   "info": {
@@ -13,14 +44,14 @@
     "http"
   ],
   "paths": {
-    "/user": {
+    "/usuarios": {
       "post": {
         "tags": [
-          "User"
+          "Users"
         ],
         "summary": "Adiciona um novo usuário",
         "description": "Cadastre um novo usuário para lhe liberar permissões de cadastros, consultas e alterações",
-        "operationId": "addUser",
+        "operationId": "insertUser",
         "consumes": [
           "application/json"
         ],
@@ -30,7 +61,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "user",
+            "name": "User",
             "description": "Dados do usuário a ser cadastrado",
             "schema": {
               "type": "object",
@@ -56,19 +87,19 @@
         ],
         "responses": {
           "200": {
-            "description": "Requisição realizada com sucesso"
+            "description": "Requisição realizada com sucesso."
           },
           "400": {
-            "description": "Erro na requisição"
+            "description": "Erro ao cadastrar."
           }
         }
       },
       "get": {
         "tags": [
-          "User"
+          "Users"
         ],
         "summary": "Lista todos os usuários cadastrados",
-        "operationId": "listUser",
+        "operationId": "getUser",
         "description": "Faz uma lista que contém todos os usuários que já foram cadastrados no sistema",
         "consumes":[
           "application/json"
@@ -79,7 +110,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "user",
+            "name": "User",
             "description": "Dados dos usuários a serem exibidos",
             "schema": {
               "type": "object",
@@ -99,19 +130,19 @@
         ],
         "responses": {
           "200": {
-            "description": "Requisição realizada com sucesso"
+            "description": "Requisição realizada com sucesso."
           },
           "400": {
-            "description": "Erro na requisição"
+            "description": "Erro ao listar."
           }
         }
       }
     },
-    "/user/{id}": {
+    "/usuarios/{id}": {
       "put": {
-        "name": "user",
+        "name": "User",
         "tags": [
-          "User"
+          "Users"
         ],
         "summary": "Atualiza os dados do usuário",
         "description": "Atualiza os dados de um usuário específico selecionado pelo ID",
@@ -130,7 +161,7 @@
           },
           {
             "in": "body",
-            "name": "user",
+            "name": "User",
             "description": "Dados do usuário a ser alterado",
             "schema": {
               "type": "object",
@@ -165,13 +196,13 @@
         }
       },
       "get": {
-        "name": "user",
+        "name": "User",
         "tags": [
-          "User"
+          "Users"
         ],
         "summary": "Retorna os dados de um usuário cadastrado",
         "description": "Retorna os dados de um cliente específico selecionado pelo ID",
-        "operationId": "showUser",
+        "operationId": "getOneUser",
         "consumes": [
           "application/json"
         ],
@@ -186,8 +217,8 @@
           },
           {
             "in": "body",
-            "name": "user",
-            "description": "Dados do usuário a ser alterado",
+            "name": "User",
+            "description": "Dados do usuário a ser exibido",
             "schema": {
               "type": "object",
               "required":["id"],
@@ -221,13 +252,13 @@
         }
       },
       "delete": {
-        "name": "user",
+        "name": "User",
         "tags": [
-          "User"
+          "Users"
         ],
         "summary": "Delete do sistema um usuário",
         "description": "Deleta um usuário do sistema que foi selecionado pelo ID",
-        "operationId": "deleteUser",
+        "operationId": "removeUser",
         "parameters": [
           {
             "in": "path",
@@ -236,8 +267,8 @@
           },
           {
             "in": "body",
-            "name": "user",
-            "description": "Dados do usuário a ser alterado",
+            "name": "User",
+            "description": "Dados do usuário a ser deletado",
             "schema": {
               "type": "object",
               "required":["id"],
@@ -271,14 +302,14 @@
         }
       }
     },
-    "/client": {
+    "/clientes": {
       "post": {
         "tags": [
           "Client"
         ],
         "summary": "Adiciona um novo cliente",
         "description": "Cadastre um novo cliente para que possa ser possível fazer agendamentos.",
-        "operationId": "addClient",
+        "operationId": "insertClient",
         "consumes": [
           "application/json"
         ],
@@ -288,7 +319,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "client",
+            "name": "Client",
             "description": "Dados do cliente a ser cadastrado",
             "schema": {
               "type": "object",
@@ -330,10 +361,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Requisição realizada com sucesso"
+            "description": "Requisição realizada com sucesso."
           },
           "400": {
-            "description": "Erro na requisição"
+            "description": "Erro ao cadastrar."
           }
         }
       },
@@ -343,7 +374,7 @@
         ],
         "summary": "Lista todos os clientes cadastrados",
         "description": "Faz uma lista que contém todos os clientes que já foram cadastrados no sistema",
-        "operationId": "listClient",
+        "operationId": "getClient",
         "consumes":[
           "application/json"
         ],
@@ -353,7 +384,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "client",
+            "name": "Client",
             "description": "Dados dos clientes a serem listados",
             "schema": {
               "type": "object",
@@ -391,17 +422,17 @@
         ],
         "responses": {
           "200": {
-            "description": "Requisição realizada com sucesso"
+            "description": "Requisição realizada com sucesso."
           },
           "400": {
-            "description": "Erro na requisição"
+            "description": "Erro ao listar."
           }
         }
       }
     },
-    "/client/{id}": {
+    "/clientes/{id}": {
       "put": {
-        "name": "client",
+        "name": "Client",
         "tags": [
           "Client"
         ],
@@ -422,7 +453,7 @@
           },
           {
             "in": "body",
-            "name": "client",
+            "name": "Client",
             "description": "Dados do cliente a ser alterado",
             "schema": {
               "type": "object",
@@ -468,13 +499,13 @@
         }
       },
       "get": {
-        "name": "client",
+        "name": "Client",
         "tags": [
           "Client"
         ],
         "summary": "Retorna os dados de um cliente cadastrado",
         "description": "Retorna os dados de um cliente específico selecionado pelo ID",
-        "operationId": "showClient",
+        "operationId": "getOneClient",
         "consumes": [
           "application/json"
         ],
@@ -488,8 +519,8 @@
           },
           {
             "in": "body",
-            "name": "client",
-            "description": "Dados do cliente a ser alterado",
+            "name": "Client",
+            "description": "Dados do cliente a ser exibido",
             "schema": {
               "type": "object",
               "required":["id"],
@@ -534,13 +565,13 @@
         }
       },
       "delete": {
-        "name": "client",
+        "name": "Client",
         "tags": [
           "Client"
         ],
         "summary": "Deleta do sistema um cliente",
         "description": "Deleta um cliente do sistema que foi selecionado pelo ID",
-        "operationId": "deleteClient",
+        "operationId": "removeClient",
         "parameters": [
           {
             "in": "path",
@@ -549,8 +580,8 @@
           },
           {
             "in": "body",
-            "name": "client",
-            "description": "Dados do cliente a ser alterado",
+            "name": "Client",
+            "description": "Dados do cliente a ser deletado",
             "schema": {
               "type": "object",
               "required":["id"],
@@ -595,14 +626,14 @@
         }
       }
     },
-    "/specialist": {
+    "/especialistas": {
       "post": {
         "tags": [
           "Specialist"
         ],
         "summary": "Adiciona um novo especialista",
         "description": "Cadastre um novo especialista para que possa ser possível marcar consultas e exames relacionados ao mesmo",
-        "operationId": "addSpecialist",
+        "operationId": "insertSpecialist",
         "consumes": [
           "application/json"
         ],
@@ -612,7 +643,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "specialist",
+            "name": "Specialist",
             "description": "Dados do especialista a ser cadastrado",
             "schema": {
               "type": "object",
@@ -650,10 +681,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Requisição realizada com sucesso"
+            "description": "Requisição realizada com sucesso."
           },
           "400": {
-            "description": "ID inválido"
+            "description": "Erro ao cadastrar."
           }
         }
     },
@@ -663,7 +694,7 @@
         ],
         "summary": "Lista de especialistas",
         "description": "Lista todos os especialistas que foram cadastrados no sistema anteriormente",
-        "operationId": "listSpecialist",
+        "operationId": "getSpecialist",
         "consumes": [
           "application/json"
         ],
@@ -673,8 +704,8 @@
         "parameters": [
           {
             "in": "body",
-            "name": "specialist",
-            "description": "Dados do especialista a ser cadastrado",
+            "name": "Specialist",
+            "description": "Dados do especialista a serem listados.",
             "schema": {
               "type": "object",
               "required": ["name", "cpf", "phone", "cellphone", "mail"],
@@ -711,14 +742,14 @@
             "description": "Requisição realizada com sucesso"
           },
           "400": {
-            "description": "ID inválido"
+            "description": "Erro ao listas."
           }
         }
       }
     },
-    "/specialist/{id}": {
+    "/especialistas/{id}": {
       "put": {
-        "name": "specialist",
+        "name": "Specialist",
         "tags": [
           "Specialist"
         ],
@@ -739,7 +770,7 @@
           },
           {
             "in": "body",
-            "name": "specialist",
+            "name": "Specialist",
             "description": "Dados do especialista a ser alterado",
             "schema": {
               "type": "object",
@@ -785,13 +816,13 @@
         }
       },
       "get": {
-        "name": "specialist",
+        "name": "Specialist",
         "tags": [
           "Specialist"
         ],
         "summary": "Retorna os dados de um especialista cadastrado",
         "description": "Retorna os dados de um especialista específico selecionado pelo ID",
-        "operationId": "showSpecialist",
+        "operationId": "getOneSpecialist",
         "consumes": [
           "application/json"
         ],
@@ -806,8 +837,8 @@
           },
           {
             "in": "body",
-            "name": "specialist",
-            "description": "Dados do especialista a ser alterado",
+            "name": "Specialist",
+            "description": "Dados do especialista a ser exibido",
             "schema": {
               "type": "object",
               "required": ["id"],
@@ -852,13 +883,13 @@
         }
       },
       "delete": {
-        "name": "specialist",
+        "name": "Specialist",
         "tags": [
           "Specialist"
         ],
         "summary": "Deleta do sistema um especialista",
-        "description": "Deleta um cliente do sistema que foi selecionado pelo ID",
-        "operationId": "deleteSpecialist",
+        "description": "Deleta um especialista do sistema que foi selecionado pelo ID",
+        "operationId": "removeSpecialist",
         "parameters": [
           {
             "in": "path",
@@ -867,8 +898,8 @@
           },
           {
             "in": "body",
-            "name": "specialist",
-            "description": "Dados do especialista a ser alterado",
+            "name": "Specialist",
+            "description": "Dados do especialista a ser deletado",
             "schema": {
               "type": "object",
               "required": ["id"],
@@ -913,14 +944,14 @@
         }
       }
     },
-    "/profession": {
+    "/profissoes": {
       "post": {
         "tags": [
           "Profession"
         ],
         "summary": "Adiciona uma nova profissão",
         "description": "Cadastre uma nova proifssão para que possa ser possível relacionar ao especialista",
-        "operationId": "addProfession",
+        "operationId": "insertProfession",
         "consumes": [
           "application/json"
         ],
@@ -930,7 +961,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "profession",
+            "name": "Profession",
             "description": "Dados da profissão a ser cadastrada",
             "schema": {
               "type": "object",
@@ -950,10 +981,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Requisição realizada com sucesso"
+            "description": "Requisição realizada com sucesso."
           },
           "400": {
-            "description": "ID inválido"
+            "description": "Erro ao cadastrar."
           }
         }
     },
@@ -963,7 +994,7 @@
         ],
         "summary": "Lista de profissões",
         "description": "Lista todas as profissiões cadastradas anteriormente",
-        "operationId": "listProfession",
+        "operationId": "getProfession",
         "consumes": [
           "application/json"
         ],
@@ -973,7 +1004,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "profession",
+            "name": "Profession",
             "description": "Dados das profissão a serem exibidas",
             "schema": {
               "type": "object",
@@ -994,19 +1025,19 @@
             "description": "Requisição realizada com sucesso"
           },
           "400": {
-            "description": "ID inválido"
+            "description": "Erro ao listar."
           }
         }
       }
     },
-    "/profession/{id}": {
+    "/profissoes/{id}": {
       "put": {
-        "name": "profession",
+        "name": "Profession",
         "tags": [
           "Profession"
         ],
         "summary": "Atualiza os dados da profissão",
-        "description": "Atualiza os dados da profissão escolhida pelo ID",
+        "description": "Atualiza os dados da profissão selecionada pelo ID",
         "operationId": "updateProfession",
         "consumes": [
           "application/json"
@@ -1022,7 +1053,7 @@
           },
           {
             "in": "body",
-            "name": "profession",
+            "name": "Profession",
             "description": "Dados da profissão a ser alterada",
             "schema": {
               "type": "object",
@@ -1046,28 +1077,34 @@
             "description": "Requisição realizada com sucesso"
           },
           "400": {
-            "description": "ID inválido"
+            "description": "ID inválido."
           }
         }
       },
-      "delete": {
-        "name": "profession",
+      "get": {
+        "name": "Profession",
         "tags": [
           "Profession"
         ],
-        "summary": "Deleta do sistema uma profissão",
-        "description": "Deleta uma profissão especifica do sistema",
-        "operationId": "deleteProfession",
+        "summary": "Retorna os dados de um especialista cadastrado",
+        "description": "Retorna os dados de um especialista específico selecionado pelo ID",
+        "operationId": "getOneSpecialist",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "in": "path",
-            "description": "Id da profissão a ser deletada",
+            "description": "Id da profissão a ser exibido",
             "required": true
           },
           {
             "in": "body",
-            "name": "profession",
-            "description": "Dados da profissão a ser alterada",
+            "name": "Profession",
+            "description": "Dados da profissão a ser exibida",
             "schema": {
               "type": "object",
               "required": ["id"],
@@ -1090,19 +1127,63 @@
             "description": "Requisição realizada com sucesso"
           },
           "400": {
-            "description": "ID inválido"
+            "description": "ID inválido."
+          }
+        }
+      },
+      "delete": {
+        "name": "Profession",
+        "tags": [
+          "Profession"
+        ],
+        "summary": "Deleta do sistema uma profissão",
+        "description": "Deleta uma profissão especifica do sistema",
+        "operationId": "removeProfession",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id da profissão a ser deletada",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "Profession",
+            "description": "Dados da profissão a ser deletada",
+            "schema": {
+              "type": "object",
+              "required": ["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "specialist":{
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido."
           }
         }
       }
     },
-    "/attendance": {
+    "/atendimentos": {
       "post": {
         "tags": [
           "Attendance"
         ],
         "summary": "Adiciona um novo atendimento",
         "description": "Cadastre um novo atendimento",
-        "operationId": "addAttendance",
+        "operationId": "insertAttendance",
         "consumes": [
           "application/json"
         ],
@@ -1112,7 +1193,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "attendance",
+            "name": "Attendance",
             "description": "Dados do atendimento a ser cadastrado",
             "schema": {
               "type": "object",
@@ -1120,13 +1201,16 @@
                 "date_hour", "value", "status", "specialist", "patient"],
               "properties": {
                 "date_scheduling": {
-                  "type": "date"
+                  "type": "string",
+                  "format":"date"
                 },
                 "date_attendance": {
-                  "type": "date"
+                  "type": "string",
+                  "format":"date"
                 },
                 "date_hour": {
-                  "type": "time"
+                  "type": "string",
+                  "format":"date-time"
                 },
                 "value":{
                   "type": "string"
@@ -1147,10 +1231,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Requisição realizada com sucesso"
+            "description": "Requisição realizada com sucesso."
           },
           "400": {
-            "description": "ID inválido"
+            "description": "Erro ao cadastrar."
           }
         }
       },
@@ -1170,7 +1254,7 @@
         "parameters": [
           {
             "in": "body",
-            "name": "attendance",
+            "name": "Attendance",
             "description": "Dados do atendimento a ser cadastrado",
             "schema": {
               "type": "object",
@@ -1178,13 +1262,16 @@
                 "date_hour", "value", "status", "specialist", "patient"],
               "properties": {
                 "date_scheduling": {
-                  "type": "date"
+                  "type": "string",
+                  "format":"date"
                 },
                 "date_attendance": {
-                  "type": "date"
+                  "type": "string",
+                  "format":"date"
                 },
                 "date_hour": {
-                  "type": "time"
+                  "type": "string",
+                  "format":"date-time"
                 },
                 "value":{
                   "type": "string"
@@ -1213,9 +1300,9 @@
         }
       }
     },
-    "/attendance/{id}": {
+    "/atendimentos/{id}": {
       "put": {
-        "name": "attendance",
+        "name": "Attendance",
         "tags": [
           "Attendance"
         ],
@@ -1236,8 +1323,8 @@
           },
           {
             "in": "body",
-            "name": "attendance",
-            "description": "Dados do atendimento a ser alterado",
+            "name": "Attendance",
+            "description": "Dados do atendimento a serem alterados",
             "schema": {
               "type": "object",
               "required":["id"],
@@ -1246,13 +1333,16 @@
                   "type": "integer"
                 },
                 "date_scheduling": {
-                  "type": "date"
+                  "type": "string",
+                  "format":"date"
                 },
                 "date_attendance": {
-                  "type": "date"
+                  "type": "string",
+                  "format":"date"
                 },
                 "date_hour": {
-                  "type": "time"
+                  "type": "string",
+                  "format":"date-time"
                 },
                 "value":{
                   "type": "string"
@@ -1276,18 +1366,18 @@
             "description": "Requisição realizada com sucesso"
           },
           "400": {
-            "description": "ID inválido"
+            "description": "Este ID não existe no sistema!"
           }
         }
       },
       "get": {
-        "name": "attendance",
+        "name": "Attendance",
         "tags": [
           "Attendance"
         ],
         "summary": "Retorna os dados de um atendimento cadastrado",
         "description": "Retorna os dados de um atendimento específico selecionado pelo ID",
-        "operationId": "showAttendance",
+        "operationId": "getOneAttendance",
         "consumes": [
           "application/json"
         ],
@@ -1302,8 +1392,8 @@
           },
           {
             "in": "body",
-            "name": "attendance",
-            "description": "Dados do atendimento a ser alterado",
+            "name": "Attendance",
+            "description": "Dados do atendimento a serem exibidos",
             "schema": {
               "type": "object",
               "required":["id"],
@@ -1312,13 +1402,16 @@
                   "type": "integer"
                 },
                 "date_scheduling": {
-                  "type": "date"
+                  "type": "string",
+                  "format":"date"
                 },
                 "date_attendance": {
-                  "type": "date"
+                  "type": "string",
+                  "format":"date"
                 },
                 "date_hour": {
-                  "type": "time"
+                  "type": "string",
+                  "format":"date-time"
                 },
                 "value":{
                   "type": "string"
@@ -1342,18 +1435,18 @@
             "description": "ID inválido"
           },
           "405": {
-            "description": "Validation exception"
+            "description": "Este ID não existe no sistema!"
           }
         }
       },
       "delete": {
-        "name": "attendance",
+        "name": "Attendance",
         "tags": [
           "Attendance"
         ],
         "summary": "Delete do sistema um atendimento",
         "description": "Deleta um atendimento do sistema que foi selecionado pelo ID",
-        "operationId": "deleteAttendance",
+        "operationId": "removeAttendance",
         "parameters": [
           {
             "in": "path",
@@ -1362,8 +1455,8 @@
           },
           {
             "in": "body",
-            "name": "attendance",
-            "description": "Dados do atendimento a ser alterado",
+            "name": "Attendance",
+            "description": "Dados do atendimento a serem deletes",
             "schema": {
               "type": "object",
               "required":["id"],
@@ -1372,13 +1465,16 @@
                   "type": "integer"
                 },
                 "date_scheduling": {
-                  "type": "date"
+                  "type": "string",
+                  "format":"date"
                 },
                 "date_attendance": {
-                  "type": "date"
+                  "type": "string",
+                  "format":"date"
                 },
                 "date_hour": {
-                  "type": "time"
+                  "type": "string",
+                  "format":"date-time"
                 },
                 "value":{
                   "type": "string"
@@ -1402,19 +1498,19 @@
             "description": "Requisição realizada com sucesso"
           },
           "400": {
-            "description": "ID inválido"
+            "description": "Este ID não existe no sistema!"
           }
         }
       }
     },
-    "/medicalRecord": {
+    "/prontuarios": {
       "post": {
         "tags": [
           "Medical Record"
         ],
         "summary": "Adiciona um novo prontuário",
         "description": "Cadastre um novo prontuário para lhe liberar permissões de cadastros, consultas e alterações",
-        "operationId": "addMedicalRecord",
+        "operationId": "insertMedicalRecord",
         "consumes": [
           "application/json"
         ],
@@ -1424,14 +1520,15 @@
         "parameters": [
           {
             "in": "body",
-            "name": "medicalRecord",
+            "name": "MedicalRecord",
             "description": "Dados do prontuário a ser cadastrado",
             "schema": {
               "type": "object",
               "required": ["openingDate"],
               "properties": {
                 "openingDate": {
-                  "type": "string"
+                  "type": "string",
+                  "format":"date-time"
                 },
                 "client":{
                   "type": "string"
@@ -1457,7 +1554,7 @@
           "Medical Record"
         ],
         "summary": "Lista todos os prontuários cadastrados",
-        "operationId": "listMedicalRecord",
+        "operationId": "getMedicalRecord",
         "description": "Faz uma lista que contém todos os prontuário que já foram cadastrados no sistema",
         "consumes":[
           "application/json"
@@ -1468,14 +1565,15 @@
         "parameters": [
           {
             "in": "body",
-            "name": "medicalRecord",
-            "description": "Dados dos prontuários a serem exebidos",
+            "name": "MedicalRecord",
+            "description": "Dados dos prontuários a serem exibidos",
             "schema": {
               "type": "object",
               "required": ["openingDate"],
               "properties": {
                 "openingDate": {
-                  "type": "string"
+                  "type": "string",
+                  "format":"date-time"
                 },
                 "client":{
                   "type": "string"
@@ -1497,9 +1595,9 @@
         }
       }
     },
-    "/medicalRecord/{id}": {
+    "/prontuarios/{id}": {
       "put": {
-        "name": "medicalRecord",
+        "name": "MedicalRecord",
         "tags": [
           "Medical Record"
         ],
@@ -1520,14 +1618,15 @@
           },
           {
             "in": "body",
-            "name": "medicalRecord",
+            "name": "MedicalRecord",
             "description": "Dados do prontuário a ser alterado",
             "schema": {
               "type": "object",
               "required":["id"],
               "properties": {
                 "id": {
-                  "type": "integer"
+                  "type": "integer",
+                  "format":"date-time"
                 },
                 "openingDate": {
                   "type": "string"
@@ -1552,13 +1651,13 @@
         }
       },
       "get": {
-        "name": "medicalRecord",
+        "name": "MedicalRecord",
         "tags": [
           "Medical Record"
         ],
         "summary": "Retorna os dados de um prontuário cadastrado",
         "description": "Retorna os dados de um prontuário específico selecionado pelo ID",
-        "operationId": "showMedicalRecord",
+        "operationId": "getOneMedicalRecord",
         "consumes": [
           "application/json"
         ],
@@ -1573,8 +1672,8 @@
           },
           {
             "in": "body",
-            "name": "medicalRecord",
-            "description": "Dados do prontuário a ser alterado",
+            "name": "MedicalRecord",
+            "description": "Dados do prontuário a ser exíbido",
             "schema": {
               "type": "object",
               "required":["id"],
@@ -1583,7 +1682,8 @@
                   "type": "integer"
                 },
                 "openingDate": {
-                  "type": "string"
+                  "type": "string",
+                  "format":"date-time"
                 },
                 "client":{
                   "type": "string"
@@ -1605,13 +1705,13 @@
         }
       },
       "delete": {
-        "name": "medicalRecord",
+        "name": "MedicalRecord",
         "tags": [
           "Medical Record"
         ],
         "summary": "Delete do sistema um prontuário",
         "description": "Deleta um prontuário do sistema que foi selecionado pelo ID",
-        "operationId": "deleteMedicalRecord",
+        "operationId": "removeMedicalRecord",
         "parameters": [
           {
             "in": "path",
@@ -1620,8 +1720,8 @@
           },
           {
             "in": "body",
-            "name": "medicalRecord",
-            "description": "Dados do prontuário a ser alterado",
+            "name": "MedicalRecord",
+            "description": "Dados do prontuário a ser deletado",
             "schema": {
               "type": "object",
               "required":["id"],
@@ -1630,7 +1730,8 @@
                   "type": "integer"
                 },
                 "openingDate": {
-                  "type": "string"
+                  "type": "string",
+                  "format":"date-time"
                 },
                 "client":{
                   "type": "string"
@@ -1652,13 +1753,57 @@
         }
       }
     },  
-    "/medicalRecordHistory": {
+    "/historicos_prontuario": {
+      "post": {
+        "tags": [
+          "Medical Record History"
+        ],
+        "summary": "Adiciona um novo prontuário se tiver histórico",
+        "operationId": "insertMedicalRecordHistories",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "MedicalRecordHistory",
+            "description": "Dados do histórico de prontuário a ser cadastrado",
+            "schema": {
+              "type": "object",
+              "required": ["openingDate"],
+              "properties": {
+                "openingDate": {
+                  "type": "string",
+                  "format":"date-time"
+                },
+                "client":{
+                  "type": "string"
+                },
+                "medicalRecordHistories": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "Erro na requisição"
+          }
+        }
+      },
       "get": {
         "tags": [
           "Medical Record History"
         ],
-        "summary": "Lista o histórico de prontuário já concluídos",
-        "operationId": "listMedicalRecordHistory",
+        "summary": "Lista o histórico de prontuário.",
+        "operationId": "getMedicalRecordHistory",
         "description": "Faz uma lista que contém todos os prontuários que já foram concluídos anteriormente",
         "consumes":[
           "application/json"
@@ -1669,17 +1814,19 @@
         "parameters": [
           {
             "in": "body",
-            "name": "medicalRecordHistory",
-            "description": "Dados do histórico de prontuário a ser exebidos",
+            "name": "MedicalRecordHistory",
+            "description": "Dados do histórico de prontuário a ser exibidos",
             "schema": {
               "type": "object",
               "required": ["date", "hour", "description"],
               "properties": {
                 "date": {
-                  "type": "string"
+                  "type": "string",
+                  "format":"date"
                 },
                 "hour": {
-                  "type": "string"
+                  "type": "string",
+                  "format":"time"
                 },
                 "description": {
                   "type": "string",
@@ -1705,15 +1852,15 @@
         }
       }
     },
-    "/medicalRecordHistory/{id}": {
+    "/historicos_prontuario/{id}": {
       "put": {
-        "name": "medicalRecordHistory",
+        "name": "MedicalRecordHistory",
         "tags": [
           "Medical Record History"
         ],
-        "summary": "Atualiza os dados do prontuário",
-        "description": "Atualiza os dados de um prontuário específico selecionado pelo ID",
-        "operationId": "updateMedicalRecordHistory",
+        "summary": "Atualiza os dados do histórico de prontuário",
+        "description": "Atualiza os dados de um dado de histórico específico selecionado pelo ID",
+        "operationId": "updateMedicalRecordHistories",
         "consumes": [
           "application/json"
         ],
@@ -1723,13 +1870,13 @@
         "parameters": [
           {
             "in": "path",
-            "description": "Id do prontuário a ser alterado",
+            "description": "Id do histórico a ser alterado",
             "required": true
           },
           {
             "in": "body",
-            "name": "medicalRecordHistory",
-            "description": "Dados do atendimento a ser alterado",
+            "name": "MedicalRecordHistory",
+            "description": "Dados do histórico a ser alterado",
             "schema": {
               "type": "object",
               "required": ["id"],
@@ -1738,10 +1885,12 @@
                   "type": "integer"
                 },
                 "date": {
-                  "type": "string"
+                  "type": "string",
+                  "format":"date"
                 },
                 "hour": {
-                  "type": "string"
+                  "type": "string",
+                  "format":"time"
                 },
                 "description": {
                   "type": "string",
@@ -1765,8 +1914,110 @@
             "description": "ID inválido"
           }
         }
+    },
+      "get": {
+        "name": "MedicalRecordHistory",
+        "tags": [
+          "Medical Record History"
+        ],
+        "summary": "Retorna os dados de um histórico de prontuário",
+        "description": "Retorna os dados de um histórico de prontuário específico selecionado pelo ID",
+        "operationId": "getOneMedicalRecordHistories",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do histórico a ser exibido",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "MedicalRecord",
+            "description": "Dados do histórico a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id":{
+                  "type": "integer"
+                },
+                "openingDate": {
+                  "type": "string",
+                  "format":"date-time"
+                },
+                "client":{
+                  "type": "string"
+                },
+                "medicalRecordHistories": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      },
+      "delete": {
+        "name": "MedicalRecordHistory",
+        "tags": [
+          "Medical Record History"
+        ],
+        "summary": "Delete do sistema um prontuário",
+        "description": "Deleta um prontuário do sistema que foi selecionado pelo ID",
+        "operationId": "removeMedicalRecordHistories",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do histórico a ser deletado",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "MedicalRecordHistory",
+            "description": "Dados do histórico a ser excluído",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "openingDate": {
+                  "type": "string",
+                  "format":"date-time"
+                },
+                "client":{
+                  "type": "string"
+                },
+                "medicalRecordHistories": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      }
     }
-  }
   },
   "securityDefinitions": {
     "petstore_auth": {
@@ -1785,7 +2036,19 @@
     }
   },
   "definitions": {
-    "Usuário": {
+    "login":{
+      "type":"object",
+      "properties":{
+         "login":{
+           "type":"string",
+           "unique": "true"
+         },
+         "password":{
+           "type":"string"
+         }
+      }
+    },
+    "usuarios": {
       "type": "object",
       "properties": {
         "id": {
@@ -1807,7 +2070,7 @@
         "name": "User"
       }
     },
-    "Cliente": {
+    "clientes": {
       "type": "object",
       "properties": {
         "id": {
@@ -1849,7 +2112,7 @@
         "name": "Client"
       }
     },
-    "Especialista": {
+    "especialistas": {
       "type": "object",
       "properties": {
         "id": {
@@ -1891,7 +2154,7 @@
         "name": "Specialist"
       }
     },
-    "Profissão": {
+    "profissoes": {
       "type": "object",
       "properties": {
         "id": {
@@ -1911,7 +2174,7 @@
         "name": "Profession"
       }
     },
-    "Atendimento": {
+    "atendimentos": {
       "type": "object",
       "properties": {
         "id": {
@@ -1956,7 +2219,7 @@
         "name": "Attendance"
       }
     },  
-    "Prontuário": {
+    "prontuarios": {
       "type": "object",
       "properties": {
         "id": {
@@ -1980,7 +2243,7 @@
         "name": "MedicalRecord"
       }
     },
-    "Endereço": {
+    "enderecos": {
       "type": "object",
       "properties": {
         "id": {
@@ -2012,7 +2275,7 @@
         "name": "Address"
       }
     },
-    "Histórico de Prontuário": {
+    "historicos_prontuario": {
       "type": "object",
       "properties": {
         "id": {
@@ -2044,7 +2307,7 @@
         "name": "Tag"
       }
     },
-    "ApiResponse": {
+    "api-docs": {
       "type": "object",
       "properties": {
         "code": {
