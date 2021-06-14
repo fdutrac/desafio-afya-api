@@ -7,16 +7,16 @@
       "email": "fdutra.c@gmail.com"
     }
   },
-  "host": "petstore.swagger.io",
+  "host": "pomalabs.swagger.io",
   "basePath": "/v2",
   "schemes": [
     "http"
   ],
   "paths": {
-    "/usuario": {
+    "/user": {
       "post": {
         "tags": [
-          "usuario"
+          "User"
         ],
         "summary": "Adiciona um novo usuário",
         "description": "Cadastre um novo usuário para lhe liberar permissões de cadastros, consultas e alterações",
@@ -37,12 +37,14 @@
               "required": ["name", "login", "password"],
               "properties": {
                 "name": {
-                  "type": "string"
+                  "type": "string",
+                  "maximum": "255"
                 },
                 "login": {
                   "type": "string",
                   "minimum": "6",
-                  "maxiumum": "20"
+                  "maximum": "20",
+                  "unique":"true"
                 },
                 "password": {
                   "type": "string",
@@ -63,11 +65,37 @@
       },
       "get": {
         "tags": [
-          "usuario"
+          "User"
         ],
         "summary": "Lista todos os usuários cadastrados",
+        "operationId": "listUser",
+        "description": "Faz uma lista que contém todos os usuários que já foram cadastrados no sistema",
+        "consumes":[
+          "application/json"
+        ],
         "produces": [
           "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user",
+            "description": "Dados dos usuários a serem exibidos",
+            "schema": {
+              "type": "object",
+              "required": ["name", "login"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "login": {
+                  "type": "string",
+                  "minimum": "6",
+                  "maximum": "20"
+                }
+              }
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -79,14 +107,15 @@
         }
       }
     },
-    "/usuario/{id}": {
+    "/user/{id}": {
       "put": {
         "name": "user",
         "tags": [
-          "usuario"
+          "User"
         ],
         "summary": "Atualiza os dados do usuário",
-        "description": "",
+        "description": "Atualiza os dados de um usuário específico selecionado pelo ID",
+        "operationId": "updateUser",
         "consumes": [
           "application/json"
         ],
@@ -105,14 +134,18 @@
             "description": "Dados do usuário a ser alterado",
             "schema": {
               "type": "object",
+              "required":["id"],
               "properties": {
+                "id":{
+                  "type":"integer"
+                },
                 "name": {
                   "type": "string"
                 },
                 "login": {
                   "type": "string",
                   "minimum": "6",
-                  "maxiumum": "20"
+                  "maximum": "20"
                 },
                 "password": {
                   "type": "string",
@@ -123,24 +156,22 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
           "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Pet not found"
-          },
-          "405": {
-            "description": "Validation exception"
+            "description": "ID inválido"
           }
         }
       },
       "get": {
-        "name": "usuário",
+        "name": "user",
         "tags": [
-          "usuario"
+          "User"
         ],
         "summary": "Retorna os dados de um usuário cadastrado",
-        "description": "",
+        "description": "Retorna os dados de um cliente específico selecionado pelo ID",
+        "operationId": "showUser",
         "consumes": [
           "application/json"
         ],
@@ -152,29 +183,32 @@
             "in": "path",
             "description": "Id do usuário a ser exibido",
             "required": true
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "ID inválido"
           },
-          "405": {
-            "description": "Validation exception"
-          }
-        }
-      },
-      "delete": {
-        "name": "user",
-        "tags": [
-          "usuario"
-        ],
-        "summary": "Delete do sistema um usuário",
-        "description": "",
-        "parameters": [
           {
-            "in": "path",
-            "description": "Id do usuário a ser deletado",
-            "required": true
+            "in": "body",
+            "name": "user",
+            "description": "Dados do usuário a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id":{
+                  "type":"integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "login": {
+                  "type": "string",
+                  "minimum": "6",
+                  "maximum": "20"
+                },
+                "password": {
+                  "type": "string",
+                  "minimum": "6"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -183,50 +217,144 @@
           },
           "400": {
             "description": "ID inválido"
+          }
+        }
+      },
+      "delete": {
+        "name": "user",
+        "tags": [
+          "User"
+        ],
+        "summary": "Delete do sistema um usuário",
+        "description": "Deleta um usuário do sistema que foi selecionado pelo ID",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do usuário a ser deletado",
+            "required": true
           },
-          "405": {
-            "description": "Validation exception"
+          {
+            "in": "body",
+            "name": "user",
+            "description": "Dados do usuário a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id":{
+                  "type":"integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "login": {
+                  "type": "string",
+                  "minimum": "6",
+                  "maximum": "20"
+                },
+                "password": {
+                  "type": "string",
+                  "minimum": "6"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
           }
         }
       }
     },
-    "/clientes": {
-      "get": {
-        "tags": [
-          "clientes"
-        ],
-        "summary": "Lista todos os clientes cadastrados",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "successful operation"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ]
-      }
-    },
-    "/clientes/": {
+    "/client": {
       "post": {
         "tags": [
-          "clientes"
+          "Client"
         ],
-        "summary": "Cadastra um novo cliente",
-        "description": "",
+        "summary": "Adiciona um novo cliente",
+        "description": "Cadastre um novo cliente para que possa ser possível fazer agendamentos.",
+        "operationId": "addClient",
         "consumes": [
+          "application/json"
+        ],
+        "produces": [
           "application/json"
         ],
         "parameters": [
           {
             "in": "body",
-            "name": "user",
-            "description": "Dados do usuário a ser cadastrado",
+            "name": "client",
+            "description": "Dados do cliente a ser cadastrado",
+            "schema": {
+              "type": "object",
+              "required": ["name", "cpf", "phone", "mail"],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "maximum": "255"
+                },
+                "cpf": {
+                  "type": "string",
+                  "minimum": "11",
+                  "maximum": "14",
+                  "unique": "true"
+                },
+                "phone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "cellphone":{
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "mail":{
+                  "type": "string",
+                  "maximum": "255",
+                  "unique": "true"
+                },
+                "bloodtype":{
+                  "type": "string",
+                  "enum":["A+","A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+                },
+                "address":{
+                  "type":"string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "Erro na requisição"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "summary": "Lista todos os clientes cadastrados",
+        "description": "Faz uma lista que contém todos os clientes que já foram cadastrados no sistema",
+        "operationId": "listClient",
+        "consumes":[
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "client",
+            "description": "Dados dos clientes a serem listados",
             "schema": {
               "type": "object",
               "required": ["name", "cpf", "phone", "mail"],
@@ -236,22 +364,26 @@
                 },
                 "cpf": {
                   "type": "string",
-                  "maxiumum": "14"
+                  "minimum": "11",
+                  "maximum": "14"
                 },
                 "phone": {
                   "type": "string",
-                  "maxiumum": "14"
+                  "maximum": "14"
                 },
-                "cellphone": {
+                "cellphone":{
                   "type": "string",
-                  "maxiumum": "14"
+                  "maximum": "14"
                 },
-                "mail": {
+                "mail":{
                   "type": "string"
                 },
-                "bloodtype": {
+                "bloodtype":{
                   "type": "string",
-                  "enum": ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+                  "enum":["A+","A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+                },
+                "address":{
+                  "type":"string"
                 }
               }
             }
@@ -259,361 +391,1382 @@
         ],
         "responses": {
           "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/Order"
-            }
+            "description": "Requisição realizada com sucesso"
           },
           "400": {
-            "description": "Invalid Order"
+            "description": "Erro na requisição"
           }
         }
       }
     },
-    "/store/order/{orderId}": {
-      "get": {
-        "tags": [
-          "store"
-        ],
-        "summary": "Find purchase order by ID",
-        "description": "For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions",
-        "operationId": "getOrderById",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "orderId",
-            "in": "path",
-            "description": "ID of pet that needs to be fetched",
-            "required": true,
-            "type": "integer",
-            "maximum": 10,
-            "minimum": 1,
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/Order"
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Order not found"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "store"
-        ],
-        "summary": "Delete purchase order by ID",
-        "description": "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors",
-        "operationId": "deleteOrder",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "orderId",
-            "in": "path",
-            "description": "ID of the order that needs to be deleted",
-            "required": true,
-            "type": "integer",
-            "minimum": 1,
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Order not found"
-          }
-        }
-      }
-    },
-    "/user": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Create user",
-        "description": "This can only be done by the logged in user.",
-        "operationId": "createUser",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Created user object",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/user/createWithArray": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Creates list of users with given input array",
-        "description": "",
-        "operationId": "createUsersWithArrayInput",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "List of user object",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/user/createWithList": {
-      "post": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Creates list of users with given input array",
-        "description": "",
-        "operationId": "createUsersWithListInput",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "List of user object",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/User"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/user/login": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Logs user into the system",
-        "description": "",
-        "operationId": "loginUser",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "query",
-            "description": "The user name for login",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "password",
-            "in": "query",
-            "description": "The password for login in clear text",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "string"
-            },
-            "headers": {
-              "X-Rate-Limit": {
-                "type": "integer",
-                "format": "int32",
-                "description": "calls per hour allowed by the user"
-              },
-              "X-Expires-After": {
-                "type": "string",
-                "format": "date-time",
-                "description": "date in UTC when token expires"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid username/password supplied"
-          }
-        }
-      }
-    },
-    "/user/logout": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Logs out current logged in user session",
-        "description": "",
-        "operationId": "logoutUser",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/user/{username}": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get user by user name",
-        "description": "",
-        "operationId": "getUserByName",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "path",
-            "description": "The name that needs to be fetched. Use user1 for testing. ",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          },
-          "400": {
-            "description": "Invalid username supplied"
-          },
-          "404": {
-            "description": "User not found"
-          }
-        }
-      },
+    "/client/{id}": {
       "put": {
+        "name": "client",
         "tags": [
-          "user"
+          "Client"
         ],
-        "summary": "Updated user",
-        "description": "This can only be done by the logged in user.",
-        "operationId": "updateUser",
+        "summary": "Atualiza os dados do cliente",
+        "description": "Atualiza os dados de um cliente específico selecionado pelo ID",
+        "operationId": "updateClient",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
           {
-            "name": "username",
             "in": "path",
-            "description": "name that need to be updated",
-            "required": true,
-            "type": "string"
+            "description": "Id do cliente a ser alterado",
+            "required": true
           },
           {
             "in": "body",
-            "name": "body",
-            "description": "Updated user object",
-            "required": true,
+            "name": "client",
+            "description": "Dados do cliente a ser alterado",
             "schema": {
-              "$ref": "#/definitions/User"
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "cpf": {
+                  "type": "string",
+                  "maximum": "14",
+                  "minimum": "11"
+                },
+                "phone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "cellphone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "mail": {
+                  "type": "string"
+                },
+                "bloodtype": {
+                  "type": "string",
+                  "enum": ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+                },
+                "address":{
+                  "type":"string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      },
+      "get": {
+        "name": "client",
+        "tags": [
+          "Client"
+        ],
+        "summary": "Retorna os dados de um cliente cadastrado",
+        "description": "Retorna os dados de um cliente específico selecionado pelo ID",
+        "operationId": "showClient",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [{
+            "in": "path",
+            "description": "Id do cliente a ser exibido",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "client",
+            "description": "Dados do cliente a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "cpf": {
+                  "type": "string",
+                  "maximum": "14",
+                  "minimum": "11"
+                },
+                "phone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "cellphone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "mail": {
+                  "type": "string"
+                },
+                "bloodtype": {
+                  "type": "string",
+                  "enum": ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+                },
+                "address":{
+                  "type":"string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      },
+      "delete": {
+        "name": "client",
+        "tags": [
+          "Client"
+        ],
+        "summary": "Deleta do sistema um cliente",
+        "description": "Deleta um cliente do sistema que foi selecionado pelo ID",
+        "operationId": "deleteClient",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do cliente a ser deletado",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "client",
+            "description": "Dados do cliente a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "cpf": {
+                  "type": "string",
+                  "maximum": "14",
+                  "minimum": "11"
+                },
+                "phone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "cellphone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "mail": {
+                  "type": "string"
+                },
+                "bloodtype": {
+                  "type": "string",
+                  "enum": ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+                },
+                "address":{
+                  "type":"string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      }
+    },
+    "/specialist": {
+      "post": {
+        "tags": [
+          "Specialist"
+        ],
+        "summary": "Adiciona um novo especialista",
+        "description": "Cadastre um novo especialista para que possa ser possível marcar consultas e exames relacionados ao mesmo",
+        "operationId": "addSpecialist",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "specialist",
+            "description": "Dados do especialista a ser cadastrado",
+            "schema": {
+              "type": "object",
+              "required": [ "name", "register","cellphone", "mail", "profession", "adress"],
+              "properties": {
+                "register": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": "string",
+                  "maximum": "100",
+                  "unique": "true"
+                },
+                "phone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "cellphone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "mail": {
+                  "type": "string",
+                  "unique":"true"
+                },
+                "profession": {
+                  "type": "string"
+                },
+                "address": {
+                   "type":"string" 
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+    },
+      "get": {
+        "tags": [
+          "Specialist"
+        ],
+        "summary": "Lista de especialistas",
+        "description": "Lista todos os especialistas que foram cadastrados no sistema anteriormente",
+        "operationId": "listSpecialist",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "specialist",
+            "description": "Dados do especialista a ser cadastrado",
+            "schema": {
+              "type": "object",
+              "required": ["name", "cpf", "phone", "cellphone", "mail"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "register": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "cellphone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "mail": {
+                  "type": "string"
+                },
+                "address":{
+                  "type":"string"
+                },
+                "profession": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      }
+    },
+    "/specialist/{id}": {
+      "put": {
+        "name": "specialist",
+        "tags": [
+          "Specialist"
+        ],
+        "summary": "Atualiza os dados do especialista",
+        "description": "Atualiza os dados de um especialista específico selecionado pelo ID",
+        "operationId": "updateSpecialist",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do especialista a ser alterado",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "specialist",
+            "description": "Dados do especialista a ser alterado",
+            "schema": {
+              "type": "object",
+              "required": ["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "register": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "cellphone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "mail": {
+                  "type": "string"
+                },
+                "address":{
+                  "type":"string"
+                },
+                "profession": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      },
+      "get": {
+        "name": "specialist",
+        "tags": [
+          "Specialist"
+        ],
+        "summary": "Retorna os dados de um especialista cadastrado",
+        "description": "Retorna os dados de um especialista específico selecionado pelo ID",
+        "operationId": "showSpecialist",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do especialista a ser exibido",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "specialist",
+            "description": "Dados do especialista a ser alterado",
+            "schema": {
+              "type": "object",
+              "required": ["id"],
+              "properties": {
+                "id":{
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "register": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "cellphone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "mail": {
+                  "type": "string"
+                },
+                "address":{
+                  "type":"string"
+                },
+                "profession": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      },
+      "delete": {
+        "name": "specialist",
+        "tags": [
+          "Specialist"
+        ],
+        "summary": "Deleta do sistema um especialista",
+        "description": "Deleta um cliente do sistema que foi selecionado pelo ID",
+        "operationId": "deleteSpecialist",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do especialista a ser deletado",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "specialist",
+            "description": "Dados do especialista a ser alterado",
+            "schema": {
+              "type": "object",
+              "required": ["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "register": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "cellphone": {
+                  "type": "string",
+                  "maximum": "14"
+                },
+                "mail": {
+                  "type": "string"
+                },
+                "address":{
+                  "type":"string"
+                },
+                "profession": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      }
+    },
+    "/profession": {
+      "post": {
+        "tags": [
+          "Profession"
+        ],
+        "summary": "Adiciona uma nova profissão",
+        "description": "Cadastre uma nova proifssão para que possa ser possível relacionar ao especialista",
+        "operationId": "addProfession",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "profession",
+            "description": "Dados da profissão a ser cadastrada",
+            "schema": {
+              "type": "object",
+              "required": ["name", "specialist"],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "unique": "true"
+                },
+                "specialist":{
+                  "type": "string",
+                  "nullable": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+    },
+      "get": {
+        "tags": [
+          "Profession"
+        ],
+        "summary": "Lista de profissões",
+        "description": "Lista todas as profissiões cadastradas anteriormente",
+        "operationId": "listProfession",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "profession",
+            "description": "Dados das profissão a serem exibidas",
+            "schema": {
+              "type": "object",
+              "required": ["name", "specialist"],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "specialist":{
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      }
+    },
+    "/profession/{id}": {
+      "put": {
+        "name": "profession",
+        "tags": [
+          "Profession"
+        ],
+        "summary": "Atualiza os dados da profissão",
+        "description": "Atualiza os dados da profissão escolhida pelo ID",
+        "operationId": "updateProfession",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id da profissão a ser alterado",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "profession",
+            "description": "Dados da profissão a ser alterada",
+            "schema": {
+              "type": "object",
+              "required": ["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "specialist": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      },
+      "delete": {
+        "name": "profession",
+        "tags": [
+          "Profession"
+        ],
+        "summary": "Deleta do sistema uma profissão",
+        "description": "Deleta uma profissão especifica do sistema",
+        "operationId": "deleteProfession",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id da profissão a ser deletada",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "profession",
+            "description": "Dados da profissão a ser alterada",
+            "schema": {
+              "type": "object",
+              "required": ["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "specialist":{
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      }
+    },
+    "/attendance": {
+      "post": {
+        "tags": [
+          "Attendance"
+        ],
+        "summary": "Adiciona um novo atendimento",
+        "description": "Cadastre um novo atendimento",
+        "operationId": "addAttendance",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "attendance",
+            "description": "Dados do atendimento a ser cadastrado",
+            "schema": {
+              "type": "object",
+              "required": ["date_scheduling", "date_attendance", 
+                "date_hour", "value", "status", "specialist", "patient"],
+              "properties": {
+                "date_scheduling": {
+                  "type": "date"
+                },
+                "date_attendance": {
+                  "type": "date"
+                },
+                "date_hour": {
+                  "type": "time"
+                },
+                "value":{
+                  "type": "string"
+                },
+                "status":{
+                  "type": "string",
+                  "enum":["AGENDADO", "REALIZADO", "CANCELADO"]
+                },
+                "specialist":{
+                  "type": "string"
+                },
+                "patient":{
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Attendance"
+        ],
+        "summary": "Lista todos os atendimentos cadastrados",
+        "operationId": "listAttendance",
+        "description": "Faz uma lista que contém todos os atendimentos que já foram cadastrados no sistema",
+        "consumes":[
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "attendance",
+            "description": "Dados do atendimento a ser cadastrado",
+            "schema": {
+              "type": "object",
+              "required": ["date_scheduling", "date_attendance", 
+                "date_hour", "value", "status", "specialist", "patient"],
+              "properties": {
+                "date_scheduling": {
+                  "type": "date"
+                },
+                "date_attendance": {
+                  "type": "date"
+                },
+                "date_hour": {
+                  "type": "time"
+                },
+                "value":{
+                  "type": "string"
+                },
+                "status":{
+                  "type": "string",
+                  "enum":["AGENDADO", "REALIZADO", "CANCELADO"]
+                },
+                "specialist":{
+                  "type": "string"
+                },
+                "patient":{
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      }
+    },
+    "/attendance/{id}": {
+      "put": {
+        "name": "attendance",
+        "tags": [
+          "Attendance"
+        ],
+        "summary": "Atualiza os dados do atendimento",
+        "description": "Atualiza os dados de um atendimento específico selecionado pelo ID",
+        "operationId": "updateAttendance",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do atendimento a ser alterado",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "attendance",
+            "description": "Dados do atendimento a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "date_scheduling": {
+                  "type": "date"
+                },
+                "date_attendance": {
+                  "type": "date"
+                },
+                "date_hour": {
+                  "type": "time"
+                },
+                "value":{
+                  "type": "string"
+                },
+                "status":{
+                  "type": "string",
+                  "enum":["AGENDADO", "REALIZADO", "CANCELADO"]
+                },
+                "specialist":{
+                  "type": "string"
+                },
+                "patient":{
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      },
+      "get": {
+        "name": "attendance",
+        "tags": [
+          "Attendance"
+        ],
+        "summary": "Retorna os dados de um atendimento cadastrado",
+        "description": "Retorna os dados de um atendimento específico selecionado pelo ID",
+        "operationId": "showAttendance",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do atendimento a ser exibido",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "attendance",
+            "description": "Dados do atendimento a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "date_scheduling": {
+                  "type": "date"
+                },
+                "date_attendance": {
+                  "type": "date"
+                },
+                "date_hour": {
+                  "type": "time"
+                },
+                "value":{
+                  "type": "string"
+                },
+                "status":{
+                  "type": "string",
+                  "enum":["AGENDADO", "REALIZADO", "CANCELADO"]
+                },
+                "specialist":{
+                  "type": "string"
+                },
+                "patient":{
+                  "type": "string"
+                }
+              }
             }
           }
         ],
         "responses": {
           "400": {
-            "description": "Invalid user supplied"
+            "description": "ID inválido"
           },
-          "404": {
-            "description": "User not found"
+          "405": {
+            "description": "Validation exception"
           }
         }
       },
       "delete": {
+        "name": "attendance",
         "tags": [
-          "user"
+          "Attendance"
         ],
-        "summary": "Delete user",
-        "description": "This can only be done by the logged in user.",
-        "operationId": "deleteUser",
+        "summary": "Delete do sistema um atendimento",
+        "description": "Deleta um atendimento do sistema que foi selecionado pelo ID",
+        "operationId": "deleteAttendance",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do atendimento a ser deletado",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "attendance",
+            "description": "Dados do atendimento a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "date_scheduling": {
+                  "type": "date"
+                },
+                "date_attendance": {
+                  "type": "date"
+                },
+                "date_hour": {
+                  "type": "time"
+                },
+                "value":{
+                  "type": "string"
+                },
+                "status":{
+                  "type": "string",
+                  "enum":["AGENDADO", "REALIZADO", "CANCELADO"]
+                },
+                "specialist":{
+                  "type": "string"
+                },
+                "patient":{
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      }
+    },
+    "/medicalRecord": {
+      "post": {
+        "tags": [
+          "Medical Record"
+        ],
+        "summary": "Adiciona um novo prontuário",
+        "description": "Cadastre um novo prontuário para lhe liberar permissões de cadastros, consultas e alterações",
+        "operationId": "addMedicalRecord",
+        "consumes": [
+          "application/json"
+        ],
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
           {
-            "name": "username",
-            "in": "path",
-            "description": "The name that needs to be deleted",
-            "required": true,
-            "type": "string"
+            "in": "body",
+            "name": "medicalRecord",
+            "description": "Dados do prontuário a ser cadastrado",
+            "schema": {
+              "type": "object",
+              "required": ["openingDate"],
+              "properties": {
+                "openingDate": {
+                  "type": "string"
+                },
+                "client":{
+                  "type": "string"
+                },
+                "medicalRecordHistories": {
+                  "type": "string"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "400": {
-            "description": "Invalid username supplied"
+          "200": {
+            "description": "Requisição realizada com sucesso"
           },
-          "404": {
-            "description": "User not found"
+          "400": {
+            "description": "Erro na requisição"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Medical Record"
+        ],
+        "summary": "Lista todos os prontuários cadastrados",
+        "operationId": "listMedicalRecord",
+        "description": "Faz uma lista que contém todos os prontuário que já foram cadastrados no sistema",
+        "consumes":[
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "medicalRecord",
+            "description": "Dados dos prontuários a serem exebidos",
+            "schema": {
+              "type": "object",
+              "required": ["openingDate"],
+              "properties": {
+                "openingDate": {
+                  "type": "string"
+                },
+                "client":{
+                  "type": "string"
+                },
+                "medicalRecordHistories": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
           }
         }
       }
+    },
+    "/medicalRecord/{id}": {
+      "put": {
+        "name": "medicalRecord",
+        "tags": [
+          "Medical Record"
+        ],
+        "summary": "Atualiza os dados do prontuário",
+        "description": "Atualiza os dados de um prontuário específico selecionado pelo ID",
+        "operationId": "updateMedicalRecord",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do prontuário a ser alterado",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "medicalRecord",
+            "description": "Dados do prontuário a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "openingDate": {
+                  "type": "string"
+                },
+                "client":{
+                  "type": "string"
+                },
+                "medicalRecordHistories": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      },
+      "get": {
+        "name": "medicalRecord",
+        "tags": [
+          "Medical Record"
+        ],
+        "summary": "Retorna os dados de um prontuário cadastrado",
+        "description": "Retorna os dados de um prontuário específico selecionado pelo ID",
+        "operationId": "showMedicalRecord",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do prontuário a ser exibido",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "medicalRecord",
+            "description": "Dados do prontuário a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id":{
+                  "type": "integer"
+                },
+                "openingDate": {
+                  "type": "string"
+                },
+                "client":{
+                  "type": "string"
+                },
+                "medicalRecordHistories": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      },
+      "delete": {
+        "name": "medicalRecord",
+        "tags": [
+          "Medical Record"
+        ],
+        "summary": "Delete do sistema um prontuário",
+        "description": "Deleta um prontuário do sistema que foi selecionado pelo ID",
+        "operationId": "deleteMedicalRecord",
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do prontuário a ser deletado",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "medicalRecord",
+            "description": "Dados do prontuário a ser alterado",
+            "schema": {
+              "type": "object",
+              "required":["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "openingDate": {
+                  "type": "string"
+                },
+                "client":{
+                  "type": "string"
+                },
+                "medicalRecordHistories": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      }
+    },  
+    "/medicalRecordHistory": {
+      "get": {
+        "tags": [
+          "Medical Record History"
+        ],
+        "summary": "Lista o histórico de prontuário já concluídos",
+        "operationId": "listMedicalRecordHistory",
+        "description": "Faz uma lista que contém todos os prontuários que já foram concluídos anteriormente",
+        "consumes":[
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "medicalRecordHistory",
+            "description": "Dados do histórico de prontuário a ser exebidos",
+            "schema": {
+              "type": "object",
+              "required": ["date", "hour", "description"],
+              "properties": {
+                "date": {
+                  "type": "string"
+                },
+                "hour": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "maximum" : "255"
+                },
+                "medicalRecords":{
+                  "type":"string"
+                },
+                "specialist":{
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
+      }
+    },
+    "/medicalRecordHistory/{id}": {
+      "put": {
+        "name": "medicalRecordHistory",
+        "tags": [
+          "Medical Record History"
+        ],
+        "summary": "Atualiza os dados do prontuário",
+        "description": "Atualiza os dados de um prontuário específico selecionado pelo ID",
+        "operationId": "updateMedicalRecordHistory",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "description": "Id do prontuário a ser alterado",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "medicalRecordHistory",
+            "description": "Dados do atendimento a ser alterado",
+            "schema": {
+              "type": "object",
+              "required": ["id"],
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "date": {
+                  "type": "string"
+                },
+                "hour": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "maximum" : "255"
+                },
+                "medicalRecords":{
+                  "type":"string"
+                },
+                "specialist":{
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Requisição realizada com sucesso"
+          },
+          "400": {
+            "description": "ID inválido"
+          }
+        }
     }
+  }
   },
   "securityDefinitions": {
     "petstore_auth": {
@@ -632,44 +1785,7 @@
     }
   },
   "definitions": {
-    "Order": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "petId": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "quantity": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "shipDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "status": {
-          "type": "string",
-          "description": "Order Status",
-          "enum": [
-            "placed",
-            "approved",
-            "delivered"
-          ]
-        },
-        "complete": {
-          "type": "boolean",
-          "default": false
-        }
-      },
-      "xml": {
-        "name": "Order"
-      }
-    },
-    "Category": {
+    "Usuário": {
       "type": "object",
       "properties": {
         "id": {
@@ -678,48 +1794,20 @@
         },
         "name": {
           "type": "string"
-        }
-      },
-      "xml": {
-        "name": "Category"
-      }
-    },
-    "User": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
         },
-        "username": {
-          "type": "string"
-        },
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
+        "login": {
+          "type": "string",
+          "unique": "true"
         },
         "password": {
           "type": "string"
-        },
-        "phone": {
-          "type": "string"
-        },
-        "userStatus": {
-          "type": "integer",
-          "format": "int32",
-          "description": "User Status"
         }
       },
       "xml": {
         "name": "User"
       }
     },
-    "Tag": {
+    "Cliente": {
       "type": "object",
       "properties": {
         "id": {
@@ -728,62 +1816,232 @@
         },
         "name": {
           "type": "string"
+        },
+        "cpf":{
+          "type":"string",
+          "maximum":"14",
+          "unique":"true"
+        },
+        "phone":{
+          "type":"string",
+          "maximum":"14"
+        },
+        "cellphone":{
+          "type":"string",
+          "maximum":"14"
+        },
+        "mail":{
+          "type":"string",
+          "maximum":"255",
+          "unique":"true"
+        },
+        "bloodtype":{
+          "type":"string",
+          "description":"Tipos sanguineos",
+          "enum": ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]
+        },
+        "address":{
+          "type":"string",
+          "target":"Address"
         }
       },
       "xml": {
-        "name": "Tag"
+        "name": "Client"
       }
     },
-    "Pet": {
+    "Especialista": {
       "type": "object",
-      "required": [
-        "name",
-        "photoUrls"
-      ],
       "properties": {
         "id": {
           "type": "integer",
           "format": "int64"
         },
-        "category": {
-          "$ref": "#/definitions/Category"
+        "register": {
+          "type": "string",
+          "maximum":"100",
+          "unique":"true"
         },
         "name": {
           "type": "string",
-          "example": "doggie"
+          "maximum":"255"
         },
-        "photoUrls": {
-          "type": "array",
-          "xml": {
-            "name": "photoUrl",
-            "wrapped": true
-          },
-          "items": {
-            "type": "string"
-          }
-        },
-        "tags": {
-          "type": "array",
-          "xml": {
-            "name": "tag",
-            "wrapped": true
-          },
-          "items": {
-            "$ref": "#/definitions/Tag"
-          }
-        },
-        "status": {
+        "phone": {
           "type": "string",
-          "description": "pet status in the store",
-          "enum": [
-            "available",
-            "pending",
-            "sold"
-          ]
+          "maximum":"14"
+        },
+        "cellphone": {
+          "type": "string",
+          "maximum":"14"
+        },
+        "mail": {
+          "type": "string",
+          "maximum":"50",
+          "unique":"true"
+        },
+        "address": {
+          "type": "string",
+          "target":"Address"
+        },
+        "profession": {
+          "type": "string",
+          "target": "Profession"
         }
       },
       "xml": {
-        "name": "Pet"
+        "name": "Specialist"
+      }
+    },
+    "Profissão": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string",
+          "unique":"true"
+        },
+        "specialist":{
+          "type":"string",
+          "target":"Specialist"
+        }
+      },
+      "xml": {
+        "name": "Profession"
+      }
+    },
+    "Atendimento": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "date_scheduling": {
+          "type": "string",
+          "format":"date-time"
+        },
+        "date_attendance": {
+          "type": "string",
+          "format":"date-time"
+        },
+        "date_hour": {
+          "type": "string",
+          "format":"date-time"
+        },
+        "value": {
+          "type": "string",
+          "maximum":"255"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status do atendimento",
+          "enum": [
+            "AGENDADO",
+            "REALIZADO",
+            "CANCELADO"
+          ]
+        },
+        "specialist":{
+          "type":"string",
+          "target":"Specialist"
+        },
+        "patient":{
+          "type":"string",
+          "target":"Client"
+        }
+      },
+      "xml": {
+        "name": "Attendance"
+      }
+    },  
+    "Prontuário": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "openingDate": {
+          "type": "string",
+          "format":"date-time"
+        },
+        "client":{
+          "type":"string",
+          "target":"Client"
+        },
+        "medicalRecordHistories":{
+          "type":"string",
+          "target":"MedicalRecordHistory"
+        }
+      },
+      "xml": {
+        "name": "MedicalRecord"
+      }
+    },
+    "Endereço": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "cep": {
+          "type": "string",
+          "maximum":"255"
+        },
+        "street":{
+          "type":"string",
+          "maximum":"255"
+        },
+        "neighborhood":{
+          "type":"string",
+          "maximum":"100"
+        },
+        "locality":{
+          "type":"string",
+          "maximum":"255"
+        },
+        "state":{
+          "type":"string",
+          "maximum":"100"
+        }
+      },
+      "xml": {
+        "name": "Address"
+      }
+    },
+    "Histórico de Prontuário": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "date": {
+          "type": "string",
+          "format":"date-time"
+        },
+        "hour":{
+          "type":"string",
+          "format":"time"
+        },
+        "description":{
+          "type":"string",
+          "maximum":"255"
+        },
+        "medicalRecords":{
+          "type":"string",
+          "target":"MedicalRecord"
+        },
+        "specialist":{
+          "type":"string",
+          "target":"Specialist"
+        }
+      },
+      "xml": {
+        "name": "Tag"
       }
     },
     "ApiResponse": {
