@@ -1,94 +1,131 @@
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const { checkSchema } = require('express-validator');
 
 const router = express.Router();
 
+const Authentication = require('../middleware/auth');
+
+const userIsValid = require('../middleware/validation/schemas/User/put-post');
+const userExists = require('../middleware/validation/schemas/User/exists');
+
+const clientIsValid = require('../middleware/validation/schemas/Client/put-post');
+const clientExists = require('../middleware/validation/schemas/Client/exists');
+
+const specialistIsValid = require('../middleware/validation/schemas/Specialist/put-post');
+const specialistExists = require('../middleware/validation/schemas/Specialist/exists');
+
+const attendanceIsValid = require('../middleware/validation/schemas/Attendance/put-post');
+const attendanceExists = require('../middleware/validation/schemas/Attendance/exists');
+const attendanceValidRequest = require('../middleware/validation/schemas/Attendance/get');
+
+const professionIsValid = require('../middleware/validation/schemas/Profession/put-post');
+const professionExists = require('../middleware/validation/schemas/Profession/exists');
+
+const medRecordHistoryIsValid = require('../middleware/validation/schemas/MedicalRecordHistory/put-post');
+const medRecordHistoryExists = require('../middleware/validation/schemas/MedicalRecordHistory/exists');
+
+const swaggerDocument = require('../../swagger.json');
 const Controllers = require('../controllers/index');
 
-// HOME PAGE
-router.get('/', (req, res) => {
-  res.render('index', { title: 'Express' });
-});
+// DOCUMENTAÇÃO
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // LOGIN
 // Valida e efetua login
-router.post('/login', Controllers.Login.auth);
+router.post('/login', checkSchema(userIsValid), Controllers.Login.auth);
 
 // CLIENTES
 // Lista todos clientes
-router.get('/clientes', Controllers.Clients.get);
+router.get('/clientes', Authentication, Controllers.Clients.get);
 
-// Lista clientes através de consulta por Id
-router.get('/clientes/:id', Controllers.Clients.getById);
+// Lista cliente através de consulta por Id
+router.get('/clientes/:id', Authentication, Controllers.Clients.getOne);
 
 // Atualiza cliente
-router.put('/clientes/:id', Controllers.Clients.update);
+router.put('/clientes/:id', [Authentication, checkSchema(clientIsValid)], Controllers.Clients.update);
 
 // Cria novo cliente
-router.post('/clientes/', Controllers.Clients.insert);
+router.post('/clientes/', [Authentication, checkSchema(clientIsValid)], Controllers.Clients.insert);
 
 // Deleta um cliente
-router.delete('/clientes/:id', Controllers.Clients.remove);
+router.delete('/clientes/:id', [Authentication, checkSchema(clientExists)], Controllers.Clients.remove);
 
 // ATENDIMENTOS
 
 // Lista todos atendimentos ou através de filtros
-router.get('/atendimentos', Controllers.Attendance.getAll);
+router.get('/atendimentos', Authentication, checkSchema(attendanceValidRequest), Controllers.Attendances.get);
 
-// Lista atendimento através de consulta por Id
-router.get('/atendimentos/:id', Controllers.Attendance.getOne);
+// Lista um atendimentos por Id
+router.get('/atendimentos/:id', Authentication, Controllers.Attendances.getOne);
 
 // Atualiza atendimento
-router.put('/atendimentos/:id', Controllers.Attendance.update);
+router.put('/atendimentos/:id', [Authentication, checkSchema(attendanceIsValid)], Controllers.Attendances.update);
 
 // Cria novo atendimento
-router.post('/atendimentos', Controllers.Attendance.insert);
+router.post('/atendimentos', [Authentication, checkSchema(attendanceIsValid)], Controllers.Attendances.insert);
 
 // Deleta atendimento
-router.delete('/atendimentos/:id', Controllers.Attendance.remove);
+router.delete('/atendimentos/:id', [Authentication, checkSchema(attendanceExists)], Controllers.Attendances.remove);
 
 // PRONTUÁRIOS
 
-router.get('/prontuarios', Controllers.MedicalRecord.getAll);
+router.get('/prontuarios', Authentication, Controllers.MedicalRecords.get);
 
-router.get('/prontuarios/:id', Controllers.MedicalRecord.getOne);
+router.get('/prontuarios/:id', Authentication, Controllers.MedicalRecords.getOne);
 
-router.put('/prontuarios/:id', Controllers.MedicalRecord.update);
+router.put('/prontuarios/:id', Authentication, Controllers.MedicalRecords.update);
 
-router.post('/prontuarios', Controllers.MedicalRecord.insert);
+router.post('/prontuarios', Authentication, Controllers.MedicalRecords.insert);
 
-router.delete('/prontuarios/:id', Controllers.MedicalRecord.remove);
+router.delete('/prontuarios/:id', Authentication, Controllers.MedicalRecords.remove);
+
+// HISTÓRICOS DE PRONTUÁRIO
+
+router.get('/historicos_prontuario', Authentication, Controllers.MedicalRecordHistories.get);
+
+router.get('/historicos_prontuario/:id', Authentication, Controllers.MedicalRecordHistories.getOne);
+
+router.put('/historicos_prontuario/:id', Authentication, checkSchema(medRecordHistoryIsValid), Controllers.MedicalRecordHistories.update);
+
+router.post('/historicos_prontuario', [Authentication, checkSchema(medRecordHistoryIsValid)], Controllers.MedicalRecordHistories.insert);
+
+router.delete('/historicos_prontuario/:id', [Authentication, checkSchema(medRecordHistoryExists)], Controllers.MedicalRecordHistories.remove);
 
 // PROFISSÕES
 
-/* GET Professions listing. */
-router.get('/profissoes', Controllers.Professions.get);
+router.get('/profissoes', Authentication, Controllers.Professions.get);
 
-router.put('/profissoes/:id', Controllers.Professions.update);
+router.get('/profissoes/:id', Authentication, Controllers.Professions.getOne);
 
-router.post('/profissoes', Controllers.Professions.insert);
+router.put('/profissoes/:id', [Authentication, checkSchema(professionIsValid)], Controllers.Professions.update);
 
-router.delete('/profissoes/:id', Controllers.Professions.remove);
+router.post('/profissoes', [Authentication, checkSchema(professionIsValid)], Controllers.Professions.insert);
+
+router.delete('/profissoes/:id', [Authentication, checkSchema(professionExists)], Controllers.Professions.remove);
 
 // ESPECIALISTAS
 
-router.get('/especialistas', Controllers.Specialists.get);
+router.get('/especialistas', Authentication, Controllers.Specialists.get);
 
-router.get('/especialistas/:id', Controllers.Specialists.getById);
+router.get('/especialistas/:id', Authentication, Controllers.Specialists.getOne);
 
-router.put('/especialistas/:id', Controllers.Specialists.update);
+router.put('/especialistas/:id', [Authentication, checkSchema(specialistIsValid)], Controllers.Specialists.update);
 
-router.post('/especialistas', Controllers.Specialists.insert);
+router.post('/especialistas', [Authentication, checkSchema(specialistIsValid)], Controllers.Specialists.insert);
 
-router.delete('/especialistas/:id', Controllers.Specialists.remove);
+router.delete('/especialistas/:id', [Authentication, checkSchema(specialistExists)], Controllers.Specialists.remove);
 
 // USUARIOS
 
-router.get('/usuarios', Controllers.Users.get);
+router.get('/usuarios', Authentication, Controllers.Users.get);
 
-router.put('/usuarios/:id', Controllers.Users.update);
+router.get('/usuarios/:id', Authentication, Controllers.Users.getOne);
 
-router.post('/usuarios', Controllers.Users.insert);
+router.put('/usuarios/:id', [Authentication, checkSchema(userIsValid)], Controllers.Users.update);
 
-router.delete('/usuarios/:id', Controllers.Users.remove);
+router.post('/usuarios', checkSchema(userIsValid), Controllers.Users.insert);
+
+router.delete('/usuarios/:id', [Authentication, checkSchema(userExists)], Controllers.Users.remove);
 
 module.exports = router;

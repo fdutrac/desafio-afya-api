@@ -25,10 +25,10 @@ module.exports = new EntitySchema({
     ...BaseModel,
   },
   relations: {
-    medicalRecords: {
+    medicalRecord: {
       type: 'many-to-one',
       target: 'MedicalRecord',
-      cascade: true,
+      cascade: false,
     },
     specialist: {
       type: 'one-to-one',

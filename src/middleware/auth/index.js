@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const environment = require('../config/environment/dev');
+// eslint-disable-next-line import/no-dynamic-require
+const environment = require('../../config/environment/jwt');
 
 module.exports = (req, res, next) => {
   const authHeader = req.headers.authorization;

@@ -16,19 +16,19 @@ module.exports = {
     const connection = await createConnection();
     try {
       const professionRepository = getRepository('Profession');
-      const results = await professionRepository.findOne(id);
-      return results;
+      const result = await professionRepository.findOne(id);
+      return result;
     } finally {
       connection.close();
     }
   },
 
-  async list() {
+  async list(param) {
     const connection = await createConnection();
     try {
       const professionRepository = getRepository('Profession');
-      const results = await professionRepository.find();
-      return results;
+      const result = await professionRepository.find({ where: param });
+      return result;
     } finally {
       connection.close();
     }
@@ -38,9 +38,8 @@ module.exports = {
     const connection = await createConnection();
     try {
       const professionRepository = getRepository('Profession');
-      const profession = await professionRepository.findOne(id);
-      professionRepository.merge(profession, data);
-      const result = await professionRepository.save(profession);
+      await professionRepository.update(id, data);
+      const result = await professionRepository.findOne(id);
       return result;
     } finally {
       connection.close();

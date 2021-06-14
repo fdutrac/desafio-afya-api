@@ -1,7 +1,7 @@
 module.exports = {
   jwt: {
     user: {
-      secret: 'fsfdfd3e2302323n32k239dfndf',
+      secret: process.env.JWT_SECRET,
       expire: 9986400,
     },
   },

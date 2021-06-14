@@ -10,8 +10,9 @@ module.exports = new EntitySchema({
       generated: true,
     },
     date_scheduling: {
-      type: 'date',
+      type: Date,
       nullable: false,
+      createDate: true,
     },
     date_attendance: {
       type: 'date',
@@ -29,6 +30,7 @@ module.exports = new EntitySchema({
     status: {
       type: 'enum',
       enum: ['AGENDADO', 'REALIZADO', 'CANCELADO'],
+      default: 'AGENDADO',
       nullable: false,
     },
     ...baseModel,

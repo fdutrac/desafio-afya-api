@@ -16,8 +16,8 @@ module.exports = {
     const connection = await createConnection();
     try {
       const specialistRepository = getRepository('Specialist');
-      const results = await specialistRepository.findOne(id, { relations: ['address', 'profession'] });
-      return results;
+      const result = await specialistRepository.findOne(id, { relations: ['address', 'profession'] });
+      return result;
     } finally {
       connection.close();
     }
@@ -25,13 +25,13 @@ module.exports = {
 
   async list(param) {
     const connection = await createConnection();
+    const findArguments = { relations: ['address', 'profession'] };
     try {
-      const findArguments = { relations: ['address', 'profession'] };
       // Verifica se existe algum parâmetro para seleção
       if (param) { findArguments.where = param; }
       const specialistRepository = getRepository('Specialist');
-      const results = await specialistRepository.find(param);
-      return results;
+      const result = await specialistRepository.find(findArguments);
+      return result;
     } finally {
       connection.close();
     }
@@ -41,9 +41,12 @@ module.exports = {
     const connection = await createConnection();
     try {
       const specialistRepository = getRepository('Specialist');
-      const specialist = await specialistRepository.findOne(id, { relations: ['address', 'profession'] });
-      specialistRepository.merge(specialist, data);
-      const result = await specialistRepository.save(specialist);
+      const professionToUpdate = { profession: data.profession };
+      const specialistToUpdate = await specialistRepository.findOne(id, { relations: ['address', 'profession'] });
+      specialistRepository.merge(specialistToUpdate, data);
+      await specialistRepository.save(specialistToUpdate);
+      await specialistRepository.update(id, professionToUpdate);
+      const result = await specialistRepository.findOne(id, { relations: ['address', 'profession'] });
       return result;
     } finally {
       connection.close();

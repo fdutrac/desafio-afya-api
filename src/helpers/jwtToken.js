@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const environment = require('../config/environment/dev');
+const environment = require('../config/environment/jwt');
 
 module.exports = class JwtToken {
   static makeToken(user) {
