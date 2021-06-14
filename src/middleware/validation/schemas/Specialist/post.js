@@ -5,7 +5,7 @@ module.exports = {
   name: {
     isLength: {
       errorMessage: 'Nome deve ter entre 6 e 255 caracteres.',
-      options: { min: 3, max: 255 },
+      options: { min: 6, max: 255 },
     },
   },
   register: {

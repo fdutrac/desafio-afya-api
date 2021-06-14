@@ -30,10 +30,9 @@ module.exports = {
 
   async update(id, data) {
     const user = data;
-
     const userRepository = getConnection().getRepository('User');
     // Criptografa a senha
-    const cryptoPass = bcrypt.hashSync(user.password, 10);
+    const cryptoPass = bcrypt.encrypt(user.password, 10);
     user.password = cryptoPass;
     await userRepository.update(id, user);
     const result = await userRepository.findOne(id);

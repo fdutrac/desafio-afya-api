@@ -4,9 +4,13 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const startDatabase = require('./src/database/connectDB');
+const startDB = require('./src/database/connectDB');
 
 dotenv.config();
+
+(async () => {
+  await startDB();
+})();
 
 const Router = require('./src/routes/index');
 
@@ -20,7 +24,5 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './src/public')));
 
 app.use('/', Router);
-
-startDatabase();
 
 module.exports = app;

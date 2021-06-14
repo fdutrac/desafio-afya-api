@@ -31,9 +31,8 @@ module.exports = new EntitySchema({
       cascade: false,
     },
     specialist: {
-      type: 'one-to-one',
+      type: 'many-to-one',
       target: 'Specialist',
-      joinColumn: true,
     },
   },
 

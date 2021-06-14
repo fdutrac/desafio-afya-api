@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 require('dotenv/config');
-const JwtToken = require('../src/helpers/jwtToken');
-const environment = require('../src/config/environment/jwt');
+const JwtToken = require('../../src/helpers/jwtToken');
+const environment = require('../../src/config/environment/jwt');
 
 describe('Verify if JWT is working', () => {
   const User = {

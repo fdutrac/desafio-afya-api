@@ -26,6 +26,7 @@ module.exports = {
     custom: {
       options: async (value, { req }) => {
         const exist = await userRepository.getOne({ login: req.body.login });
+        console.log('passei por aqui');
         if (exist && req.body.login != exist.login) {
           return Promise.reject(Error('Esse login já está cadastrado no sistema.'));
         }
