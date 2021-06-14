@@ -14,9 +14,6 @@ module.exports = {
     },
   },
   password: {
-    optional: {
-      options: { checkFalsy: true },
-    },
     isLength: {
       errorMessage: 'Senha deve ter no mínimo 6 caracteres.',
       options: { min: 6 },
