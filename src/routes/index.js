@@ -8,13 +8,16 @@ const Authentication = require('../middleware/auth');
 
 const loginIsValid = require('../middleware/validation/schemas/Login');
 
-const userIsValid = require('../middleware/validation/schemas/User/put-post');
+const userPost = require('../middleware/validation/schemas/User/post');
+const userPut = require('../middleware/validation/schemas/User/put');
 const userExists = require('../middleware/validation/schemas/User/exists');
 
-const clientIsValid = require('../middleware/validation/schemas/Client/put-post');
+const clientPost = require('../middleware/validation/schemas/Client/post');
+const clientPut = require('../middleware/validation/schemas/Client/put');
 const clientExists = require('../middleware/validation/schemas/Client/exists');
 
-const specialistIsValid = require('../middleware/validation/schemas/Specialist/put-post');
+const specialistPost = require('../middleware/validation/schemas/Specialist/post');
+const specialistPut = require('../middleware/validation/schemas/Specialist/put');
 const specialistExists = require('../middleware/validation/schemas/Specialist/exists');
 
 const attendanceIsValid = require('../middleware/validation/schemas/Attendance/put-post');
@@ -45,10 +48,10 @@ router.get('/clients', Authentication, Controllers.Clients.get);
 router.get('/clients/:id', Authentication, Controllers.Clients.getOne);
 
 // Atualiza cliente
-router.put('/clients/:id', [Authentication, checkSchema(clientIsValid)], Controllers.Clients.update);
+router.put('/clients/:id', [Authentication, checkSchema(clientPut)], Controllers.Clients.update);
 
 // Cria novo cliente
-router.post('/clients/', [Authentication, checkSchema(clientIsValid)], Controllers.Clients.insert);
+router.post('/clients/', [Authentication, checkSchema(clientPost)], Controllers.Clients.insert);
 
 // Deleta um cliente
 router.delete('/clients/:id', [Authentication, checkSchema(clientExists)], Controllers.Clients.remove);
@@ -112,9 +115,9 @@ router.get('/specialists', Authentication, Controllers.Specialists.get);
 
 router.get('/specialists/:id', Authentication, Controllers.Specialists.getOne);
 
-router.put('/specialists/:id', [Authentication, checkSchema(specialistIsValid)], Controllers.Specialists.update);
+router.put('/specialists/:id', [Authentication, checkSchema(specialistPut)], Controllers.Specialists.update);
 
-router.post('/specialists', [Authentication, checkSchema(specialistIsValid)], Controllers.Specialists.insert);
+router.post('/specialists', [Authentication, checkSchema(specialistPost)], Controllers.Specialists.insert);
 
 router.delete('/specialists/:id', [Authentication, checkSchema(specialistExists)], Controllers.Specialists.remove);
 
@@ -124,9 +127,9 @@ router.get('/users', Authentication, Controllers.Users.get);
 
 router.get('/users/:id', Authentication, Controllers.Users.getOne);
 
-router.put('/users/:id', [Authentication, checkSchema(userIsValid)], Controllers.Users.update);
+router.put('/users/:id', [Authentication, checkSchema(userPut)], Controllers.Users.update);
 
-router.post('/users', checkSchema(userIsValid), Controllers.Users.insert);
+router.post('/users', checkSchema(userPost), Controllers.Users.insert);
 
 router.delete('/users/:id', [Authentication, checkSchema(userExists)], Controllers.Users.remove);
 

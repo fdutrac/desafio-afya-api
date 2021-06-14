@@ -67,11 +67,11 @@ module.exports = {
       options: async (value, { req }) => {
         const existRegister = await specialistsRepository.getOne({ register: req.body.register });
         const existEmail = await specialistsRepository.getOne({ mail: req.body.mail });
-        const existProfession = await specialistsRepository.getOne(req.body.profession);
-        if (existRegister) {
+        const existProfession = await professionsRepository.getOne(req.body.profession);
+        if (existRegister && existRegister.register != req.body.register) {
           return Promise.reject(Error('Já existe um Especialista com este Registro cadastrado no sistema.'));
         }
-        if (existEmail) {
+        if (existEmail && existEmail.mail != req.body.mail) {
           return Promise.reject(Error('Já existe um Especialista com este e-mail cadastrado no sistema.'));
         }
         if (!existProfession) {
