@@ -1,34 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@fdutrac 
-fdutrac
-/
-desafio-afya-api
-1
-20
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-desafio-afya-api/swagger.json
-@gustavolening
-gustavolening completo
-Latest commit 65c76d0 29 minutes ago
- History
- 1 contributor
-2299 lines (2299 sloc)  60.4 KB
-  
 {
   "swagger": "2.0",
   "info": {
