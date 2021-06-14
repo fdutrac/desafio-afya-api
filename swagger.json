@@ -13,7 +13,7 @@
     "http"
   ],
   "paths": {
-    "/usuarios": {
+    "/User": {
       "post": {
         "tags": [
           "Users"
@@ -107,7 +107,7 @@
         }
       }
     },
-    "/usuarios/{id}": {
+    "/User/{id}": {
       "put": {
         "name": "User",
         "tags": [
@@ -271,7 +271,7 @@
         }
       }
     },
-    "/clientes": {
+    "/Client": {
       "post": {
         "tags": [
           "Client"
@@ -399,7 +399,7 @@
         }
       }
     },
-    "/clientes/{id}": {
+    "/Client/{id}": {
       "put": {
         "name": "Client",
         "tags": [
@@ -595,7 +595,7 @@
         }
       }
     },
-    "/especialistas": {
+    "/Specialist": {
       "post": {
         "tags": [
           "Specialist"
@@ -716,7 +716,7 @@
         }
       }
     },
-    "/especialistas/{id}": {
+    "/Specialist/{id}": {
       "put": {
         "name": "Specialist",
         "tags": [
@@ -913,7 +913,7 @@
         }
       }
     },
-    "/profissoes": {
+    "/Profession": {
       "post": {
         "tags": [
           "Profession"
@@ -999,7 +999,7 @@
         }
       }
     },
-    "/profissoes/{id}": {
+    "/Profession/{id}": {
       "put": {
         "name": "Profession",
         "tags": [
@@ -1145,7 +1145,7 @@
         }
       }
     },
-    "/atendimentos": {
+    "/Attendance": {
       "post": {
         "tags": [
           "Attendance"
@@ -1269,7 +1269,7 @@
         }
       }
     },
-    "/atendimentos/{id}": {
+    "/Attendance/{id}": {
       "put": {
         "name": "Attendance",
         "tags": [
@@ -1472,7 +1472,7 @@
         }
       }
     },
-    "/prontuarios": {
+    "/MedicalRecord": {
       "post": {
         "tags": [
           "Medical Record"
@@ -1564,7 +1564,7 @@
         }
       }
     },
-    "/prontuarios/{id}": {
+    "/MedicalRecord/{id}": {
       "put": {
         "name": "MedicalRecord",
         "tags": [
@@ -1722,7 +1722,7 @@
         }
       }
     },  
-    "/historicos_prontuario": {
+    "/MedicalRecordHistory": {
       "post": {
         "tags": [
           "Medical Record History"
@@ -1821,7 +1821,7 @@
         }
       }
     },
-    "/historicos_prontuario/{id}": {
+    "/MedicalRecordHistory/{id}": {
       "put": {
         "name": "MedicalRecordHistory",
         "tags": [
