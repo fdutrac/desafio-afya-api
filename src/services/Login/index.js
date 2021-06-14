@@ -1,7 +1,9 @@
 const { createConnection, getRepository } = require('typeorm');
+const JwtToken = require('../../helpers/jwtToken');
+const bcrypt = require('../../helpers/bcrypt');
 
 module.exports = {
-  async getOne(param) {
+  async auth(login, password) {
     const connection = await createConnection();
     try {
       const userRepository = getRepository('User');
