@@ -28,10 +28,12 @@ module.exports = new EntitySchema({
     medicalRecord: {
       type: 'many-to-one',
       target: 'MedicalRecord',
+      cascade: false,
     },
     specialist: {
-      type: 'many-to-one',
+      type: 'one-to-one',
       target: 'Specialist',
+      joinColumn: true,
     },
   },
 
