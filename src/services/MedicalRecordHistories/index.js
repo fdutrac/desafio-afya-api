@@ -1,61 +1,34 @@
-const { createConnection, getRepository } = require('typeorm');
+const { getConnection } = require('typeorm');
 
 module.exports = {
   async create(data) {
-    const connection = await createConnection();
-    try {
-      const medRecordHistories = getRepository('MedicalRecordHistory');
-      const result = await medRecordHistories.save(data);
-      return result;
-    } finally {
-      connection.close();
-    }
+    const medRecordHistories = getConnection().getRepository('MedicalRecordHistory');
+    const result = await medRecordHistories.save(data);
+    return result;
   },
 
   async list() {
-    const connection = await createConnection();
-
-    try {
-      const medRecordHistories = getRepository('MedicalRecordHistory');
-      const result = await medRecordHistories.find({ relations: ['specialist', 'medicalRecord'] });
-      return result;
-    } finally {
-      connection.close();
-    }
+    const medRecordHistories = getConnection().getRepository('MedicalRecordHistory');
+    const result = await medRecordHistories.find({ relations: ['specialist', 'medicalRecord'] });
+    return result;
   },
 
   async getOne(param) {
-    const connection = await createConnection();
-
-    try {
-      const medRecordHistories = getRepository('MedicalRecordHistory');
-      const result = await medRecordHistories.findOne(param, { relations: ['specialist', 'medicalRecord'] });
-      return result;
-    } finally {
-      connection.close();
-    }
+    const medRecordHistories = getConnection().getRepository('MedicalRecordHistory');
+    const result = await medRecordHistories.findOne(param, { relations: ['specialist', 'medicalRecord'] });
+    return result;
   },
 
   async update(id, data) {
-    const connection = await createConnection();
-    try {
-      const medRecordHistories = getRepository('MedicalRecordHistory');
-      await medRecordHistories.update(id, data);
-      const result = await medRecordHistories.findOne(id, { relations: ['specialist', 'medicalRecord'] });
-      return result;
-    } finally {
-      connection.close();
-    }
+    const medRecordHistories = getConnection().getRepository('MedicalRecordHistory');
+    await medRecordHistories.update(id, data);
+    const result = await medRecordHistories.findOne(id, { relations: ['specialist', 'medicalRecord'] });
+    return result;
   },
 
   async delete(id) {
-    const connection = await createConnection();
-    try {
-      const medRecordHistories = getRepository('MedicalRecordHistory');
-      const result = await medRecordHistories.delete(id);
-      return result;
-    } finally {
-      connection.close();
-    }
+    const medRecordHistories = getConnection().getRepository('MedicalRecordHistory');
+    const result = await medRecordHistories.delete(id);
+    return result;
   },
 };
