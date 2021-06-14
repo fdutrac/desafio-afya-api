@@ -28,7 +28,6 @@ module.exports = new EntitySchema({
     medicalRecord: {
       type: 'many-to-one',
       target: 'MedicalRecord',
-      cascade: false,
     },
     specialist: {
       type: 'many-to-one',
