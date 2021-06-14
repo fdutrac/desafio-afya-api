@@ -13,7 +13,7 @@
     "http"
   ],
   "paths": {
-    "/User": {
+    "/users": {
       "post": {
         "tags": [
           "Users"
@@ -107,7 +107,7 @@
         }
       }
     },
-    "/User/{id}": {
+    "/users/{id}": {
       "put": {
         "name": "User",
         "tags": [
@@ -271,7 +271,7 @@
         }
       }
     },
-    "/Client": {
+    "/clients": {
       "post": {
         "tags": [
           "Client"
@@ -399,7 +399,7 @@
         }
       }
     },
-    "/Client/{id}": {
+    "/clients/{id}": {
       "put": {
         "name": "Client",
         "tags": [
@@ -595,7 +595,7 @@
         }
       }
     },
-    "/Specialist": {
+    "/specialists": {
       "post": {
         "tags": [
           "Specialist"
@@ -716,7 +716,7 @@
         }
       }
     },
-    "/Specialist/{id}": {
+    "/specialists/{id}": {
       "put": {
         "name": "Specialist",
         "tags": [
@@ -913,7 +913,7 @@
         }
       }
     },
-    "/Profession": {
+    "/professions": {
       "post": {
         "tags": [
           "Profession"
@@ -999,7 +999,7 @@
         }
       }
     },
-    "/Profession/{id}": {
+    "/professions/{id}": {
       "put": {
         "name": "Profession",
         "tags": [
@@ -1145,7 +1145,7 @@
         }
       }
     },
-    "/Attendance": {
+    "/attendances": {
       "post": {
         "tags": [
           "Attendance"
@@ -1269,7 +1269,7 @@
         }
       }
     },
-    "/Attendance/{id}": {
+    "/attendances/{id}": {
       "put": {
         "name": "Attendance",
         "tags": [
@@ -1472,7 +1472,7 @@
         }
       }
     },
-    "/MedicalRecord": {
+    "/medical-records": {
       "post": {
         "tags": [
           "Medical Record"
@@ -1564,7 +1564,7 @@
         }
       }
     },
-    "/MedicalRecord/{id}": {
+    "/medical-records/{id}": {
       "put": {
         "name": "MedicalRecord",
         "tags": [
@@ -1722,7 +1722,7 @@
         }
       }
     },  
-    "/MedicalRecordHistory": {
+    "/medical-record-histories": {
       "post": {
         "tags": [
           "Medical Record History"
@@ -1821,7 +1821,7 @@
         }
       }
     },
-    "/MedicalRecordHistory/{id}": {
+    "/medical-record-histories/{id}": {
       "put": {
         "name": "MedicalRecordHistory",
         "tags": [
