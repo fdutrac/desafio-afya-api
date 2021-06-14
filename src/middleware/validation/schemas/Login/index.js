@@ -16,10 +16,8 @@ module.exports = {
   doExist: {
     custom: {
       options: async (value, { req }) => {
-        // console.log(req.body);
         const exist = await userRepository.getOne({ login: req.body.login });
         if (!exist) {
-          console.log('passei pelo mid');
           return Promise.reject(Error('Login ou senha inválidos.'));
         }
         return true;
