@@ -3,14 +3,14 @@ const clientRepository = require('../../../../services/Clients');
 module.exports = {
   name: {
     isLength: {
-      errorMessage: 'Nome deve ter entre 3 e 255 caracteres.',
+      errorMessage: 'Nome deve ter entre 6 e 255 caracteres.',
       options: { min: 3, max: 255 },
     },
   },
   cpf: {
     isLength: {
-      errorMessage: 'CPF deve ter entre 11 e 14 caracteres (com pontos).',
-      options: { min: 11, max: 14 },
+      errorMessage: 'CPF deve ter 11 caracteres.',
+      options: { min: 11, max: 11 },
     },
   },
   phone: {

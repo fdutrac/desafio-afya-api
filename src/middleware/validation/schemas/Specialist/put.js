@@ -4,7 +4,7 @@ const professionsRepository = require('../../../../services/Professions');
 module.exports = {
   name: {
     isLength: {
-      errorMessage: 'Nome deve ter entre 3 e 255 caracteres.',
+      errorMessage: 'Nome deve ter entre 6 e 255 caracteres.',
       options: { min: 3, max: 255 },
     },
   },
